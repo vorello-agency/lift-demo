@@ -1,0 +1,60 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ProjectHero from "../../components/project/ProjectHero.astro";
+import ProjectMeta from "../../components/project/ProjectMeta.astro";
+import ProjectDescription from "../../components/project/ProjectDescription.astro";
+import ProjectTechnicalMemory from "../../components/project/ProjectTechnicalMemory.astro";
+import ProjectGallery from "../../components/project/ProjectGallery.astro";
+import ProjectNavigation from "../../components/project/ProjectNavigation.astro";
+import ProjectCTA from "../../components/project/ProjectCTA.astro";
+import { getAllProjects, getAdjacentProjects, type Project } from "../../data/projects";
+
+export async function getStaticPaths() {
+  const projects = getAllProjects();
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+const { prev, next } = getAdjacentProjects(project.slug);
+
+const pageTitle = `${project.name} — Lift Construcciones`;
+const pageDescription = project.introduction;
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  image={project.heroImage.src}
+  imageAlt={project.heroImageAlt}
+  imageWidth={project.heroImage.width}
+  imageHeight={project.heroImage.height}
+  imageType={project.heroImage.format === "png" ? "image/png" : "image/jpeg"}
+  ogType="article">
+  <ProjectHero
+    name={project.name}
+    category={project.category}
+    location={project.location}
+    year={project.year}
+    heroImage={project.heroImage}
+    heroImageAlt={project.heroImageAlt}
+  />
+
+  <ProjectMeta year={project.year} category={project.category} area={project.area} status={project.status} />
+
+  <ProjectDescription introduction={project.introduction} description={project.description} />
+
+  <ProjectTechnicalMemory projectName={project.name} technicalMemory={project.technicalMemory} />
+
+  <ProjectGallery gallery={project.gallery} />
+
+  <ProjectNavigation prev={prev} next={next} />
+
+  <ProjectCTA />
+</Layout>

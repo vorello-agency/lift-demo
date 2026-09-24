@@ -1,0 +1,168 @@
+---
+import { Image } from "astro:assets";
+import ContactImage from "../assets/images/contact.webp";
+import Button from "../components/shared/Button.astro";
+import InputField from "../components/shared/InputField.astro";
+import TextAreaField from "../components/shared/TextAreaField.astro";
+import PillSelectField from "../components/shared/PillSelectField.astro";
+import Eyebrow from "../components/shared/Eyebrow.astro";
+
+const projectTypeOptions = [
+  { value: "unifamiliar", label: "Vivienda Unifamiliar" },
+  { value: "edificios", label: "Edificios / Complejos" },
+  { value: "comercial", label: "Comercial / Corporativo" },
+  { value: "usos-mixtos", label: "Uso Mixto" },
+  { value: "reforma", label: "Reforma / Intervención" },
+];
+
+const scaleOptions = [
+  { value: "pequena", label: "< 500 m²" },
+  { value: "mediana", label: "500 – 2.000 m²" },
+  { value: "gran-escala", label: "> 2.000 m²" },
+  { value: "a-definir", label: "Por determinar" },
+];
+---
+
+<section
+  id="contact"
+  class="overflow-hidden bg-warm-white py-16 text-ink sm:py-24 lg:py-32"
+  aria-labelledby="contact-title">
+  <div class="container-lift">
+    <div class="grid grid-cols-1 items-stretch gap-10 lg:grid-cols-12 lg:gap-12 xl:gap-16">
+      <div class="flex flex-col lg:col-span-5" data-motion-reveal>
+        <div
+          class="relative flex min-h-[360px] flex-1 flex-col justify-between overflow-hidden rounded-md border border-concrete/60 bg-ink p-7 text-white sm:p-9 lg:p-10">
+          <Image
+            src={ContactImage}
+            alt="Fotografía de arquitectura y textura constructiva de Lift Construcciones"
+            class="absolute inset-0 h-full w-full object-cover object-center opacity-75"
+            loading="lazy"
+            quality={95}
+            widths={[480, 640, 800, 1024, 1086]}
+            sizes="(max-width: 1024px) 100vw, 42vw"
+          />
+          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/95 via-ink/50 to-ink/70"></div>
+
+          <div class="relative z-10">
+            <span
+              class="backdrop-blur-xs inline-block rounded border border-white/20 bg-white/10 px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-white/90">
+              Evaluación Técnica
+            </span>
+          </div>
+
+          <div class="relative z-10 mt-auto space-y-3 pt-16 sm:space-y-4">
+            <p
+              class="text-balance font-display text-2xl font-bold leading-[1.2] tracking-tight text-white sm:text-3xl lg:text-2xl xl:text-3xl">
+              Cada obra empieza con una evaluación clara.
+            </p>
+
+            <p class="text-pretty font-sans text-sm font-normal leading-relaxed text-concrete/90 sm:text-base">
+              De la planificación inicial a la estructura construida. Analizamos la logística, materiales y viabilidad
+              de cada desarrollo.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-col justify-center lg:col-span-7" data-motion-reveal data-motion-delay="0.08">
+        <div class="w-full space-y-8">
+          <div>
+            <Eyebrow text="Contacto" />
+
+            <h2
+              id="contact-title"
+              class="mt-3 font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl xl:text-5xl">
+              Hablemos de tu próximo proyecto.
+            </h2>
+            <p class="mt-2.5 text-balance font-sans text-sm leading-relaxed text-charcoal sm:text-base">
+              Datos preliminares para la evaluación técnica, logística y planificación de obra.
+            </p>
+          </div>
+
+          <form id="contact-form" class="grid gap-6" novalidate>
+            <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+              <InputField
+                id="contact-name"
+                name="name"
+                type="text"
+                label="Nombre o Firma"
+                required={true}
+                placeholder="Ej. Arq. John Doe"
+                errorId="name-error"
+                errorMessage="Ingresa tu nombre o razón social."
+              />
+
+              <InputField
+                id="contact-email"
+                name="email"
+                type="email"
+                label="Correo institucional"
+                required={true}
+                placeholder="Ej. contacto@mail.com"
+                errorId="email-error"
+                errorMessage="Ingresa un correo institucional válido."
+              />
+            </div>
+
+            <PillSelectField
+              id="contact-project-type"
+              name="projectType"
+              label="Tipología de obra"
+              required={true}
+              containerId="project-type-pills"
+              options={projectTypeOptions}
+              errorId="type-error"
+              errorMessage="Selecciona una tipología de obra."
+            />
+
+            <PillSelectField
+              id="contact-scale"
+              name="scale"
+              label="Superficie estimada"
+              required={false}
+              containerId="scale-pills"
+              options={scaleOptions}
+            />
+
+            <TextAreaField
+              id="contact-message"
+              name="message"
+              label="Memoria descriptiva o alcance del encargo"
+              rows={4}
+              required={true}
+              placeholder="Ej. Ubicación del terreno, superficie estimada, plazos y requerimientos del proyecto..."
+              errorId="message-error"
+              errorMessage="Ingresa la memoria descriptiva de tu consulta."
+            />
+
+            <div class="flex flex-col flex-wrap items-start justify-between gap-4 pt-2 md:flex-row md:items-center">
+              <Button text="Solicitar evaluación" type="submit" />
+              <span class="font-sans text-xs font-medium text-charcoal/85">Demostración interactiva de interfaz</span>
+            </div>
+
+            <div
+              id="form-feedback"
+              class="hidden flex-col gap-1.5 rounded-md border border-lift-orange/40 bg-white/90 p-4 font-sans text-xs text-charcoal shadow-sm"
+              role="alert">
+              <p class="flex items-center gap-2 font-semibold text-ink">
+                <span class="h-2 w-2 rounded-full bg-lift-orange"></span>
+                Consulta demostrativa enviada correctamente
+              </p>
+              <p class="font-sans text-charcoal">
+                Los formularios e interacciones en este sitio corresponden a demostraciones de interfaz sin
+                almacenamiento de datos comerciales.
+              </p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { initContactForm, cleanupContactFormInstance } from "../utils/contact-form";
+
+  document.addEventListener("astro:page-load", initContactForm);
+  document.addEventListener("astro:before-swap", cleanupContactFormInstance);
+</script>

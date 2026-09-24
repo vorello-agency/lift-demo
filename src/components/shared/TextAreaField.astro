@@ -1,0 +1,40 @@
+---
+interface Props {
+  id: string;
+  name: string;
+  label: string;
+  rows?: number;
+  required?: boolean;
+  placeholder?: string;
+  errorId: string;
+  errorMessage: string;
+}
+
+const { id, name, label, rows = 4, required = false, placeholder = "", errorId, errorMessage } = Astro.props;
+---
+
+<div class="flex flex-col gap-1.5">
+  <label for={id} class="font-sans text-xs font-semibold uppercase tracking-wider text-charcoal">
+    {label}
+    {
+      required && (
+        <span class="text-lift-orange" aria-hidden="true">
+          *
+        </span>
+      )
+    }
+  </label>
+  <textarea
+    id={id}
+    name={name}
+    rows={rows}
+    required={required}
+    aria-required={required ? "true" : "false"}
+    aria-describedby={errorId}
+    placeholder={placeholder}
+    class="w-full resize-none rounded-md border border-concrete/60 bg-white px-4 py-3 font-sans text-sm text-ink shadow-sm transition-colors placeholder:text-pretty focus:border-lift-orange focus:outline-none focus:ring-2 focus:ring-lift-orange">
+  </textarea>
+  <span id={errorId} class="hidden font-sans text-xs text-red-600">
+    {errorMessage}
+  </span>
+</div>

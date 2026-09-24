@@ -1,0 +1,98 @@
+---
+import { withBasePath } from "../../utils/urls";
+import ctaVideo from "../../assets/videos/cta.webm";
+import contactPoster from "../../assets/images/contact.webp";
+import Button from "../shared/Button.astro";
+import Eyebrow from "../shared/Eyebrow.astro";
+---
+
+<section class="relative overflow-hidden bg-ink text-white" aria-label="Iniciar un proyecto">
+  <video
+    class="pointer-events-none absolute inset-0 h-full w-full object-cover"
+    data-project-cta-video
+    data-src={ctaVideo}
+    poster={contactPoster.src}
+    loop
+    muted
+    playsinline
+    preload="metadata"
+    aria-hidden="true">
+  </video>
+  <div class="pointer-events-none absolute inset-0 bg-ink/70" aria-hidden="true"></div>
+
+  <div class="container-lift relative z-10 py-20 sm:py-28 lg:py-36">
+    <div class="mx-auto max-w-3xl space-y-6 text-center sm:space-y-8" data-motion-project-reveal>
+      <Eyebrow text="Siguiente paso" size="xs" tone="inverse" centered={true} />
+
+      <h2
+        class="text-balance font-display text-3xl font-bold leading-[1.1] tracking-[-0.02em] text-white sm:text-4xl md:text-5xl">
+        ¿Tenés un terreno o un proyecto en mente?
+      </h2>
+
+      <p class="mx-auto max-w-xl text-balance font-sans text-base leading-relaxed text-white/65 sm:text-lg">
+        Analizamos la viabilidad técnica, planificamos cada etapa y coordinamos la ejecución de principio a fin.
+      </p>
+
+      <div class="pt-2 sm:pt-4">
+        <Button
+          href={`${withBasePath("")}#contact`}
+          variant="secondary"
+          size="lg"
+          ariaLabel="Iniciar proyecto"
+          withArrow={true}>
+          Iniciar proyecto
+        </Button>
+      </div>
+    </div>
+  </div>
+
+  <button
+    type="button"
+    class="project-cta-video-toggle absolute bottom-4 right-4 z-20 h-9 w-9 items-center justify-center rounded-full bg-ink/80 text-white transition-colors hover:text-lift-orange focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lift-orange sm:bottom-6 sm:right-6"
+    data-project-cta-video-toggle
+    aria-label="Reproducir video"
+    aria-pressed="false">
+    <svg data-icon-play class="h-4 w-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M8.5 5.5v13l10.5-6.5z"></path>
+    </svg>
+
+    <svg data-icon-pause class="hidden h-4 w-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path>
+    </svg>
+
+    <span class="sr-only" data-btn-label>Reproducir video</span>
+  </button>
+</section>
+
+<style>
+  .project-cta-video-toggle {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .project-cta-video-toggle {
+      display: inline-flex;
+    }
+  }
+</style>
+
+<script>
+  import { setupAccessibleVideo } from "../../utils/video";
+
+  let cleanupProjectCtaVideo: (() => void) | null = null;
+
+  function init() {
+    cleanupProjectCtaVideo?.();
+    const video = document.querySelector<HTMLVideoElement>("[data-project-cta-video]");
+    const toggleBtn = document.querySelector<HTMLButtonElement>("[data-project-cta-video-toggle]");
+    if (video) {
+      cleanupProjectCtaVideo = setupAccessibleVideo({ video, toggleBtn, lazyLoad: true });
+    }
+  }
+
+  document.addEventListener("astro:page-load", init);
+  document.addEventListener("astro:before-swap", () => {
+    cleanupProjectCtaVideo?.();
+    cleanupProjectCtaVideo = null;
+  });
+</script>

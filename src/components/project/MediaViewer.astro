@@ -1,0 +1,219 @@
+---
+import { getImage } from "astro:assets";
+import type { ImageMetadata } from "astro";
+import caretLeftIcon from "@phosphor-icons/core/assets/light/caret-left-light.svg?raw";
+import caretRightIcon from "@phosphor-icons/core/assets/light/caret-right-light.svg?raw";
+import xIcon from "@phosphor-icons/core/assets/light/x-light.svg?raw";
+
+export interface MediaViewerSlideItem {
+  image: ImageMetadata;
+  alt: string;
+  title?: string;
+  type?: string;
+  caption?: string;
+  credit?: string;
+}
+
+export type LightboxSlideItem = MediaViewerSlideItem;
+
+interface Props {
+  id: string;
+  triggerAttribute: string;
+  sectionTitle: string;
+  slides: MediaViewerSlideItem[];
+  showSlideTitles?: boolean;
+}
+
+const { id, triggerAttribute, sectionTitle, slides, showSlideTitles = true } = Astro.props;
+const hasSlides = slides.length > 0;
+const viewerWidths = [800, 1200, 1800, 2400];
+const viewerImages = await Promise.all(
+  slides.map(async (slide) => {
+    const maxWidth = Math.min(2400, slide.image.width);
+    const widths = [...new Set([...viewerWidths.filter((w) => w < maxWidth), maxWidth])];
+    const variants = await Promise.all(widths.map((width) => getImage({ src: slide.image, width })));
+    const fallback =
+      variants.find((variant) => variant.options.width === 1200) ?? variants[Math.min(1, variants.length - 1)];
+
+    return {
+      src: fallback.src,
+      srcset: variants.map((variant, index) => `${variant.src} ${widths[index]}w`).join(", "),
+      width: slide.image.width,
+      height: slide.image.height,
+    };
+  })
+);
+---
+
+{
+  hasSlides && (
+    <dialog
+      id={id}
+      class="media-viewer-modal backdrop:bg-black/92 fixed inset-0 z-[600] m-auto h-full max-h-none w-full max-w-none overflow-hidden border-0 bg-transparent p-0 text-white backdrop:backdrop-blur-md"
+      aria-label={`${sectionTitle} — Visor de imágenes`}
+      data-media-viewer={id}
+      data-trigger-attr={triggerAttribute}>
+      <div class="bg-black/92 relative flex h-full w-full select-none flex-col justify-between backdrop-blur-md">
+        <header class="z-10 flex shrink-0 items-center border-b border-white/10 bg-ink/50 px-4 py-3 backdrop-blur-md sm:px-6 sm:py-4">
+          <div class="mx-auto flex w-full max-w-[1800px] items-center justify-between gap-4">
+            <div class="flex min-w-0 items-center gap-3">
+              <span class="shrink-0 text-xs font-semibold uppercase tracking-[0.18em] text-white/50">
+                {sectionTitle}
+              </span>
+              <span class="hidden shrink-0 rounded-sm border border-white/10 bg-white/5 px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest text-white/40 sm:inline-block">
+                Generada con IA
+              </span>
+              {showSlideTitles && (
+                <>
+                  <span class="h-1 w-1 shrink-0 rounded-full bg-lift-orange" aria-hidden="true" />
+                  <span
+                    data-viewer-header-title
+                    class="truncate text-xs font-medium uppercase tracking-[0.14em] text-white/80">
+                    {slides[0]?.title ?? slides[0]?.type ?? ""}
+                  </span>
+                </>
+              )}
+            </div>
+
+            <div class="flex shrink-0 items-center gap-4">
+              <div class="sr-only" aria-live="polite" data-viewer-announcer />
+
+              <div
+                data-viewer-counter
+                aria-hidden="true"
+                class="rounded-sm border border-white/10 bg-white/5 px-2.5 py-1 font-mono text-xs font-semibold tracking-widest text-white/70">
+                01 / {String(slides.length).padStart(2, "0")}
+              </div>
+
+              <button
+                type="button"
+                data-viewer-close
+                class="flex h-9 w-9 items-center justify-center rounded-sm text-white/80 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lift-orange sm:h-10 sm:w-10 [&>svg]:h-5 [&>svg]:w-5 [&>svg]:stroke-current"
+                aria-label="Cerrar visor de imágenes">
+                <Fragment set:html={xIcon} />
+              </button>
+            </div>
+          </div>
+        </header>
+
+        <div class="relative flex flex-1 items-center justify-center overflow-hidden p-4 sm:p-8 lg:p-12">
+          {slides.map((slide, index) => {
+            const imageData = viewerImages[index];
+
+            return (
+              <figure
+                data-viewer-slide
+                data-slide-index={index}
+                data-slide-title={slide.title ?? ""}
+                data-slide-type={slide.type ?? ""}
+                data-slide-caption={slide.caption ?? ""}
+                data-slide-credit={slide.credit ?? ""}
+                class:list={[
+                  "absolute inset-4 flex flex-col items-center justify-center transition-all duration-300 ease-out sm:inset-8 lg:inset-12",
+                  index === 0
+                    ? "pointer-events-auto z-10 scale-100 opacity-100"
+                    : "pointer-events-none z-0 scale-[0.98] opacity-0",
+                ]}
+                aria-hidden={index === 0 ? "false" : "true"}>
+                <div class="relative flex h-full w-full items-center justify-center">
+                  <img
+                    data-viewer-image
+                    data-src={imageData.src}
+                    data-srcset={imageData.srcset}
+                    src={index === 0 ? imageData.src : undefined}
+                    srcset={index === 0 ? imageData.srcset : undefined}
+                    sizes="(min-width: 640px) 85vw, 92vw"
+                    alt={slide.alt}
+                    width={imageData.width}
+                    height={imageData.height}
+                    loading={index === 0 ? "eager" : "lazy"}
+                    fetchpriority={index === 0 ? "high" : "low"}
+                    decoding="async"
+                    class="max-h-full max-w-full rounded-sm object-contain shadow-2xl"
+                  />
+                </div>
+              </figure>
+            );
+          })}
+
+          {slides.length > 1 && (
+            <div class="pointer-events-none absolute inset-y-0 left-0 right-0 z-20 mx-auto flex w-full max-w-[1800px] items-center justify-between px-2 sm:px-4">
+              <button
+                type="button"
+                data-viewer-prev
+                class="pointer-events-auto flex h-10 w-10 items-center justify-center rounded-sm bg-ink/70 text-white/80 backdrop-blur-sm transition-all hover:bg-ink hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lift-orange sm:h-12 sm:w-12 [&>svg]:h-5 [&>svg]:w-5 [&>svg]:stroke-current"
+                aria-label="Imagen anterior">
+                <Fragment set:html={caretLeftIcon} />
+              </button>
+
+              <button
+                type="button"
+                data-viewer-next
+                class="pointer-events-auto flex h-10 w-10 items-center justify-center rounded-sm bg-ink/70 text-white/80 backdrop-blur-sm transition-all hover:bg-ink hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lift-orange sm:h-12 sm:w-12 [&>svg]:h-5 [&>svg]:w-5 [&>svg]:stroke-current"
+                aria-label="Imagen siguiente">
+                <Fragment set:html={caretRightIcon} />
+              </button>
+            </div>
+          )}
+        </div>
+
+        <footer class="z-10 flex shrink-0 border-t border-white/10 bg-ink/70 px-4 py-3 backdrop-blur-md sm:px-6 sm:py-4">
+          <div class="mx-auto flex w-full max-w-[1800px] flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+            <div class="flex flex-col gap-1 sm:max-w-2xl">
+              <div class="flex items-center gap-2">
+                <span
+                  data-viewer-footer-type
+                  class:list={[
+                    "text-[10px] font-semibold uppercase tracking-[0.18em] text-lift-orange",
+                    slides[0]?.type ? "" : "hidden",
+                  ]}>
+                  {slides[0]?.type ?? ""}
+                </span>
+                <span
+                  data-viewer-footer-title
+                  class:list={[
+                    "text-xs font-semibold uppercase tracking-wider text-white",
+                    slides[0]?.title ? "" : "hidden",
+                  ]}>
+                  {slides[0]?.title ?? ""}
+                </span>
+              </div>
+              <p
+                data-viewer-footer-caption
+                class:list={["text-xs leading-relaxed text-concrete/80", slides[0]?.caption ? "" : "hidden"]}>
+                {slides[0]?.caption ?? ""}
+              </p>
+            </div>
+
+            <div
+              data-viewer-footer-credits
+              class:list={[
+                "flex shrink-0 items-center gap-2 font-mono text-[11px] text-concrete/50",
+                slides[0]?.credit ? "" : "hidden",
+              ]}>
+              <span>Crédito:</span>
+              <span data-viewer-footer-credit-text class="text-concrete/70">
+                {slides[0]?.credit ?? ""}
+              </span>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </dialog>
+  )
+}
+
+<style>
+  .media-viewer-modal::backdrop {
+    background: rgba(0, 0, 0, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+</style>
+
+<script>
+  import { setupMediaViewers, cleanupMediaViewers } from "../../utils/media-viewer";
+
+  document.addEventListener("astro:page-load", setupMediaViewers);
+  document.addEventListener("astro:before-swap", cleanupMediaViewers);
+</script>

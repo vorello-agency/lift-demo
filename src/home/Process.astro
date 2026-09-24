@@ -1,0 +1,142 @@
+---
+import processVideo from "../assets/videos/process.webm";
+import aboutPoster from "../assets/images/about.webp";
+import SectionHeader from "../components/shared/SectionHeader.astro";
+import ProcessCard from "../components/content/ProcessCard.astro";
+
+const processSteps = [
+  {
+    number: "01",
+    title: "Estrategia y viabilidad",
+    description:
+      "Evaluación técnica del sitio, análisis de factibilidad y normativas urbanas para tomar decisiones sólidas desde el inicio.",
+  },
+  {
+    number: "02",
+    title: "Diseño y planificación",
+    description:
+      "Desarrollo del anteproyecto, optimización de presupuesto, cómputo métrico y programación ejecutiva del proceso constructivo.",
+  },
+  {
+    number: "03",
+    title: "Construcción y coordinación",
+    description:
+      "Dirección de obra en terreno, supervisión de equipos especializados y control continuo de estándares de ejecución.",
+  },
+  {
+    number: "04",
+    title: "Finalización y entrega",
+    description:
+      "Auditoría final de terminaciones, recepción de instalaciones y transferencia documentada de la obra lista para su uso.",
+  },
+];
+---
+
+<section
+  id="process"
+  class="overflow-hidden border-b border-concrete/60 bg-warm-white py-16 text-ink sm:py-24 lg:py-32"
+  aria-labelledby="process-title">
+  <div class="container-lift space-y-8 sm:space-y-16 lg:space-y-20">
+    <div data-motion-reveal>
+      <SectionHeader
+        id="process-title"
+        label="PROCESO"
+        title="Metodología de trabajo"
+        description="Un esquema de trabajo transparente donde cada fase tiene alcance definido, responsables claros y control documentado."
+        borderClass="pb-8 border-b border-concrete/60"
+      />
+    </div>
+
+    <div
+      class="relative h-56 w-full overflow-hidden rounded-md border border-concrete/60 bg-ink sm:h-72 md:h-96"
+      data-motion-reveal>
+      <video
+        loop
+        muted
+        playsinline
+        preload="metadata"
+        poster={aboutPoster.src}
+        class="absolute inset-0 h-full w-full select-none object-cover object-center brightness-[0.95] contrast-[1.02]"
+        aria-label="Secuencia de video que muestra las etapas del proceso constructivo y detalle de obra"
+        data-process-video>
+        <source src={processVideo} type="video/webm" />
+      </video>
+      <div
+        class="pointer-events-none absolute inset-0 flex items-end bg-gradient-to-t from-ink/65 via-ink/20 to-transparent p-4 sm:p-8"
+        aria-hidden="true">
+        <div class="pointer-events-auto max-w-[calc(100%-3.5rem)] sm:max-w-none">
+          <span class="hidden cursor-text font-mono text-sm font-semibold tracking-widest text-white/95 md:block">
+            Trazabilidad · Coordinación · Calidad de ejecución
+          </span>
+          <span class="cursor-text font-mono text-sm font-semibold tracking-widest text-white/95 md:hidden">
+            · Trazabilidad
+            <br />
+            · Coordinación
+            <br />
+            · Calidad de ejecución
+          </span>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        class="process-video-toggle absolute bottom-4 right-4 z-20 h-9 w-9 items-center justify-center rounded-full bg-ink/80 text-white transition-colors hover:text-lift-orange focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lift-orange sm:bottom-6 sm:right-6"
+        data-process-video-toggle
+        aria-label="Reproducir video"
+        aria-pressed="false">
+        <svg data-icon-play class="h-4 w-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M8.5 5.5v13l10.5-6.5z"></path>
+        </svg>
+
+        <svg data-icon-pause class="hidden h-4 w-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path>
+        </svg>
+
+        <span class="sr-only" data-btn-label>Reproducir video</span>
+      </button>
+    </div>
+
+    <ol
+      class="m-0 grid list-none grid-cols-1 gap-8 p-0 sm:grid-cols-2 lg:grid-cols-4 lg:gap-10"
+      data-motion-reveal-group>
+      {
+        processSteps.map((step) => (
+          <ProcessCard number={step.number} title={step.title} description={step.description} />
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .process-video-toggle {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .process-video-toggle {
+      display: inline-flex;
+    }
+  }
+</style>
+
+<script>
+  import { setupAccessibleVideo } from "../utils/video";
+
+  let cleanupProcessVideo: (() => void) | null = null;
+
+  function init() {
+    cleanupProcessVideo?.();
+    const video = document.querySelector<HTMLVideoElement>("[data-process-video]");
+    const toggleBtn = document.querySelector<HTMLButtonElement>("[data-process-video-toggle]");
+    if (video) {
+      cleanupProcessVideo = setupAccessibleVideo({ video, toggleBtn, lazyLoad: false });
+    }
+  }
+
+  document.addEventListener("astro:page-load", init);
+  document.addEventListener("astro:before-swap", () => {
+    cleanupProcessVideo?.();
+    cleanupProcessVideo = null;
+  });
+</script>

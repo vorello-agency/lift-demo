@@ -1,0 +1,179 @@
+---
+import Header from "../components/layout/Header.astro";
+import Footer from "../components/layout/Footer.astro";
+import { getAbsoluteUrl, withBasePath } from "../utils/urls";
+import dmSansUrl from "@fontsource-variable/dm-sans/files/dm-sans-latin-standard-normal.woff2?url";
+import { ViewTransitions } from "astro:transitions";
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  imageAlt?: string;
+  imageType?: string;
+  imageWidth?: number;
+  imageHeight?: number;
+  ogType?: "website" | "article";
+  canonicalUrl?: string;
+  structuredData?: Record<string, unknown>;
+  headerTheme?: "light" | "dark";
+  footerTheme?: "light" | "dark";
+  themeColor?: string;
+}
+
+const {
+  title,
+  description = "Proyecto conceptual de arquitectura y construcción creado como caso de portfolio. Una experiencia editorial sobre obras, procesos y materialidad.",
+  image,
+  imageAlt = "Lift Construcciones, proyecto conceptual de arquitectura",
+  imageType = "image/jpeg",
+  imageWidth = 1200,
+  imageHeight = 630,
+  ogType = "website",
+  canonicalUrl,
+  structuredData,
+  headerTheme,
+  footerTheme,
+  themeColor = "#111214",
+} = Astro.props;
+
+const siteOrigin = Astro.site ?? Astro.url;
+const canonicalPath = Astro.url.pathname.endsWith("/") ? Astro.url.pathname : `${Astro.url.pathname}/`;
+const isHomePage =
+  Astro.url.pathname === withBasePath("") || Astro.url.pathname === withBasePath("").replace(/\/$/, "");
+const resolvedHeaderTheme = headerTheme ?? (isHomePage ? "light" : "dark");
+const resolvedFooterTheme = footerTheme ?? (isHomePage ? "light" : "dark");
+const resolvedCanonicalUrl = canonicalUrl ?? new URL(canonicalPath, siteOrigin).href;
+const resolvedImageUrl = image ? new URL(image, siteOrigin).href : getAbsoluteUrl("images/og-image.jpg", siteOrigin);
+const sitemapUrl = getAbsoluteUrl("sitemap-index.xml", siteOrigin);
+const siteUrl = getAbsoluteUrl("", siteOrigin);
+
+const defaultStructuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://vorelloagency.com#organization",
+      name: "Vorello Agency",
+      url: "https://vorelloagency.com",
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${siteUrl}#website`,
+      url: siteUrl,
+      name: "Lift Construcciones",
+      description,
+      inLanguage: "es",
+      creator: { "@id": "https://vorelloagency.com#organization" },
+    },
+    {
+      "@type": "ImageObject",
+      "@id": `${resolvedImageUrl}#primaryimage`,
+      url: resolvedImageUrl,
+      contentUrl: resolvedImageUrl,
+      width: imageWidth,
+      height: imageHeight,
+      caption: imageAlt,
+    },
+    {
+      "@type": "WebPage",
+      "@id": `${resolvedCanonicalUrl}#webpage`,
+      url: resolvedCanonicalUrl,
+      name: title,
+      description,
+      inLanguage: "es",
+      isPartOf: { "@id": `${siteUrl}#website` },
+      primaryImageOfPage: { "@id": `${resolvedImageUrl}#primaryimage` },
+      mainEntity: { "@id": `${resolvedCanonicalUrl}#portfolio-project` },
+    },
+    {
+      "@type": "CreativeWork",
+      "@id": `${resolvedCanonicalUrl}#portfolio-project`,
+      name: "Lift Construcciones",
+      headline: title,
+      description,
+      url: resolvedCanonicalUrl,
+      inLanguage: "es",
+      genre: "Proyecto conceptual de arquitectura y desarrollo web",
+      creator: { "@id": `${siteUrl}#creator` },
+      image: { "@id": `${resolvedImageUrl}#primaryimage` },
+      isPartOf: { "@id": `${siteUrl}#website` },
+      about: [
+        { "@type": "Thing", name: "Arquitectura contemporánea" },
+        { "@type": "Thing", name: "Construcción" },
+        { "@type": "Thing", name: "Diseño y desarrollo web" },
+      ],
+    },
+  ],
+};
+
+const serializedStructuredData = JSON.stringify(structuredData ?? defaultStructuredData).replace(/</g, "\\u003c");
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content={themeColor} />
+    <link rel="canonical" href={resolvedCanonicalUrl} />
+    <link rel="sitemap" href={sitemapUrl} />
+    <link rel="icon" type="image/svg+xml" href={withBasePath("icons/favicon.svg")} />
+    <link rel="icon" href={withBasePath("favicon.ico")} sizes="32x32" />
+    <link rel="apple-touch-icon" href={withBasePath("icons/apple-touch-icon.png")} />
+    <link rel="manifest" href={withBasePath("site.webmanifest")} />
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={resolvedCanonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={resolvedImageUrl} />
+    <meta property="og:image:url" content={resolvedImageUrl} />
+    <meta property="og:image:secure_url" content={resolvedImageUrl} />
+    <meta property="og:image:type" content={imageType} />
+    <meta property="og:image:width" content={String(imageWidth)} />
+    <meta property="og:image:height" content={String(imageHeight)} />
+    <meta property="og:image:alt" content={imageAlt} />
+    <meta property="og:site_name" content="Lift Construcciones" />
+    <meta property="og:locale" content="es_ES" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={resolvedCanonicalUrl} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={resolvedImageUrl} />
+    <meta name="twitter:image:alt" content={imageAlt} />
+
+    <script is:inline type="application/ld+json" set:html={serializedStructuredData} />
+    <ViewTransitions fallback="animate" />
+
+    <link rel="preload" href={dmSansUrl} as="font" type="font/woff2" crossorigin />
+    <style
+      is:inline
+      set:html={`
+			@font-face {
+				font-family: 'DM Sans';
+				font-style: normal;
+				font-display: swap;
+				font-weight: 100 1000;
+				src: url('${dmSansUrl}') format('woff2-variations');
+				unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+			}
+		`}
+    ></style>
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body class="flex min-h-screen flex-col">
+    <Header theme={resolvedHeaderTheme} />
+    <main id="main-content" class="flex-grow">
+      <slot />
+    </main>
+    <Footer theme={resolvedFooterTheme} />
+    <script>
+      import "../utils/motion";
+    </script>
+  </body>
+</html>

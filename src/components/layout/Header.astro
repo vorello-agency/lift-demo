@@ -1,0 +1,143 @@
+---
+import LogoWhite from "../../assets/svg/logos/lift-logo-white.svg?raw";
+import LogoColor from "../../assets/svg/logos/lift-logo-dark.svg?raw";
+import { withBasePath } from "../../utils/urls";
+import Button from "../shared/Button.astro";
+
+const currentPath = Astro.url.pathname;
+const isHomePage = currentPath === withBasePath("") || currentPath === withBasePath("").replace(/\/$/, "");
+const homeUrl = isHomePage ? "#hero" : withBasePath("");
+const navHref = (anchor: string) => (isHomePage ? `#${anchor}` : `${withBasePath("")}#${anchor}`);
+
+interface Props {
+  theme?: "light" | "dark";
+}
+
+const { theme = "dark" } = Astro.props;
+const isDark = theme === "dark";
+
+const menuItems = [
+  { label: "Proyectos", anchor: "projects" },
+  { label: "Servicios", anchor: "services" },
+  { label: "Proceso", anchor: "process" },
+  { label: "Nosotros", anchor: "about" },
+  { label: "Contacto", anchor: "contact" },
+];
+---
+
+<header
+  id="site-header"
+  data-theme={theme}
+  class="fixed left-0 right-0 top-0 z-[500] w-full border-b border-transparent bg-transparent py-4 sm:py-5">
+  <div class="container-lift flex items-center justify-between">
+    <a
+      href={homeUrl}
+      class="logo-link header-brand-enter group relative z-[510] inline-flex items-center rounded-sm py-0.5 text-white hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lift-orange"
+      aria-label="Lift Construcciones - Inicio">
+      <div class="relative flex h-auto w-28 items-center sm:w-32 md:w-36">
+        <div class="logo-white-container h-auto w-full p-1 transition-opacity duration-300">
+          <Fragment set:html={LogoWhite} />
+        </div>
+        <div
+          class="logo-color-container pointer-events-none absolute inset-0 h-auto w-full p-1 opacity-0 transition-opacity duration-300">
+          <Fragment set:html={LogoColor} />
+        </div>
+      </div>
+    </a>
+
+    <div class="header-controls-enter relative z-[510] flex items-center gap-8">
+      <nav class="hidden items-center gap-6 lg:flex lg:gap-8" aria-label="Navegación principal">
+        {
+          menuItems.map((item) => (
+            <a
+              href={navHref(item.anchor)}
+              data-nav-anchor={item.anchor}
+              class="nav-link rounded-sm p-1 font-medium uppercase tracking-wider focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lift-orange">
+              {item.label}
+            </a>
+          ))
+        }
+      </nav>
+
+      <button
+        id="menu-toggle"
+        type="button"
+        class="group relative z-[510] inline-flex items-center justify-center rounded-md p-2 text-white hover:text-lift-orange focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lift-orange lg:hidden"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-label="Abrir menú de navegación">
+        <span class="sr-only">Menú</span>
+        <div class="relative flex h-4 w-5 flex-col items-center justify-between">
+          <span
+            class="hamburger-line top-line block h-[2px] w-5 origin-center rounded-full bg-current transition-all duration-300">
+          </span>
+          <span
+            class="hamburger-line middle-line block h-[2px] w-5 rounded-full bg-current transition-opacity duration-200">
+          </span>
+          <span
+            class="hamburger-line bottom-line block h-[2px] w-5 origin-center rounded-full bg-current transition-all duration-300">
+          </span>
+        </div>
+      </button>
+    </div>
+  </div>
+
+  <div
+    id="mobile-menu"
+    class:list={[
+      "pointer-events-none fixed inset-0 top-0 z-[490] flex min-h-dvh translate-x-full transform flex-col justify-between overflow-y-auto px-6 pb-12 pt-28 opacity-0 transition-all duration-300 ease-out sm:px-12 lg:hidden",
+      isDark ? "border-b border-white/10 bg-ink text-white" : "border-b border-concrete bg-[#F3F1EC] text-ink",
+    ]}
+    aria-hidden="true"
+    inert
+    role="dialog"
+    aria-modal="true"
+    aria-label="Menú de navegación móvil">
+    <nav class="flex flex-col gap-6 py-4" aria-label="Navegación principal móvil">
+      {
+        menuItems.map((item, index) => (
+          <a
+            href={navHref(item.anchor)}
+            data-nav-anchor={item.anchor}
+            class:list={[
+              "mobile-nav-link rounded-sm py-1 font-display text-2xl font-medium transition-all hover:translate-x-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lift-orange",
+              isDark ? "text-white hover:text-lift-orange" : "text-ink hover:text-lift-orange-dark",
+            ]}
+            data-mobile-nav-item
+            style={`--mobile-nav-order: ${index}`}>
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div
+      class:list={["flex flex-col gap-6 border-t pt-8", isDark ? "border-white/10" : "border-concrete"]}
+      data-mobile-nav-item
+      style={`--mobile-nav-order: ${menuItems.length}`}>
+      <Button
+        href={navHref("contact")}
+        variant="primary"
+        size="md"
+        class="mobile-nav-link w-full text-center text-base"
+        ariaLabel="Contacto">
+        Contacto
+      </Button>
+
+      <div class:list={["text-xs uppercase tracking-wider", isDark ? "text-concrete/70" : "text-charcoal"]}>
+        Lift Construcciones — Arquitectura & Edificación
+      </div>
+    </div>
+  </div>
+</header>
+
+<style>
+  @import "../../styles/components/header.css";
+</style>
+
+<script>
+  import { setupHeader, destroyHeader } from "../../utils/header";
+
+  document.addEventListener("astro:page-load", setupHeader);
+  document.addEventListener("astro:before-swap", destroyHeader);
+</script>

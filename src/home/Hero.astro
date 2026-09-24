@@ -1,0 +1,228 @@
+---
+import { getImage } from "astro:assets";
+import heroDesktop from "../assets/images/hero/hero-desktop.webp";
+import heroTablet from "../assets/images/hero/hero-tablet.webp";
+import heroMobile from "../assets/images/hero/hero-mobile.webp";
+import arrowDownIcon from "@phosphor-icons/core/assets/light/arrow-down-light.svg?raw";
+import Button from "../components/shared/Button.astro";
+import Eyebrow from "../components/shared/Eyebrow.astro";
+
+const optimizedMobile = await getImage({
+  src: heroMobile,
+  format: "webp",
+  quality: 85,
+  width: 800,
+});
+const optimizedTablet = await getImage({
+  src: heroTablet,
+  format: "webp",
+  quality: 85,
+  width: 1200,
+});
+const optimizedDesktop = await getImage({
+  src: heroDesktop,
+  format: "webp",
+  quality: 85,
+  width: 1920,
+});
+const optimizedUltrawide = await getImage({
+  src: heroDesktop,
+  format: "webp",
+  quality: 85,
+  width: 2560,
+});
+---
+
+<section id="hero" class="relative min-h-[100dvh] w-full overflow-hidden bg-ink text-white">
+  <picture class="hero-media-enter pointer-events-none absolute inset-0 z-0 h-full w-full select-none overflow-hidden">
+    <source media="(min-width: 1920px)" srcset={optimizedUltrawide.src} />
+    <source media="(max-width: 639px)" srcset={optimizedMobile.src} />
+    <source media="(max-width: 1023px)" srcset={optimizedTablet.src} />
+    <img
+      src={optimizedDesktop.src}
+      alt="Vista en contrapicado de las terrazas curvas de un edificio contemporáneo"
+      class="hero-bg-image h-full w-full object-cover object-center"
+      loading="eager"
+      fetchpriority="high"
+      width={heroDesktop.width}
+      height={heroDesktop.height}
+    />
+  </picture>
+
+  <div
+    class="hero-overlay-enter pointer-events-none absolute inset-0 z-[1] bg-gradient-to-t from-ink/90 via-ink/35 to-ink/55"
+    aria-hidden="true">
+  </div>
+
+  <div class="relative z-10 flex min-h-[100dvh] w-full flex-col justify-between pb-8 pt-28 sm:pb-12 sm:pt-32 lg:pt-36">
+    <div
+      class="container-lift my-auto flex flex-1 flex-col justify-center py-4 sm:py-12 lg:my-0 lg:mt-auto lg:flex-none lg:justify-end lg:pb-12 xl:pb-16 3xl:pb-20">
+      <div
+        class="my-auto flex w-full max-w-4xl flex-1 flex-col justify-between sm:flex-none sm:justify-start sm:space-y-8 lg:my-0">
+        <div class="my-auto space-y-6 sm:my-0 sm:space-y-8 lg:my-0">
+          <Eyebrow
+            text="Arquitectura y Construcción"
+            size="xs"
+            tone="inverse"
+            class="hero-reveal hero-reveal-eyebrow"
+          />
+
+          <h1
+            class="hero-reveal hero-reveal-title text-balance font-display text-3xl font-bold leading-normal tracking-[-0.025em] text-white sm:text-5xl md:text-6xl lg:text-7xl">
+            Arquitectura que permanece.
+          </h1>
+
+          <p
+            class="hero-reveal hero-reveal-copy max-w-2xl text-balance text-base font-normal leading-relaxed text-white/85 sm:text-lg md:text-xl">
+            Diseño, dirección y ejecución de proyectos residenciales, comerciales y edilicios con precisión técnica y
+            perspectiva internacional.
+          </p>
+        </div>
+
+        <div
+          class="hero-reveal hero-reveal-actions mt-auto flex flex-col items-stretch gap-3.5 pt-6 sm:mt-0 sm:flex-row sm:items-center sm:gap-5 sm:pt-4">
+          <Button
+            href="#contact"
+            size="lg"
+            class="btn-hero-primary w-full sm:w-auto"
+            ariaLabel="Iniciar proyecto"
+            withArrow={true}
+            text="Iniciar proyecto"
+          />
+
+          <Button
+            href="#services"
+            variant="secondary"
+            size="lg"
+            class="btn-hero-secondary w-full sm:w-auto"
+            ariaLabel="Explorar servicios"
+            withDot={true}
+            text="Explorar servicios"
+          />
+        </div>
+
+        <div class="hero-reveal hero-reveal-tag pt-2 sm:pt-0">
+          <span
+            class="inline-block select-none rounded border border-lift-orange/30 bg-lift-orange/5 px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest text-lift-orange">
+            Proyecto de demostración
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="container-lift hero-reveal hero-reveal-footer flex flex-col items-start justify-between gap-4 border-t border-white/15 pb-2 pt-5 sm:flex-row sm:items-center sm:pt-7">
+      <div class="hidden items-center gap-4 text-xs font-medium uppercase tracking-wider text-white/60 sm:flex">
+        <span>Shanghái</span>
+        <span aria-hidden="true" class="text-xl text-white/40">•</span>
+        <span>Dubái</span>
+        <span aria-hidden="true" class="text-xl text-white/40">•</span>
+        <span>Londres</span>
+        <span aria-hidden="true" class="text-xl text-white/40">•</span>
+        <span>Nueva York</span>
+      </div>
+
+      <Button
+        href="#projects"
+        variant="scroll-link"
+        class="group py-1 uppercase tracking-[0.15em] text-white/80 hover:text-white"
+        ariaLabel="Desplazarse a la sección de proyectos">
+        Ver proyectos destacados
+        <div
+          slot="icon-right"
+          class="ml-2 h-4 w-4 transform text-white/90 transition-transform duration-300 group-hover:translate-y-1 motion-reduce:transform-none motion-reduce:group-hover:translate-y-0">
+          <Fragment set:html={arrowDownIcon} />
+        </div>
+      </Button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-media-enter {
+    animation: heroMediaEnter 1.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .hero-overlay-enter {
+    animation: heroOverlayEnter 1s ease-out both;
+  }
+
+  .hero-reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    animation: heroReveal 0.72s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .hero-reveal-eyebrow {
+    --hero-delay: 0.12s;
+    transform: translateY(10px);
+  }
+
+  .hero-reveal-title {
+    --hero-delay: 0.2s;
+    transform: translateY(26px);
+    animation-duration: 0.86s;
+  }
+
+  .hero-reveal-copy {
+    --hero-delay: 0.32s;
+  }
+
+  .hero-reveal-actions {
+    --hero-delay: 0.42s;
+  }
+
+  .hero-reveal-tag {
+    --hero-delay: 0.5s;
+    transform: translateY(10px);
+  }
+
+  .hero-reveal-footer {
+    --hero-delay: 0.58s;
+    transform: translateY(12px);
+  }
+
+  .hero-reveal {
+    animation-delay: var(--hero-delay, 0s);
+  }
+
+  @keyframes heroMediaEnter {
+    from {
+      opacity: 0.88;
+      transform: scale(1.035);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes heroOverlayEnter {
+    from {
+      opacity: 0.72;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes heroReveal {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-media-enter,
+    .hero-overlay-enter,
+    .hero-reveal {
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+</style>

@@ -1,0 +1,111 @@
+---
+import { Image } from "astro:assets";
+import type { ProjectTechnicalDocument } from "../../data/projects";
+
+interface Props {
+  document: ProjectTechnicalDocument;
+  index: number;
+  projectName: string;
+  slideIndex?: number;
+  featured?: boolean;
+  uniformMedia?: boolean;
+  coverMedia?: boolean;
+  preloadMedia?: boolean;
+}
+
+const {
+  document,
+  index,
+  projectName,
+  slideIndex = 0,
+  featured = false,
+  uniformMedia = false,
+  coverMedia = false,
+  preloadMedia = false,
+} = Astro.props;
+const documentNumber = String(index + 1).padStart(2, "0");
+const imageAlt = document.alt ?? `${document.title} del proyecto ${projectName}`;
+---
+
+<figure class="technical-document" data-motion-gallery-item>
+  <div
+    class:list={[
+      "relative overflow-hidden rounded-sm bg-white/[0.035]",
+      document.image && uniformMedia && "aspect-[16/10] bg-white",
+      !document.image && ["border border-white/15", featured ? "aspect-[4/3]" : "aspect-[16/10]"],
+    ]}
+    style={document.image && !uniformMedia
+      ? `aspect-ratio: ${document.image.width} / ${document.image.height}`
+      : undefined}>
+    {
+      document.image ? (
+        <button
+          type="button"
+          class:list={[
+            "group relative block h-full w-full overflow-hidden text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-lift-orange",
+            coverMedia ? "bg-ink" : "bg-white",
+          ]}
+          data-technical-open={slideIndex}
+          aria-haspopup="dialog"
+          aria-label={`Ampliar ${document.title} del proyecto ${projectName}`}>
+          <Image
+            src={document.image}
+            alt={imageAlt}
+            data-technical-preview={preloadMedia ? "" : undefined}
+            class:list={[
+              "block h-full w-full transition-transform duration-500 ease-out group-hover:scale-[1.015] motion-reduce:transform-none motion-reduce:group-hover:scale-100",
+              coverMedia ? "object-cover" : "object-contain",
+            ]}
+            loading="lazy"
+            widths={[600, 900, 1400]}
+            sizes={featured ? "(min-width: 1024px) 66vw, 100vw" : "(min-width: 1024px) 33vw, 100vw"}
+          />
+        </button>
+      ) : (
+        <div class="flex h-full flex-col justify-between p-5 sm:p-6 lg:p-8" aria-hidden="true">
+          <div class="flex items-center justify-between gap-4">
+            <span class="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/45">
+              Documento {documentNumber}
+            </span>
+            <span class="h-2 w-2 rounded-full bg-lift-orange" />
+          </div>
+          <div class="max-w-xs border-l border-white/15 pl-4">
+            <span class="block text-xs font-medium uppercase tracking-[0.16em] text-white/35">Lámina pendiente</span>
+            <span class="mt-2 block font-display text-xl font-bold leading-tight text-white/80 sm:text-2xl">
+              {document.type}
+            </span>
+          </div>
+        </div>
+      )
+    }
+  </div>
+
+  <figcaption class="pt-5">
+    <div class="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/45">
+      <span class="h-px w-5 bg-lift-orange" aria-hidden="true"></span>
+      <span>{document.type}</span>
+    </div>
+    <h3 class="sr-only">
+      {document.title}
+    </h3>
+    <p class="mt-3 max-w-[52ch] text-sm leading-relaxed text-white/60">
+      {document.caption}
+    </p>
+    {
+      document.credit && (
+        <div class="mt-4 flex flex-col items-start gap-0.5 text-xs leading-5">
+          <span class="font-normal text-white/35">Créditos</span>
+          <span class="text-white/55">{document.credit}</span>
+        </div>
+      )
+    }
+  </figcaption>
+</figure>
+
+<style>
+  .technical-document {
+    display: grid;
+    gap: 1rem;
+    break-inside: avoid;
+  }
+</style>

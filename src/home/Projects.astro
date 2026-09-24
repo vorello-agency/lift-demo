@@ -1,0 +1,85 @@
+---
+import ProjectCard from "../components/content/ProjectCard.astro";
+import { getImage } from "astro:assets";
+import { getAllProjects } from "../data/projects";
+import { withBasePath } from "../utils/urls";
+import SectionHeader from "../components/shared/SectionHeader.astro";
+
+const projects = getAllProjects();
+const heroWidths = [800, 1200, 1920];
+const deferredHeroImages = await Promise.all(
+  projects.map(async ({ heroImage }) => {
+    const variants = await Promise.all(heroWidths.map((width) => getImage({ src: heroImage, width })));
+
+    return {
+      src: variants[1].src,
+      srcset: variants.map(({ src }, index) => `${src} ${heroWidths[index]}w`).join(", "),
+    };
+  })
+);
+---
+
+<section
+  id="projects"
+  class="overflow-hidden border-b border-concrete/60 bg-warm-white py-16 text-ink sm:py-24 lg:py-32"
+  aria-labelledby="projects-title">
+  <div class="container-lift space-y-8 sm:space-y-16 lg:space-y-20">
+    <div data-motion-projects-header>
+      <SectionHeader
+        id="projects-title"
+        label="PROYECTOS"
+        title="Obras destacadas"
+        description="Proyectos de distintas escalas y programas resueltos con el mismo estándar de detalle constructivo y gestión unificada"
+        borderClass="pb-6 border-b border-concrete/60"
+      />
+    </div>
+
+    <div class="grid grid-cols-1 items-start gap-12 sm:gap-14 md:grid-cols-12 md:gap-8 lg:gap-12 xl:gap-14">
+      {
+        projects.map((project, index) => (
+          <div class={project.gridClass} data-motion-project-card data-motion-order={index}>
+            <ProjectCard
+              index={project.index}
+              title={project.name}
+              subtitle={project.subtitle}
+              description={project.introduction}
+              location={project.location}
+              year={String(project.year)}
+              imageSrc={project.cardImage}
+              imageAlt={project.heroImageAlt}
+              aspectRatioClass={project.aspectRatioClass}
+              href={withBasePath(`projects/${project.slug}/`)}
+            />
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script is:inline define:vars={{ deferredHeroImages }}>
+  const connection = navigator.connection;
+  const shouldSkipDeferredPreload = connection?.saveData || ["slow-2g", "2g"].includes(connection?.effectiveType);
+
+  if (!shouldSkipDeferredPreload) {
+    const scheduleHeroPreload = () => {
+      window.setTimeout(() => {
+        if (!document.getElementById("projects")) return;
+
+        deferredHeroImages.forEach(({ src, srcset }) => {
+          const image = new Image();
+          image.fetchPriority = "low";
+          image.sizes = "100vw";
+          image.srcset = srcset;
+          image.src = src;
+        });
+      }, 4000);
+    };
+
+    if (document.readyState === "complete") {
+      scheduleHeroPreload();
+    } else {
+      window.addEventListener("load", scheduleHeroPreload, { once: true });
+    }
+  }
+</script>

@@ -1,0 +1,65 @@
+/* ==========================================================================
+   VIEW TRANSITIONS & ACCESSIBILITY MOTION OVERRIDES
+   ========================================================================== */
+
+@keyframes liftPageTransitionOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes liftPageTransitionIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+::view-transition-old(root) {
+  animation: liftPageTransitionOut 460ms cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+::view-transition-new(root) {
+  animation: liftPageTransitionIn 460ms cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+/* Reduced Motion Override: Preserve smooth color/opacity feedback while eliminating spatial movement */
+@media (prefers-reduced-motion: reduce) {
+  /* 1. Disable keyframe animations, infinite loops and spatial movements while preserving non-spatial transitions */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow,
+      filter, backdrop-filter !important;
+  }
+
+  /* 2. Prevent hover scale and transforms on images and media under reduced motion */
+  img,
+  picture,
+  video {
+    transform: none !important;
+  }
+
+  /* 3. Prevent hover displacements (translations, rotations) on arrows and interactive icons */
+  .group:hover [class*="translate-"],
+  .group:focus-within [class*="translate-"],
+  .group:active [class*="translate-"],
+  :hover > [class*="translate-"],
+  [class*="hover:translate-"]:hover {
+    transform: none !important;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

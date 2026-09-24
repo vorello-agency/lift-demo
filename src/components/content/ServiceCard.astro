@@ -1,0 +1,117 @@
+---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+import arrowRightIcon from "@phosphor-icons/core/assets/light/arrow-right-light.svg?raw";
+
+interface Props {
+  title: string;
+  description: string;
+  scopes: string[];
+  image: ImageMetadata;
+  alt: string;
+  href?: string;
+}
+
+const { title, description, scopes, image, alt, href = "#contact" } = Astro.props;
+---
+
+<article
+  class="service-card group relative flex cursor-pointer flex-col justify-between space-y-6 border-t-2 border-concrete/60 pt-6 transition-colors duration-300 hover:border-lift-orange-dark group-focus-within:border-lift-orange-dark group-active:border-lift-orange-dark">
+  <div class="service-card__body space-y-5">
+    <div
+      class="service-card__media relative aspect-[4/3] overflow-hidden rounded-md border border-concrete/60 bg-concrete/20">
+      <Image
+        src={image}
+        alt={alt}
+        class="h-full w-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-105 group-active:scale-105 motion-reduce:group-hover:scale-100"
+        width={840}
+        height={630}
+      />
+    </div>
+
+    <div class="service-card__content space-y-3">
+      <h3
+        class="font-display text-xl font-bold text-ink transition-colors duration-300 group-focus-within:text-lift-orange-dark group-hover:text-lift-orange-dark group-active:text-lift-orange-dark sm:text-2xl">
+        {title}
+      </h3>
+      <p class="relative z-20 cursor-text text-pretty text-base leading-relaxed text-charcoal">
+        {description}
+      </p>
+    </div>
+
+    <div
+      class="service-card__scopes relative z-20 flex flex-wrap gap-1.5 pt-1"
+      aria-label={`Alcances principales de ${title}`}>
+      {
+        scopes.map((scope) => (
+          <span class="cursor-text rounded-sm border border-concrete/60 bg-concrete/30 px-2.5 py-1 text-sm font-medium text-charcoal">
+            {scope}
+          </span>
+        ))
+      }
+    </div>
+  </div>
+
+  <div class="service-card__action border-concrete md:border-t md:pt-4">
+    <a
+      href={href}
+      class="inline-flex items-center gap-2.5 rounded-sm py-1 text-sm font-semibold uppercase tracking-wider text-ink transition-colors duration-300 after:absolute after:inset-0 after:z-10 after:content-[''] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lift-orange focus-visible:ring-offset-2 group-focus-within:text-lift-orange-dark group-hover:text-lift-orange-dark group-active:text-lift-orange-dark"
+      aria-label={`Consultar servicio de ${title}`}>
+      <span>Consultar servicio</span>
+      <div
+        class="h-4 w-4 text-ink transition-all duration-300 group-focus-within:translate-x-1.5 group-focus-within:text-lift-orange-dark group-hover:translate-x-1.5 group-hover:text-lift-orange-dark group-active:translate-x-1.5 group-active:text-lift-orange-dark motion-reduce:group-focus-within:translate-x-0 motion-reduce:group-hover:translate-x-0 motion-reduce:group-active:translate-x-0">
+        <Fragment set:html={arrowRightIcon} />
+      </div>
+    </a>
+  </div>
+</article>
+
+<style>
+  @media (min-width: 768px) and (max-width: 1279px) {
+    .service-card {
+      display: grid;
+      grid-template-columns: minmax(16rem, 0.9fr) minmax(0, 1.1fr);
+      grid-template-rows: auto auto 1fr;
+      column-gap: clamp(2rem, 4vw, 3rem);
+      row-gap: 1.25rem;
+    }
+
+    .service-card > :global(* + *) {
+      margin-top: 0;
+    }
+
+    .service-card__body {
+      display: contents;
+    }
+
+    .service-card__body > :global(* + *) {
+      margin-top: 0;
+    }
+
+    .service-card__media {
+      grid-column: 1;
+      grid-row: 1 / 4;
+      min-height: 17rem;
+      aspect-ratio: auto;
+    }
+
+    .service-card__content,
+    .service-card__scopes,
+    .service-card__action {
+      grid-column: 2;
+    }
+
+    .service-card__content {
+      grid-row: 1;
+    }
+
+    .service-card__scopes {
+      grid-row: 2;
+    }
+
+    .service-card__action {
+      grid-row: 3;
+      align-self: end;
+    }
+  }
+</style>

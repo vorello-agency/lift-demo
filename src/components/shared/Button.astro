@@ -1,0 +1,81 @@
+---
+import arrowRightIcon from "@phosphor-icons/core/assets/light/arrow-right-light.svg?raw";
+
+interface Props {
+  text?: string;
+  href?: string;
+  type?: "button" | "submit" | "reset";
+  variant?: "primary" | "secondary" | "outline" | "link-inline" | "scroll-link";
+  size?: "sm" | "md" | "lg";
+  disabled?: boolean;
+  class?: string;
+  target?: string;
+  rel?: string;
+  ariaLabel?: string;
+  withArrow?: boolean;
+  withDot?: boolean;
+}
+
+const {
+  text,
+  href,
+  type = "button",
+  variant = "primary",
+  size = "md",
+  disabled = false,
+  class: className = "",
+  target,
+  rel,
+  ariaLabel,
+  withArrow = false,
+  withDot = false,
+} = Astro.props;
+
+const baseStyles =
+  "group inline-flex items-center justify-center w-fit transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lift-orange rounded-sm select-none cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed";
+
+const variants = {
+  primary:
+    "bg-lift-orange-dark hover:bg-lift-orange active:bg-[#b03814] text-white hover:text-white hover:scale-[1.02] active:scale-[0.98] motion-reduce:hover:scale-100 motion-reduce:active:scale-100 font-sans font-semibold rounded-md focus-visible:ring-offset-2 focus-visible:ring-offset-white shadow-sm",
+  secondary:
+    "bg-white/10 text-white hover:text-white hover:bg-white/20 border border-white/30 backdrop-blur-md hover:scale-[1.02] active:scale-[0.98] motion-reduce:hover:scale-100 motion-reduce:active:scale-100 font-sans font-semibold rounded-md focus-visible:ring-offset-2 focus-visible:ring-offset-ink shadow-sm",
+  outline:
+    "bg-transparent text-ink hover:text-ink border border-concrete/80 hover:bg-concrete/20 hover:border-concrete font-sans font-semibold rounded-md focus-visible:ring-offset-2 focus-visible:ring-offset-white",
+  "link-inline": "font-sans font-semibold uppercase tracking-wider",
+  "scroll-link": "font-sans font-medium text-xs",
+};
+
+const isInline = variant === "link-inline" || variant === "scroll-link";
+
+const sizes = {
+  sm: isInline ? "" : "px-4 py-2 text-xs sm:text-sm gap-2",
+  md: isInline ? "" : "px-6 py-3.5 text-sm gap-2.5",
+  lg: isInline ? "" : "px-8 py-4 text-sm sm:text-base gap-3",
+};
+
+const Element = href ? "a" : "button";
+const elementProps = href
+  ? { href, target, rel, "aria-label": ariaLabel }
+  : { type, disabled, "aria-label": ariaLabel };
+---
+
+<Element {...elementProps} class:list={[baseStyles, variants[variant], isInline ? "" : sizes[size], className]}>
+  {
+    withDot && (
+      <span class="h-1.5 w-1.5 shrink-0 rounded-full bg-lift-orange transition-transform duration-200 group-hover:scale-125 motion-reduce:transform-none motion-reduce:group-hover:scale-100" />
+    )
+  }
+  <slot name="icon-left" />
+  <slot name="icon" />
+  {text && <span>{text}</span>}
+  <slot />
+  <slot name="icon-right" />
+  {
+    withArrow && (
+      <div
+        class="h-4 w-4 flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transform-none motion-reduce:group-hover:translate-x-0 [&>svg]:h-full [&>svg]:w-full [&>svg]:stroke-current"
+        set:html={arrowRightIcon}
+      />
+    )
+  }
+</Element>

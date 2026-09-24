@@ -1,0 +1,9 @@
+dist
+node_modules
+.astro
+.git
+pnpm-lock.yaml
+package-lock.json
+skills-lock.json
+public
+src/assets

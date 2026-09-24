@@ -1,0 +1,43 @@
+---
+import Marquee from "../components/shared/Marquee.astro";
+import Eyebrow from "../components/shared/Eyebrow.astro";
+
+const tickerItems = [
+  "RIGOR TÉCNICO",
+  "PLANIFICACIÓN ESTRATÉGICA",
+  "MATERIALES NOBLES",
+  "VALOR TEMPORAL",
+  "INGENIERÍA DE DETALLE",
+  "EFICIENCIA CONSTRUCTIVA",
+];
+---
+
+<section
+  id="manifiesto"
+  data-motion-manifesto
+  class="relative overflow-hidden bg-warm-white pb-0 pt-8 text-ink sm:pt-14 lg:pt-24 xl:pt-32 3xl:pt-40 4k:pt-48"
+  aria-labelledby="manifesto-title">
+  <div class="container-lift">
+    <div class="grid grid-cols-1 items-start gap-6 sm:gap-8 lg:grid-cols-12">
+      <div class="lg:col-span-3" data-motion-manifesto-eyebrow>
+        <Eyebrow text="Manifiesto" />
+      </div>
+
+      <div class="lg:col-span-9">
+        <blockquote
+          id="manifesto-title"
+          data-motion-manifesto-quote
+          class="text-pretty font-display text-3xl font-bold leading-[1.5] tracking-tight text-ink sm:text-balance sm:text-4xl md:text-5xl lg:text-6xl">
+          <span data-motion-manifesto-clause>“Cada estructura que levantamos</span>{" "}<span
+            data-motion-manifesto-clause>
+            es una decisión sobre la permanencia,
+          </span>{" "}<span data-motion-manifesto-clause>el rigor técnico y la calidad del habitar.”</span>
+        </blockquote>
+      </div>
+    </div>
+  </div>
+
+  <div data-motion-manifesto-marquee>
+    <Marquee items={tickerItems} />
+  </div>
+</section>

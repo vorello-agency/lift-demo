@@ -1,0 +1,90 @@
+---
+import Cat1Image from "../assets/images/services/building.webp";
+import Cat2Image from "../assets/images/services/residential.webp";
+import Cat3Image from "../assets/images/services/commercial.webp";
+import SectionHeader from "../components/shared/SectionHeader.astro";
+import ServiceCard from "../components/content/ServiceCard.astro";
+import Button from "../components/shared/Button.astro";
+
+const services = [
+  {
+    number: "01",
+    title: "Construcción Edilicia",
+    description:
+      "Planificación y ejecución integral de estructuras colectivas, corporativas e institucionales con rigor técnico y calidad espacial.",
+    scopes: ["Edificios multifamiliares", "Complejos corporativos", "Institucionales"],
+    image: Cat1Image,
+    alt: "Fotografía exterior de edificio multifamiliar contemporáneo con estructura de hormigón y cristal",
+    href: "#contact",
+  },
+  {
+    number: "02",
+    title: "Construcción Residencial",
+    description:
+      "Desarrollo de viviendas unifamiliares de alta gama concebidas con exigencia en materialidad, confort térmico y permanencia.",
+    scopes: ["Residencias de alta gama", "Casas unifamiliares", "Proyectos a medida"],
+    image: Cat2Image,
+    alt: "Fotografía de residencia unifamiliar contemporánea con líneas arquitectónicas limpias y grandes ventanales",
+    href: "#contact",
+  },
+  {
+    number: "03",
+    title: "Construcción Comercial",
+    description:
+      "Materialización de espacios corporativos, retail y desarrollos mixtos orientados a la eficiencia operativa, durabilidad e identidad del programa.",
+    scopes: ["Espacios corporativos", "Locales comerciales", "Desarrollos mixtos"],
+    image: Cat3Image,
+    alt: "Fotografía de complejo comercial moderno con acabados de precisión",
+    href: "#contact",
+  },
+];
+---
+
+<section
+  id="services"
+  class="overflow-hidden border-b border-concrete bg-subtle py-16 text-ink sm:py-24 lg:py-32"
+  aria-labelledby="services-title">
+  <div class="container-lift space-y-8 sm:space-y-16 lg:space-y-20">
+    <div data-motion-reveal>
+      <SectionHeader
+        id="services-title"
+        label="SERVICIOS"
+        title="Áreas de ejecución"
+        description="Abordamos cada escala con sensibilidad arquitectónica, control técnico y vocación de permanencia."
+        borderClass="pb-8 border-b border-concrete"
+      />
+    </div>
+
+    <div class="grid grid-cols-1 gap-8 lg:gap-12 xl:grid-cols-3 xl:gap-14" data-motion-reveal-group>
+      {
+        services.map((service) => (
+          <ServiceCard
+            title={service.title}
+            description={service.description}
+            scopes={service.scopes}
+            image={service.image}
+            alt={service.alt}
+            href={service.href}
+          />
+        ))
+      }
+    </div>
+
+    <div
+      class="mt-12 flex flex-col items-start justify-between gap-6 border-t border-concrete pt-8 sm:mt-16 sm:pt-14 lg:flex-row lg:items-center"
+      data-motion-reveal>
+      <div class="max-w-xl space-y-1.5">
+        <h3 class="font-display text-xl font-bold tracking-tight text-ink sm:text-2xl">
+          ¿Querés evaluar la viabilidad de un proyecto?
+        </h3>
+        <p class="max-w-md font-sans text-sm font-normal leading-relaxed text-charcoal sm:text-base">
+          Analizamos especificaciones técnicas, requerimientos logísticos y programas de desarrollo.
+        </p>
+      </div>
+
+      <Button href="#contact" variant="primary" size="md" class="shrink-0" withArrow={true}>
+        Consultar viabilidad de obra
+      </Button>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,35 @@
+---
+interface Props {
+  text: string;
+  size?: "xs" | "sm";
+  as?: "div" | "h2" | "h3";
+  id?: string;
+  tone?: "default" | "inverse";
+  centered?: boolean;
+  class?: string;
+}
+
+const {
+  text,
+  size = "sm",
+  as = "div",
+  id,
+  tone = "default",
+  centered = false,
+  class: className = "",
+} = Astro.props as Props;
+const Tag = as;
+---
+
+<Tag id={id} class:list={["inline-flex items-center gap-3", centered && "justify-center", className]}>
+  <span class="block h-[2px] w-8 shrink-0 bg-lift-orange" aria-hidden="true"></span>
+  <span
+    class:list={[
+      "font-sans uppercase tracking-[0.2em]",
+      tone === "inverse" ? "text-white/70" : "text-charcoal",
+      size === "sm" ? "text-sm font-bold" : "text-xs font-semibold",
+    ]}>
+    {text}
+  </span>
+  {centered && <span class="block h-[2px] w-8 shrink-0 bg-lift-orange" aria-hidden="true" />}
+</Tag>

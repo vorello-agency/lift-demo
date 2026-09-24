@@ -1,0 +1,44 @@
+/* ==========================================================================
+   COLOR TOKENS & SEMANTIC PALETTE
+   ========================================================================== */
+
+:root {
+  /* RGB Channels (Single Source of Truth for Tailwind & CSS - Space-separated for CSS Color Module 4) */
+  --color-ink-rgb: 17 18 20;
+  --color-warm-white-rgb: 243 241 236;
+  --color-concrete-rgb: 215 213 207;
+  --color-slate-rgb: 101 106 112;
+  --color-charcoal-rgb: 72 78 84;
+  --color-lift-orange-rgb: 230 95 43;
+  --color-orange-dark-rgb: 201 71 29;
+  --color-safety-amber-rgb: 242 169 0;
+  --color-subtle-rgb: 234 232 225;
+  --color-muted-rgb: 213 210 199;
+
+  /* Standard Color Tokens */
+  --color-ink: rgb(var(--color-ink-rgb));
+  --color-warm-white: rgb(var(--color-warm-white-rgb));
+  --color-concrete: rgb(var(--color-concrete-rgb));
+  --color-slate: rgb(var(--color-slate-rgb));
+  --color-charcoal: rgb(var(--color-charcoal-rgb));
+  --color-lift-orange: rgb(var(--color-lift-orange-rgb));
+  --color-orange-dark: rgb(var(--color-orange-dark-rgb));
+  --color-safety-amber: rgb(var(--color-safety-amber-rgb));
+  --color-white: #ffffff;
+
+  /* Functional Semantic Colors */
+  --color-bg-main: var(--color-warm-white);
+  --color-bg-surface: var(--color-white);
+  --color-bg-subtle: rgb(var(--color-subtle-rgb));
+  --color-bg-muted: rgb(var(--color-muted-rgb));
+  --color-text-main: var(--color-ink);
+  --color-text-muted: var(--color-charcoal);
+  --color-text-inverse: var(--color-white);
+  --color-border-subtle: #e2e0d8;
+  --color-border-medium: var(--color-concrete);
+  --color-border-strong: var(--color-ink);
+  --color-accent: var(--color-lift-orange);
+  --color-accent-hover: var(--color-orange-dark);
+  --color-accent-active: var(--color-orange-dark);
+  --color-accent-subtle: rgb(var(--color-lift-orange-rgb) / 0.08);
+}

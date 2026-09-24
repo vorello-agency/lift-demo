@@ -1,0 +1,53 @@
+---
+import Eyebrow from "../shared/Eyebrow.astro";
+import starFourIcon from "@phosphor-icons/core/assets/fill/star-four-fill.svg?raw";
+interface Props {
+  introduction: string;
+  description: string;
+}
+
+const { introduction, description } = Astro.props;
+
+const paragraphs = description.split("\n\n").filter((p) => p.trim());
+const headingId = "project-description-title";
+---
+
+<section class="bg-warm-white" aria-labelledby={headingId}>
+  <div class="container-lift project-description-container py-16 sm:py-20 lg:py-28">
+    <div class="mx-auto max-w-5xl">
+      <div data-motion-project-reveal>
+        <Eyebrow as="h2" id={headingId} text="Memoria descriptiva" size="xs" class="mb-10 sm:mb-12" />
+      </div>
+
+      <p
+        class="mb-10 whitespace-pre-line text-pretty font-display text-xl font-bold leading-snug tracking-[-0.015em] text-ink sm:mb-14 sm:text-2xl md:text-3xl"
+        data-motion-project-reveal>
+        {introduction}
+      </p>
+
+      <div class="mb-10 flex items-center gap-4 sm:mb-14" aria-hidden="true" data-motion-project-reveal>
+        <span class="h-[1px] w-12 bg-lift-orange/60"></span>
+        <span
+          class="flex h-3.5 w-3.5 shrink-0 select-none items-center justify-center text-lift-orange/80 [&>svg]:h-full [&>svg]:w-full [&>svg]:fill-current"
+          set:html={starFourIcon}
+        />
+      </div>
+
+      <div class="space-y-6 sm:space-y-8" data-motion-project-group>
+        {
+          paragraphs.map((paragraph) => (
+            <p class="max-w-[72ch] text-pretty font-serif text-base leading-[1.8] text-charcoal sm:text-lg sm:leading-[1.85]">
+              {paragraph}
+            </p>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .project-description-container {
+    padding-inline: clamp(0.75rem, 2.5vw, 1.5rem);
+  }
+</style>

@@ -1,0 +1,37 @@
+---
+import starFourIcon from "@phosphor-icons/core/assets/fill/star-four-fill.svg?raw";
+
+interface Props {
+  number: string;
+  title: string;
+  description: string;
+}
+
+const { number, title, description } = Astro.props;
+---
+
+<li
+  class="group relative flex cursor-default select-text flex-col justify-between space-y-4 border-t-2 border-concrete/60 pt-6 transition-colors duration-300 hover:border-lift-orange-dark group-active:border-lift-orange-dark">
+  <div class="space-y-3">
+    <div class="flex items-center justify-between font-mono text-xs font-semibold tracking-wider">
+      <span class="cursor-text text-lg font-bold text-lift-orange sm:text-xl">
+        {number}
+      </span>
+      <span
+        aria-hidden="true"
+        class="flex h-3.5 w-3.5 shrink-0 origin-center select-none items-center justify-center text-lift-orange transition-all duration-300 group-hover:rotate-45 group-hover:scale-105 group-hover:text-lift-orange-dark group-active:rotate-45 group-active:scale-105 group-active:text-lift-orange-dark motion-reduce:transition-none motion-reduce:group-hover:rotate-0 motion-reduce:group-hover:scale-100 motion-reduce:group-active:rotate-0 motion-reduce:group-active:scale-100 [&>svg]:h-full [&>svg]:w-full [&>svg]:fill-current"
+        set:html={starFourIcon}
+      />
+    </div>
+
+    <div class="space-y-2">
+      <h3
+        class="cursor-text font-display text-lg font-bold text-ink transition-colors duration-300 group-hover:text-lift-orange-dark group-active:text-lift-orange-dark motion-reduce:transition-none sm:text-xl">
+        {title}
+      </h3>
+      <p class="cursor-text text-pretty text-sm leading-relaxed text-charcoal sm:text-base">
+        {description}
+      </p>
+    </div>
+  </div>
+</li>

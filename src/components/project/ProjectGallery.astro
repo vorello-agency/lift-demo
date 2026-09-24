@@ -1,0 +1,186 @@
+---
+import Eyebrow from "../shared/Eyebrow.astro";
+import { Image } from "astro:assets";
+import MediaViewer, { type MediaViewerSlideItem } from "./MediaViewer.astro";
+import type { ProjectGalleryItem } from "../../data/projects";
+
+interface Props {
+  gallery: ProjectGalleryItem[];
+}
+
+const { gallery } = Astro.props;
+const hasGalleryImages = gallery.length > 0;
+const headingId = "project-gallery-title";
+
+const gallerySlides: MediaViewerSlideItem[] = gallery.map((item) => ({
+  image: item.image,
+  alt: item.alt,
+  caption: item.caption,
+}));
+
+const placeholders = [
+  { ratio: "aspect-[4/5]", label: "Fotografía vertical" },
+  { ratio: "aspect-[3/2]", label: "Vista panorámica" },
+  { ratio: "aspect-square", label: "Detalle material" },
+  { ratio: "aspect-[5/7]", label: "Espacio interior" },
+  { ratio: "aspect-[16/10]", label: "Relación con el contexto" },
+  { ratio: "aspect-[3/4]", label: "Detalle de fachada" },
+  { ratio: "aspect-[4/3]", label: "Vista general" },
+  { ratio: "aspect-[2/3]", label: "Secuencia vertical" },
+];
+---
+
+<section class="border-t border-concrete/40 bg-warm-white" aria-labelledby={headingId}>
+  <div class="container-lift pb-16 pt-32 sm:pb-20 lg:pb-28">
+    <div
+      class="mb-10 grid grid-cols-1 gap-5 border-b border-concrete/60 pb-8 sm:mb-14 sm:pb-10 lg:grid-cols-12 lg:items-end">
+      <div class="lg:col-span-5" data-motion-project-reveal>
+        <Eyebrow as="h2" id={headingId} text="Galería" size="xs" class="mb-5" />
+        <p class="font-display text-3xl font-bold leading-[1.1] tracking-[-0.02em] text-ink sm:text-4xl">
+          Ritmos, escalas y materialidad.
+        </p>
+      </div>
+
+      <div class="lg:col-span-5 lg:col-start-8" data-motion-project-reveal>
+        <p class="max-w-xl text-pretty text-sm leading-relaxed text-charcoal sm:text-base">
+          Secuencia de registros visuales conceptuales generados con IA. Recorrido de vistas generales, aproximaciones y
+          detalles desde la escala urbana hasta la experiencia interior.
+        </p>
+      </div>
+    </div>
+
+    <div class="gallery-lanes">
+      {
+        hasGalleryImages
+          ? gallery.map((item, index) => (
+              <figure class="gallery-lane-item group" data-motion-gallery-item>
+                <button
+                  type="button"
+                  class="group relative block w-full cursor-pointer overflow-hidden rounded-sm bg-concrete/20 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lift-orange"
+                  data-gallery-open={index}
+                  aria-haspopup="dialog"
+                  aria-label={`Ampliar fotografía ${index + 1} de la galería: ${item.alt}`}>
+                  <Image
+                    src={item.image}
+                    alt={item.alt}
+                    class="h-auto w-full transition-transform duration-700 ease-out group-hover:scale-[1.02] motion-reduce:transform-none motion-reduce:group-hover:scale-100"
+                    loading="lazy"
+                    widths={[480, 720, 960]}
+                    sizes="(min-width: 1024px) 32vw, (min-width: 640px) 48vw, 100vw"
+                  />
+                </button>
+                {item.caption && (
+                  <figcaption class="flex gap-3 border-t border-concrete/50 pt-3 text-xs leading-relaxed text-charcoal">
+                    <span class="mt-[0.45rem] h-px w-5 shrink-0 bg-lift-orange" aria-hidden="true" />
+                    <span>{item.caption}</span>
+                  </figcaption>
+                )}
+              </figure>
+            ))
+          : placeholders.map((placeholder) => (
+              <div class="gallery-lane-item" data-motion-gallery-item aria-hidden="true">
+                <div
+                  class:list={[
+                    "flex flex-col justify-between rounded-sm border border-dashed border-concrete bg-subtle/70 p-5 sm:p-6",
+                    placeholder.ratio,
+                  ]}>
+                  <div class="flex items-center justify-between gap-4">
+                    <span class="text-[11px] font-semibold uppercase tracking-[0.16em] text-charcoal/55">
+                      Espacio de galería
+                    </span>
+                    <span class="h-2 w-2 rounded-full bg-lift-orange/70" />
+                  </div>
+                  <span class="max-w-[18ch] font-display text-xl font-bold leading-tight text-charcoal/55 sm:text-2xl">
+                    {placeholder.label}
+                  </span>
+                </div>
+              </div>
+            ))
+      }
+    </div>
+
+    <div
+      class="mt-12 flex flex-col justify-between gap-4 border-t border-concrete/60 pt-6 sm:mt-16 sm:flex-row sm:items-center sm:pt-8"
+      data-motion-project-reveal>
+      <div class="flex items-center gap-2 font-mono text-xs text-charcoal">
+        <span class="font-semibold text-ink">
+          {String(gallery.length > 0 ? gallery.length : placeholders.length).padStart(2, "0")}
+        </span>
+        <span class="text-[11px] uppercase tracking-[0.14em] text-charcoal/70">
+          {(gallery.length > 0 ? gallery.length : placeholders.length) === 1 ? "registro visual" : "registros visuales"}
+        </span>
+      </div>
+
+      <p class="max-w-xl text-xs leading-relaxed text-charcoal/75 sm:text-right">
+        Imágenes de carácter conceptual generadas con IA con fines demostrativos.
+      </p>
+    </div>
+  </div>
+
+  <MediaViewer id="gallery-viewer" triggerAttribute="data-gallery-open" sectionTitle="Galería" slides={gallerySlides} />
+</section>
+
+<style>
+  .gallery-lanes {
+    columns: 1;
+    column-gap: 1rem;
+  }
+
+  .gallery-lane-item {
+    display: inline-grid;
+    width: 100%;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    break-inside: avoid;
+  }
+
+  @media (min-width: 640px) {
+    .gallery-lanes {
+      columns: 2;
+      column-gap: 1.25rem;
+    }
+
+    .gallery-lane-item {
+      margin-bottom: 1.25rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .gallery-lanes {
+      columns: 3;
+      column-gap: 1.5rem;
+    }
+
+    .gallery-lane-item {
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  @supports (display: grid-lanes) {
+    .gallery-lanes {
+      display: grid-lanes;
+      columns: auto;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 1rem;
+    }
+
+    .gallery-lane-item {
+      display: grid;
+      margin-bottom: 0;
+    }
+
+    @media (min-width: 640px) {
+      .gallery-lanes {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1.25rem;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .gallery-lanes {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1.5rem;
+      }
+    }
+  }
+</style>

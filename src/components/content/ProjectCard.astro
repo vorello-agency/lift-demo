@@ -1,0 +1,122 @@
+---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+import arrowUpRightIcon from "@phosphor-icons/core/assets/light/arrow-up-right-light.svg?raw";
+import starFourIcon from "@phosphor-icons/core/assets/fill/star-four-fill.svg?raw";
+
+interface Props {
+  index: string;
+  title: string;
+  subtitle: string;
+  description?: string;
+  location: string;
+  year?: string;
+  imageSrc: ImageMetadata | string;
+  imageAlt: string;
+  aspectRatioClass?: string;
+  href?: string;
+}
+
+const {
+  index,
+  title,
+  subtitle,
+  description,
+  location,
+  year,
+  imageSrc,
+  imageAlt,
+  aspectRatioClass = "aspect-[16/10]",
+  href = "#",
+} = Astro.props;
+---
+
+<article class="group relative flex w-full cursor-pointer flex-col transition-colors duration-300">
+  <div class="mb-3 flex items-center justify-between text-sm font-medium uppercase tracking-wider sm:mb-4">
+    <span aria-hidden="true" class="inline-flex items-center gap-1.5 font-mono font-semibold text-lift-orange">
+      <span
+        aria-hidden="true"
+        class="flex h-3.5 w-3.5 shrink-0 origin-center select-none items-center justify-center text-lift-orange transition-all duration-300 group-focus-within:rotate-45 group-focus-within:scale-105 group-focus-within:text-lift-orange-dark group-hover:rotate-45 group-hover:scale-105 group-hover:text-lift-orange-dark motion-reduce:transition-none motion-reduce:group-focus-within:rotate-0 motion-reduce:group-focus-within:scale-100 motion-reduce:group-hover:rotate-0 motion-reduce:group-hover:scale-100 [&>svg]:h-full [&>svg]:w-full [&>svg]:fill-current"
+        set:html={starFourIcon}
+      />
+      <span>{index}</span>
+    </span>
+    <span class="font-semibold text-charcoal">
+      {subtitle}
+    </span>
+  </div>
+
+  <div
+    data-motion-project-media
+    class={`relative w-full overflow-hidden rounded-sm bg-concrete/20 ${aspectRatioClass}`}>
+    {
+      typeof imageSrc === "string" ? (
+        <img
+          src={imageSrc}
+          alt={imageAlt}
+          loading="lazy"
+          decoding="async"
+          class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.035] motion-reduce:transform-none motion-reduce:group-hover:scale-100"
+        />
+      ) : (
+        <Image
+          src={imageSrc}
+          alt={imageAlt}
+          loading="lazy"
+          decoding="async"
+          class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.035] motion-reduce:transform-none motion-reduce:group-hover:scale-100"
+        />
+      )
+    }
+    <div
+      class="pointer-events-none absolute inset-0 bg-ink/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-active:opacity-100"
+      aria-hidden="true">
+    </div>
+  </div>
+
+  <div class="mt-4 flex flex-col space-y-3 sm:mt-6">
+    <div class="flex flex-col justify-between gap-1 sm:flex-row sm:items-baseline sm:gap-4">
+      <h3
+        class="font-display text-xl font-bold leading-snug text-ink transition-colors duration-300 group-focus-within:text-lift-orange-dark group-hover:text-lift-orange-dark group-active:text-lift-orange-dark sm:text-2xl">
+        {title}
+      </h3>
+
+      <div class="relative z-20 flex shrink-0 cursor-text items-center gap-2 text-sm font-medium text-charcoal">
+        <span>{location}</span>
+        {
+          year && (
+            <>
+              <span class="h-1.5 w-1.5 rounded-full bg-charcoal/60" aria-hidden="true" />
+              <span>{year}</span>
+            </>
+          )
+        }
+      </div>
+    </div>
+
+    {
+      description && (
+        <p
+          id={`project-desc-${index}`}
+          class="relative z-20 cursor-text text-pretty text-sm font-normal leading-relaxed text-charcoal sm:text-base">
+          {description}
+        </p>
+      )
+    }
+
+    <div class="flex items-center justify-between pt-1">
+      <a
+        href={href}
+        class="inline-flex items-center gap-2 rounded-sm text-sm font-semibold uppercase tracking-wider text-ink transition-colors duration-300 after:absolute after:inset-0 after:z-10 after:content-[''] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lift-orange focus-visible:ring-offset-2 group-focus-within:text-lift-orange-dark group-hover:text-lift-orange-dark group-active:text-lift-orange-dark"
+        aria-label={`Ver proyecto ${title}`}
+        aria-describedby={description ? `project-desc-${index}` : undefined}>
+        <span>Ver proyecto</span>
+        <span
+          class="flex h-4 w-4 items-center justify-center text-ink transition-transform duration-300 group-focus-within:-translate-y-0.5 group-focus-within:translate-x-0.5 group-focus-within:text-lift-orange-dark group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-lift-orange-dark group-active:text-lift-orange-dark motion-reduce:transform-none motion-reduce:group-focus-within:translate-x-0 motion-reduce:group-focus-within:translate-y-0 motion-reduce:group-hover:translate-x-0 motion-reduce:group-hover:translate-y-0 [&>svg]:h-full [&>svg]:w-full [&>svg]:stroke-current"
+          aria-hidden="true"
+          set:html={arrowUpRightIcon}
+        />
+      </a>
+    </div>
+  </div>
+</article>

@@ -1,0 +1,19 @@
+/* ==========================================================================
+   LIFT CONSTRUCCIONES — GLOBAL STYLES ENTRYPOINT
+   ========================================================================== */
+
+/* 1. Design Tokens */
+@import "./tokens/colors.css";
+@import "./tokens/typography.css";
+@import "./tokens/layout.css";
+
+/* 2. Base Normalization & Resets */
+@import "./base/reset.css";
+@import "./base/typography.css";
+@import "./base/forms.css";
+
+/* 3. Layout & Global Utilities */
+@import "./utilities/layout.css";
+
+/* 4. Motion & Accessibility Overrides */
+@import "./motion/transitions.css";

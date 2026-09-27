@@ -13,6 +13,10 @@
   --font-weight-semibold: 600;
   --font-weight-bold: 700;
 
+  --tracking-display: 0.015em;
+  --tracking-display-large: 0.005em;
+  --tracking-label: 0.14em;
+
   --leading-none: 1;
   --leading-tight: 1.15;
   --leading-snug: 1.3;

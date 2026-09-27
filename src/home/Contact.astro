@@ -52,13 +52,12 @@ const scaleOptions = [
 
           <div class="relative z-10 mt-auto space-y-3 pt-16 sm:space-y-4">
             <p
-              class="text-balance font-display text-2xl font-bold leading-[1.2] tracking-tight text-white sm:text-3xl lg:text-2xl xl:text-3xl">
+              class="text-balance font-display text-2xl font-bold leading-[1.2] text-white sm:text-3xl lg:text-2xl xl:text-3xl">
               Cada obra empieza con una evaluación clara.
             </p>
 
             <p class="text-pretty font-sans text-sm font-normal leading-relaxed text-concrete/90 sm:text-base">
-              De la planificación inicial a la estructura construida. Analizamos la logística, materiales y viabilidad
-              de cada desarrollo.
+              Revisamos el sitio, el programa y las condiciones de obra para definir qué conviene resolver primero.
             </p>
           </div>
         </div>
@@ -71,11 +70,11 @@ const scaleOptions = [
 
             <h2
               id="contact-title"
-              class="mt-3 font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl xl:text-5xl">
-              Hablemos de tu próximo proyecto.
+              class="mt-3 font-display text-3xl font-bold leading-[1.1] text-ink sm:text-4xl xl:text-5xl">
+              Contanos qué querés construir.
             </h2>
             <p class="mt-2.5 text-balance font-sans text-sm leading-relaxed text-charcoal sm:text-base">
-              Datos preliminares para la evaluación técnica, logística y planificación de obra.
+              Con algunos datos iniciales podemos entender el alcance y preparar una primera conversación.
             </p>
           </div>
 
@@ -85,22 +84,22 @@ const scaleOptions = [
                 id="contact-name"
                 name="name"
                 type="text"
-                label="Nombre o Firma"
+                label="Nombre o empresa"
                 required={true}
-                placeholder="Ej. Arq. John Doe"
+                placeholder="Ej. Ana Pérez"
                 errorId="name-error"
-                errorMessage="Ingresa tu nombre o razón social."
+                errorMessage="Ingresá tu nombre o el de tu empresa."
               />
 
               <InputField
                 id="contact-email"
                 name="email"
                 type="email"
-                label="Correo institucional"
+                label="Correo electrónico"
                 required={true}
-                placeholder="Ej. contacto@mail.com"
+                placeholder="Ej. ana@ejemplo.com"
                 errorId="email-error"
-                errorMessage="Ingresa un correo institucional válido."
+                errorMessage="Ingresá un correo electrónico válido."
               />
             </div>
 
@@ -112,7 +111,7 @@ const scaleOptions = [
               containerId="project-type-pills"
               options={projectTypeOptions}
               errorId="type-error"
-              errorMessage="Selecciona una tipología de obra."
+              errorMessage="Seleccioná una tipología de obra."
             />
 
             <PillSelectField
@@ -127,17 +126,19 @@ const scaleOptions = [
             <TextAreaField
               id="contact-message"
               name="message"
-              label="Memoria descriptiva o alcance del encargo"
+              label="Contanos sobre el proyecto"
               rows={4}
               required={true}
-              placeholder="Ej. Ubicación del terreno, superficie estimada, plazos y requerimientos del proyecto..."
+              placeholder="Ubicación, superficie aproximada, estado actual y cualquier condicionante que debamos conocer."
               errorId="message-error"
-              errorMessage="Ingresa la memoria descriptiva de tu consulta."
+              errorMessage="Contanos brevemente qué querés construir."
             />
 
             <div class="flex flex-col flex-wrap items-start justify-between gap-4 pt-2 md:flex-row md:items-center">
-              <Button text="Solicitar evaluación" type="submit" />
-              <span class="font-sans text-xs font-medium text-charcoal/85">Demostración interactiva de interfaz</span>
+              <Button text="Enviar consulta" type="submit" />
+              <span class="font-sans text-xs font-medium text-charcoal/85">
+                Formulario demostrativo: no envía datos
+              </span>
             </div>
 
             <div
@@ -146,11 +147,10 @@ const scaleOptions = [
               role="alert">
               <p class="flex items-center gap-2 font-semibold text-ink">
                 <span class="h-2 w-2 rounded-full bg-lift-orange"></span>
-                Consulta demostrativa enviada correctamente
+                Datos verificados
               </p>
               <p class="font-sans text-charcoal">
-                Los formularios e interacciones en este sitio corresponden a demostraciones de interfaz sin
-                almacenamiento de datos comerciales.
+                Esta es una demostración de interfaz. Los datos no fueron enviados ni almacenados.
               </p>
             </div>
           </form>

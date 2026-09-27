@@ -39,22 +39,22 @@ const navGroups = [
 const typologies = [
   {
     code: "01",
-    name: "Edilicia",
-    scope: "Estructuras multifamiliares y corporativas",
+    name: "Edilicio",
+    scope: "Torres residenciales y complejos corporativos",
   },
   {
     code: "02",
     name: "Residencial",
-    scope: "Viviendas unifamiliares de alta gama",
+    scope: "Viviendas unifamiliares y proyectos a medida",
   },
   {
     code: "03",
     name: "Comercial",
-    scope: "Espacios de trabajo y desarrollos retail",
+    scope: "Espacios de trabajo y desarrollos comerciales",
   },
   {
     code: "04",
-    name: "Uso Mixto",
+    name: "Uso mixto",
     scope: "Programas integrados de escala urbana",
   },
 ];
@@ -90,8 +90,7 @@ const typologies = [
               "max-w-sm text-pretty font-sans text-sm leading-relaxed",
               isDark ? "text-concrete/80" : "text-charcoal",
             ]}>
-            Lift desarrolla proyectos residenciales, comerciales y de uso mixto con una mirada contemporánea y una
-            ejecución precisa.
+            De la primera decisión a la obra terminada, cada etapa responde a una misma dirección.
           </p>
         </div>
 
@@ -126,7 +125,7 @@ const typologies = [
               "group inline-flex w-fit items-center gap-1.5 font-sans text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lift-orange",
               isDark ? "text-concrete/80 hover:text-lift-orange" : "text-charcoal hover:text-lift-orange-dark",
             ]}>
-            <span>Explorar portfolio del estudio</span>
+            <span>Ver portfolio de Vorello</span>
             <span
               aria-hidden="true"
               class="text-[11px] leading-none transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5">
@@ -254,35 +253,15 @@ const typologies = [
 
       <div
         class:list={[
-          "grid grid-cols-1 gap-x-8 gap-y-3 text-xs font-normal leading-relaxed md:grid-cols-2",
+          "mx-auto flex max-w-4xl flex-col items-center text-center text-xs font-normal leading-normal",
           isDark ? "text-concrete/70" : "text-charcoal",
         ]}>
-        <div class="flex items-start gap-2.5">
-          <span
-            class:list={[
-              "flex-shrink-0 font-mono text-[11px] font-semibold",
-              isDark ? "text-white/50" : "text-charcoal",
-            ]}>
-            01.
-          </span>
-          <p class="text-pretty">
-            Lift Construcciones es un proyecto conceptual diseñado y desarrollado con fines demostrativos para el
-            portfolio de Vorello Agency.
-          </p>
-        </div>
-        <div class="flex items-start gap-2.5">
-          <span
-            class:list={[
-              "flex-shrink-0 font-mono text-[11px] font-semibold",
-              isDark ? "text-white/50" : "text-charcoal",
-            ]}>
-            02.
-          </span>
-          <p class="text-pretty">
-            Las obras arquitectónicas y fotografías exhibidas pertenecen a sus respectivos estudios y autores.
-            Demostración técnica sin captura comercial de datos.
-          </p>
-        </div>
+        <p class="mb-0 text-pretty">
+          Proyecto conceptual diseñado y desarrollado con fines demostrativos para el portfolio de Vorello Agency.
+        </p>
+        <p class="text-pretty">
+          Los proyectos, planos y visualizaciones son ficticios. El formulario no envía ni almacena datos.
+        </p>
       </div>
     </div>
   </div>

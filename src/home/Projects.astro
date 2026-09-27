@@ -28,9 +28,9 @@ const deferredHeroImages = await Promise.all(
       <SectionHeader
         id="projects-title"
         label="PROYECTOS"
-        title="Obras destacadas"
-        description="Proyectos de distintas escalas y programas resueltos con el mismo estándar de detalle constructivo y gestión unificada"
+        title="El lugar define la forma"
         borderClass="pb-6 border-b border-concrete/60"
+        description="Torres, viviendas y conjuntos costeros donde la estructura, el clima y el uso orientan cada decisión."
       />
     </div>
 
@@ -43,7 +43,7 @@ const deferredHeroImages = await Promise.all(
               title={project.name}
               subtitle={project.subtitle}
               description={project.introduction}
-              location={project.location}
+              area={project.area}
               year={String(project.year)}
               imageSrc={project.cardImage}
               imageAlt={project.heroImageAlt}

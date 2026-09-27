@@ -15,5 +15,12 @@
 /* Display Typography Utility */
 .font-display {
   font-family: var(--font-display);
-  letter-spacing: -0.02em;
+  font-kerning: normal;
+  font-optical-sizing: auto;
+  font-feature-settings:
+    "liga" 0,
+    "clig" 0;
+  font-variant-ligatures: none;
+  letter-spacing: var(--tracking-display);
+  text-rendering: optimizeLegibility;
 }

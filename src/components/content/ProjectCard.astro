@@ -9,7 +9,7 @@ interface Props {
   title: string;
   subtitle: string;
   description?: string;
-  location: string;
+  area: string;
   year?: string;
   imageSrc: ImageMetadata | string;
   imageAlt: string;
@@ -22,7 +22,7 @@ const {
   title,
   subtitle,
   description,
-  location,
+  area,
   year,
   imageSrc,
   imageAlt,
@@ -82,15 +82,9 @@ const {
       </h3>
 
       <div class="relative z-20 flex shrink-0 cursor-text items-center gap-2 text-sm font-medium text-charcoal">
-        <span>{location}</span>
-        {
-          year && (
-            <>
-              <span class="h-1.5 w-1.5 rounded-full bg-charcoal/60" aria-hidden="true" />
-              <span>{year}</span>
-            </>
-          )
-        }
+        {year && <span>{year}</span>}
+        {year && area && <span class="h-1.5 w-1.5 rounded-full bg-charcoal/60" aria-hidden="true" />}
+        {area && <span>{area}</span>}
       </div>
     </div>
 

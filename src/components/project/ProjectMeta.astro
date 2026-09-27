@@ -4,16 +4,16 @@ interface Props {
   year: number;
   category: string;
   area: string;
-  status: string;
+  materiality: string;
 }
 
-const { year, category, area, status } = Astro.props;
+const { year, category, area, materiality } = Astro.props;
 
 const metaFields = [
   { label: "Año", value: String(year) },
   { label: "Tipología", value: category },
   { label: "Superficie", value: area },
-  { label: "Estado", value: status },
+  { label: "Materialidad", value: materiality },
 ];
 const headingId = "project-meta-title";
 ---

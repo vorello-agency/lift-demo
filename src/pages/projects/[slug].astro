@@ -39,20 +39,22 @@ const pageDescription = project.introduction;
   ogType="article">
   <ProjectHero
     name={project.name}
-    category={project.category}
-    location={project.location}
-    year={project.year}
+    subtitle={project.subtitle}
     heroImage={project.heroImage}
     heroImageAlt={project.heroImageAlt}
   />
 
-  <ProjectMeta year={project.year} category={project.category} area={project.area} status={project.status} />
+  <ProjectMeta year={project.year} category={project.category} area={project.area} materiality={project.materiality} />
 
   <ProjectDescription introduction={project.introduction} description={project.description} />
 
   <ProjectTechnicalMemory projectName={project.name} technicalMemory={project.technicalMemory} />
 
-  <ProjectGallery gallery={project.gallery} />
+  <ProjectGallery
+    gallery={project.gallery}
+    headline={project.galleryHeadline}
+    description={project.galleryDescription}
+  />
 
   <ProjectNavigation prev={prev} next={next} />
 

@@ -6,9 +6,11 @@ import type { ProjectGalleryItem } from "../../data/projects";
 
 interface Props {
   gallery: ProjectGalleryItem[];
+  headline: string;
+  description: string;
 }
 
-const { gallery } = Astro.props;
+const { gallery, headline, description } = Astro.props;
 const hasGalleryImages = gallery.length > 0;
 const headingId = "project-gallery-title";
 
@@ -36,15 +38,14 @@ const placeholders = [
       class="mb-10 grid grid-cols-1 gap-5 border-b border-concrete/60 pb-8 sm:mb-14 sm:pb-10 lg:grid-cols-12 lg:items-end">
       <div class="lg:col-span-5" data-motion-project-reveal>
         <Eyebrow as="h2" id={headingId} text="Galería" size="xs" class="mb-5" />
-        <p class="font-display text-3xl font-bold leading-[1.1] tracking-[-0.02em] text-ink sm:text-4xl">
-          Ritmos, escalas y materialidad.
+        <p class="text-pretty font-display text-3xl font-bold leading-[1.1] text-ink sm:text-4xl">
+          {headline}
         </p>
       </div>
 
       <div class="lg:col-span-5 lg:col-start-8" data-motion-project-reveal>
         <p class="max-w-xl text-pretty text-sm leading-relaxed text-charcoal sm:text-base">
-          Secuencia de registros visuales conceptuales generados con IA. Recorrido de vistas generales, aproximaciones y
-          detalles desde la escala urbana hasta la experiencia interior.
+          {description}
         </p>
       </div>
     </div>
@@ -112,7 +113,7 @@ const placeholders = [
       </div>
 
       <p class="max-w-xl text-xs leading-relaxed text-charcoal/75 sm:text-right">
-        Imágenes de carácter conceptual generadas con IA con fines demostrativos.
+        Visualizaciones conceptuales generadas con IA.
       </p>
     </div>
   </div>

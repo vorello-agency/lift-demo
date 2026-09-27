@@ -6,14 +6,12 @@ import Eyebrow from "../shared/Eyebrow.astro";
 
 interface Props {
   name: string;
-  category: string;
-  location: string;
-  year: number;
+  subtitle: string;
   heroImage: ImageMetadata;
   heroImageAlt: string;
 }
 
-const { name, category, location, year, heroImage, heroImageAlt } = Astro.props;
+const { name, subtitle, heroImage, heroImageAlt } = Astro.props;
 ---
 
 <section id="hero" class="relative min-h-[85dvh] w-full overflow-hidden bg-ink text-white lg:min-h-[100dvh]">
@@ -70,23 +68,17 @@ const { name, category, location, year, heroImage, heroImageAlt } = Astro.props;
 
     <div class="container-lift mt-auto pt-12">
       <div class="project-hero-fade-in max-w-4xl space-y-4 sm:space-y-6">
-        <Eyebrow text={category} size="xs" tone="inverse" />
+        <Eyebrow text={subtitle} size="xs" tone="inverse" />
 
         <h1
-          class="font-display text-4xl font-bold leading-[1.05] tracking-[-0.03em] text-white sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl">
+          class="font-display text-4xl font-bold leading-[1.05] tracking-[var(--tracking-display-large)] text-white sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl">
           {name}
         </h1>
-
-        <div class="flex items-center gap-3 font-sans text-sm font-medium text-white/70 sm:text-base">
-          <span>{location}</span>
-          <span class="h-1.5 w-1.5 rounded-full bg-white/40" aria-hidden="true"></span>
-          <span>{year}</span>
-        </div>
 
         <div class="pt-2 sm:pt-1">
           <span
             class="inline-block select-none rounded border border-lift-orange/30 bg-lift-orange/5 px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest text-lift-orange">
-            Proyecto de demostración
+            Proyecto conceptual
           </span>
         </div>
       </div>

@@ -86,6 +86,7 @@ export interface ProjectTechnicalHighlight {
 }
 
 export interface ProjectTechnicalMemory {
+  headline: string;
   introduction: string;
   statusLabel?: string;
   renders?: ProjectTechnicalDocument[];
@@ -99,12 +100,13 @@ export interface Project {
   index: string;
   category: string;
   subtitle: string;
-  location: string;
   year: number;
   area: string;
-  status: string;
+  materiality: string;
   introduction: string;
   description: string;
+  galleryHeadline: string;
+  galleryDescription: string;
   technicalMemory: ProjectTechnicalMemory;
   cardImage: ImageMetadata;
   heroImage: ImageMetadata;
@@ -121,24 +123,26 @@ export const projects: Project[] = [
     index: "01",
     category: "Uso mixto",
     subtitle: "Torre de uso mixto",
-    location: "Contexto urbano ficticio",
     year: 2023,
-    area: "48.600 m² estimados",
-    status: "Proyecto conceptual",
+    area: "48.600 m²",
+    materiality: "Piedra, metal y vidrio",
     introduction:
-      "Torre conceptual de uso mixto organizada como tres cuerpos prismáticos desplazados. Las terrazas elevadas, el basamento público y los marcos diagonales construyen una transición visible entre arquitectura, paisaje y ciudad.",
+      "Tres volúmenes se desplazan en altura y dejan entre ellos terrazas abiertas. Los marcos diagonales absorben esas transiciones y convierten la estructura en una parte visible de la torre.",
     description:
-      "La propuesta parte de una silueta vertical fragmentada en tres volúmenes de proporciones equivalentes. Sus desplazamientos evitan una lectura monolítica y generan niveles intermedios abiertos, reconocibles desde la escala urbana.\n\nUn basamento pétreo prolonga el edificio hacia la plaza y concentra los accesos públicos. Sobre él, la fachada mantiene una modulación vertical continua mientras los marcos diagonales señalan las transiciones entre cuerpos y acompañan las terrazas ajardinadas.\n\nEl proyecto se presenta como una exploración visual y arquitectónica ficticia. Las imágenes describen una dirección conceptual, no una obra construida ni documentación apta para ejecución.",
+      "Trama 46 se divide en tres cuerpos de proporciones similares. Al desplazarse, cada uno libera una plataforma exterior y evita que la torre se perciba como una pieza compacta desde la calle.\n\nLos cambios de volumen coinciden con niveles de transferencia. Allí, los marcos diagonales redistribuyen las cargas, despejan las terrazas y expresan en la fachada el trabajo de la estructura.\n\nEn planta baja, el basamento se retira del borde y concentra los accesos bajo una cubierta continua. La plaza resultante conecta la llegada peatonal con los usos públicos y da a la torre una escala cercana antes de que empiece su desarrollo vertical.",
+    galleryHeadline: "Una torre que cambia por niveles.",
+    galleryDescription:
+      "El recorrido muestra cómo los desplazamientos modifican la silueta, abren terrazas y hacen visible la estructura desde la calle hasta los espacios interiores.",
     technicalMemory: {
+      headline: "La estructura explica el desplazamiento.",
       introduction:
-        "Tres cuerpos desplazados organizan la torre. Los niveles de transferencia liberan terrazas elevadas y conectan la estructura con el basamento público.",
+        "Los desplazamientos de la torre coinciden con niveles estructurales de transferencia. Ese sistema libera terrazas, ordena la modulación de la fachada y conduce las cargas hasta el basamento.",
       statusLabel: "Documentación conceptual",
       renders: [
         {
           type: "Implantación",
           title: "Torre, plaza y conexiones urbanas",
-          caption:
-            "La torre se retira del borde para liberar una plaza continua y ordenar los accesos desde la ciudad.",
+          caption: "El retiro del basamento amplía la llegada peatonal y reúne los accesos bajo una misma cubierta.",
           image: tramaAerial,
           alt: "Vista aérea de la implantación conceptual de Trama 46, con la torre, sus accesos y el espacio público circundante",
         },
@@ -146,15 +150,14 @@ export const projects: Project[] = [
           type: "Terraza elevada",
           title: "Paisaje entre volúmenes",
           caption:
-            "Las plataformas ajardinadas crean espacios de estancia entre los cuerpos y acompañan los niveles de transferencia.",
+            "Cada desplazamiento deja una plataforma protegida por el volumen superior y abierta hacia la ciudad.",
           image: tramaSkyTerrace,
           alt: "Terraza elevada de Trama 46 con vegetación, áreas de estancia y estructura diagonal visible",
         },
         {
           type: "Escala urbana",
           title: "Torre y paisaje vial",
-          caption:
-            "El basamento sostiene la escala peatonal mientras la torre construye una presencia reconocible sobre la avenida.",
+          caption: "La plaza y el basamento reciben al peatón antes de que la torre adquiera escala sobre la avenida.",
           image: tramaStreet,
           alt: "Visualización conceptual de Trama 46 desde una avenida arbolada con peatones y tránsito urbano",
         },
@@ -162,7 +165,7 @@ export const projects: Project[] = [
           type: "Transición estructural",
           title: "Estructura y paisaje",
           caption:
-            "Los marcos diagonales liberan las terrazas intermedias y hacen visible el encuentro entre los cuerpos.",
+            "Los marcos diagonales trasladan las cargas entre cuerpos y mantienen libres las terrazas intermedias.",
           image: tramaTransferLevelDetail,
           alt: "Detalle exterior de Trama 46 con marcos diagonales, fachada modular y vegetación en un nivel de transferencia",
         },
@@ -171,21 +174,22 @@ export const projects: Project[] = [
         {
           type: "Implantación",
           title: "Torre, plaza y conexiones urbanas",
-          caption: "Huella, accesos y recorridos se organizan alrededor del basamento público.",
+          caption: "La huella concentra servicios y accesos para dejar libre el frente principal de la parcela.",
           image: tramaTechnicalImplantation,
           alt: "Plano de implantación conceptual de Trama 46 con la torre, la plaza, los accesos y el contexto urbano inmediato",
         },
         {
           type: "Sistema volumétrico",
           title: "Apilamiento y terrazas",
-          caption: "Los tres cuerpos se desplazan y se apoyan sobre niveles estructurales de transferencia.",
+          caption: "La axonometría separa los tres cuerpos y muestra dónde cambian los apoyos de la torre.",
           image: tramaTechnicalAxonometric,
           alt: "Axonometría conceptual de Trama 46 con el basamento, los tres volúmenes apilados y las terrazas intermedias",
         },
         {
           type: "Sección estructural",
           title: "Niveles de transferencia",
-          caption: "Núcleo, plantas y marcos diagonales trabajan como un sistema continuo en altura.",
+          caption:
+            "El núcleo mantiene la continuidad vertical mientras los marcos redistribuyen las cargas en cada desplazamiento.",
           image: tramaTechnicalSection,
           alt: "Sección longitudinal conceptual de Trama 46 con el núcleo, las plantas y los niveles de transferencia estructural",
         },
@@ -194,17 +198,20 @@ export const projects: Project[] = [
         {
           label: "Volumetría",
           title: "Apilamiento legible",
-          description: "Tres cuerpos desplazados construyen una silueta reconocible sin perder continuidad vertical.",
+          description:
+            "Cada cuerpo conserva su proporción y se separa del siguiente mediante una terraza reconocible desde la calle.",
         },
         {
           label: "Transición",
           title: "Estructura expresada",
-          description: "Los marcos diagonales hacen visibles los niveles de encuentro entre los volúmenes.",
+          description:
+            "Los elementos que resuelven el cambio de apoyos quedan expuestos en los niveles de transferencia.",
         },
         {
           label: "Paisaje",
           title: "Terrazas elevadas",
-          description: "La vegetación acompaña las plataformas intermedias y extiende el proyecto hacia la plaza.",
+          description:
+            "Las plataformas incorporan sombra, vegetación y espacios de pausa en distintos niveles de la torre.",
         },
       ],
     },
@@ -216,67 +223,67 @@ export const projects: Project[] = [
       {
         image: tramaHero,
         alt: "Visualización conceptual de Trama 46, una torre de tres volúmenes desplazados sobre un basamento público",
-        caption: "Vista general de la torre, sus terrazas intermedias y el basamento público.",
+        caption: "Los tres cuerpos se leen como una secuencia vertical apoyada sobre el basamento.",
       },
       {
         image: tramaAerial,
         alt: "Vista aérea oblicua de Trama 46 y su plaza dentro de un contexto urbano ficticio",
-        caption: "Implantación urbana, basamento público y secuencia de terrazas elevadas.",
+        caption: "El retiro de la torre libera una plaza continua sobre el frente de la parcela.",
       },
       {
         image: tramaTopView,
         alt: "Vista cenital de Trama 46, sus cubiertas, terrazas y espacio público perimetral",
-        caption: "Superposición de huellas y relación del edificio con la parcela.",
+        caption: "Las distintas huellas muestran cómo cada volumen gira y se desplaza respecto del anterior.",
       },
       {
         image: tramaStreet,
         alt: "Vista de Trama 46 desde una avenida arbolada con peatones y tránsito urbano",
-        caption: "La torre desde la escala cotidiana de la calle.",
+        caption: "Desde la avenida, el basamento reduce la escala del conjunto y protege el acceso.",
       },
       {
         image: tramaTransferLevelDetail,
         alt: "Detalle exterior de Trama 46 con marcos diagonales, fachada modular y vegetación en un nivel de transferencia",
-        caption: "Fachada modular, marcos diagonales y paisaje en el nivel de transferencia.",
+        caption: "El cambio de apoyos aparece en fachada y enmarca una de las terrazas intermedias.",
       },
       {
         image: tramaSkyTerrace,
         alt: "Terraza intermedia de Trama 46 con vegetación, áreas de descanso y marcos estructurales diagonales",
-        caption: "Escala humana, paisaje elevado y estructura en los niveles de transición.",
+        caption: "La terraza ocupa el espesor libre entre dos cuerpos y conserva la estructura a la vista.",
       },
       {
         image: tramaLobby,
-        alt: "Lobby conceptual de Trama 46 con piedra clara, vidrio y carpinterías metálicas",
-        caption: "Continuidad material entre el basamento, el acceso y el paisaje exterior.",
+        alt: "Vestíbulo de Trama 46 con piedra clara, vidrio y carpinterías metálicas",
+        caption: "Piedra, metal y vidrio acompañan el paso desde la plaza hacia el vestíbulo.",
       },
       {
         image: tramaPlazaApproach,
         alt: "Aproximación frontal a Trama 46 desde una plaza pública con peatones, arbolado y áreas de estancia",
-        caption: "Llegada peatonal, basamento público y relación frontal con la plaza.",
+        caption: "La cubierta del basamento se proyecta sobre la llegada y marca el ingreso principal.",
       },
       {
         image: tramaSharedSpaceTerrace,
         alt: "Espacio interior común de Trama 46 conectado con una terraza elevada y enmarcado por la estructura diagonal",
-        caption: "Interior de uso común, estructura visible y continuidad con la terraza elevada.",
+        caption: "El espacio común se abre por completo hacia una terraza atravesada por el marco diagonal.",
       },
       {
         image: tramaOffice,
         alt: "Interior de una planta de oficinas de Trama 46 con fachada acristalada y vistas hacia la ciudad",
-        caption: "Espacio de trabajo, luz natural y continuidad con la modulación exterior.",
+        caption: "La modulación de fachada ordena las plantas de trabajo y distribuye la entrada de luz.",
       },
       {
         image: tramaFacade,
         alt: "Detalle vertical de la fachada, la estructura diagonal y una terraza de Trama 46",
-        caption: "Modulación de fachada, estructura visible y vegetación intermedia.",
+        caption: "La fachada cambia de profundidad al encontrarse con la estructura y las plataformas plantadas.",
       },
       {
         image: tramaTerraceView,
         alt: "Vista distante de Trama 46 desde una terraza urbana ajardinada",
-        caption: "Presencia de la torre dentro del perfil urbano.",
+        caption: "Los desplazamientos recortan una silueta distinta según el punto de observación.",
       },
       {
         image: tramaBlueHour,
         alt: "Vista exterior de Trama 46 durante la hora azul con las terrazas y el basamento iluminados",
-        caption: "La torre y su actividad pública al anochecer dentro del perfil urbano.",
+        caption: "Al anochecer, la iluminación revela los vacíos entre cuerpos y la actividad del basamento.",
       },
     ],
     aspectRatioClass: "aspect-[4/3]",
@@ -286,26 +293,29 @@ export const projects: Project[] = [
     slug: "estrato-38",
     name: "Estrato 38",
     index: "02",
-    category: "Edificio de oficinas",
+    category: "Edilicio",
     subtitle: "Torre de oficinas",
-    location: "Contexto urbano ficticio",
     year: 2024,
-    area: "31.800 m² estimados",
-    status: "Proyecto conceptual",
+    area: "31.800 m²",
+    materiality: "Piedra, aluminio y vidrio",
     introduction:
-      "Torre conceptual de oficinas definida por una envolvente curva y tres jardines elevados. El basamento pétreo, la fachada modulada y los vacíos abiertos construyen una transición gradual entre espacio de trabajo, paisaje y ciudad.",
+      "Estrato 38 cambia con el punto de vista. La fachada se curva al ascender y tres jardines abiertos interrumpen la altura para llevar luz, vegetación y espacios exteriores a las plantas de trabajo.",
     description:
-      "Estrato 38 se plantea como una torre de volumen continuo cuya silueta se curva suavemente a medida que asciende. La ligera inflexión de la fachada evita una presencia rígida y permite que el edificio cambie de expresión según el punto de vista.\n\nTres vacíos ajardinados interrumpen la envolvente acristalada y forman estratos reconocibles dentro de la composición vertical. Estos niveles introducen profundidad, vegetación y espacios exteriores vinculados con las plantas de oficinas, sin fragmentar la continuidad general de la torre.\n\nEn la base, un volumen pétreo se retrae para proteger el acceso y extender el edificio hacia una plaza arbolada. La propuesta se presenta como una exploración arquitectónica ficticia sobre altura, paisaje integrado y espacios de trabajo conectados con el exterior.",
+      "La planta se afina y gira de manera gradual a medida que la torre asciende. Esa variación evita una silueta frontal única: desde la plaza se percibe compacta; desde los laterales, la curvatura gana profundidad.\n\nTres vacíos ocupan plantas completas y forman jardines protegidos dentro de la envolvente. Además de dividir visualmente la altura, ofrecen espacios exteriores vinculados con oficinas, salas de reunión y áreas comunes.\n\nEl basamento se retrae bajo la torre para cubrir el acceso y ampliar la plaza arbolada. La piedra continúa desde el exterior hasta el vestíbulo, mientras el vidrio mantiene la conexión visual con el espacio público.",
+    galleryHeadline: "La altura interrumpida por jardines.",
+    galleryDescription:
+      "Las vistas recorren la torre desde la plaza hasta los niveles abiertos y muestran cómo la curvatura transforma el perímetro de trabajo.",
     technicalMemory: {
+      headline: "Curvar la planta sin perder el orden.",
       introduction:
-        "La documentación conceptual recorre la relación entre la curvatura de la torre, los jardines elevados, la modulación de la envolvente y el basamento abierto hacia la plaza.",
+        "La geometría de la planta cambia de forma gradual sin alterar el núcleo central. Los jardines ocupan niveles completos y el basamento absorbe el encuentro entre torre, acceso y plaza.",
       statusLabel: "Documentación conceptual",
       renders: [
         {
           type: "Implantación",
           title: "Torre, plaza y contexto urbano",
           caption:
-            "La torre se ubica sobre un basamento retraído que ordena los accesos y libera una plaza pública arbolada.",
+            "El basamento se retrae para cubrir la llegada y dejar una franja arbolada continua frente al edificio.",
           image: estratoAerial,
           alt: "Vista aérea oblicua de Estrato 38, su basamento pétreo, la plaza pública y el contexto urbano ficticio",
         },
@@ -313,7 +323,7 @@ export const projects: Project[] = [
           type: "Jardines elevados",
           title: "Paisaje entre plantas",
           caption:
-            "Los vacíos abiertos incorporan vegetación y espacios exteriores dentro de la continuidad vertical del edificio.",
+            "Cada vacío ocupa un nivel completo y ofrece un espacio exterior conectado con las oficinas contiguas.",
           image: estratoLandscapedVoid,
           alt: "Jardín elevado de Estrato 38 integrado en la fachada curva de vidrio y aluminio",
         },
@@ -321,37 +331,40 @@ export const projects: Project[] = [
           type: "Escala urbana",
           title: "Curvatura y perfil de la torre",
           caption:
-            "La silueta cambia gradualmente según el punto de vista y construye una presencia reconocible en el paisaje urbano.",
+            "La variación de la planta modifica el perfil de la torre a medida que el observador recorre la plaza.",
           image: estratoUrbanProfile,
           alt: "Vista urbana nocturna de Estrato 38 desde una plaza arbolada, con la torre iluminada y edificios vecinos",
         },
         {
           type: "Basamento",
           title: "Acceso y transición pública",
-          caption: "Piedra, vidrio y vegetación articulan el encuentro entre el vestíbulo, la plaza y la torre.",
+          caption:
+            "La piedra continúa desde la plaza hasta el vestíbulo y el vidrio mantiene visible el espacio exterior.",
           image: estratoLobbyInterior,
-          alt: "Lobby interior de Estrato 38 con piedra clara, recepción curva y fachada acristalada hacia la plaza",
+          alt: "Vestíbulo de Estrato 38 con piedra clara, recepción curva y fachada acristalada hacia la plaza",
         },
       ],
       documents: [
         {
           type: "Implantación",
           title: "Huella, accesos y plaza",
-          caption: "Relación conceptual entre el basamento, los recorridos peatonales y el paisaje perimetral.",
+          caption:
+            "La planta concentra los servicios hacia el fondo y libera el frente para los recorridos peatonales.",
           image: estratoTechnicalImplantation,
           alt: "Plano cenital conceptual de implantación de Estrato 38 con torre curva, plaza arbolada, recorridos y espejos de agua",
         },
         {
           type: "Planta tipo",
           title: "Núcleo, oficinas y envolvente",
-          caption: "Organización conceptual de las plantas dentro de una geometría curva continua.",
+          caption: "El núcleo permanece estable mientras el perímetro curvo organiza oficinas y salas de reunión.",
           image: estratoTechnicalTypicalFloor,
           alt: "Planta tipo conceptual de Estrato 38 con núcleo central, oficinas abiertas, salas de reunión y jardín elevado",
         },
         {
           type: "Sección longitudinal",
           title: "Torre y jardines elevados",
-          caption: "Relación vertical entre el basamento, las plantas de oficinas y los tres niveles abiertos.",
+          caption:
+            "La sección ubica los tres jardines como pausas de altura completa dentro de la secuencia de oficinas.",
           image: estratoTechnicalSection,
           alt: "Sección longitudinal conceptual de Estrato 38 con basamento, núcleo central, oficinas y tres jardines elevados",
         },
@@ -361,17 +374,19 @@ export const projects: Project[] = [
           label: "Volumetría",
           title: "Curvatura continua",
           description:
-            "Una inflexión gradual modifica la percepción de la torre sin dividirla en cuerpos independientes.",
+            "La planta varía alrededor de un núcleo estable y ofrece un perfil distinto desde cada borde de la plaza.",
         },
         {
           label: "Paisaje",
           title: "Estratos elevados",
-          description: "Tres vacíos ajardinados introducen profundidad y espacios exteriores dentro de la envolvente.",
+          description:
+            "Tres niveles abiertos interrumpen la altura y acercan aire, sombra y vegetación a los espacios de trabajo.",
         },
         {
           label: "Planta baja",
           title: "Umbral público",
-          description: "El basamento retraído protege el acceso y prolonga la plaza hacia el interior del edificio.",
+          description:
+            "El retiro de la planta baja protege la llegada y permite que la plaza alcance el frente del vestíbulo.",
         },
       ],
     },
@@ -383,61 +398,58 @@ export const projects: Project[] = [
       {
         image: estratoHero,
         alt: "Visualización conceptual de Estrato 38, una torre curva de oficinas con tres jardines elevados sobre un basamento pétreo",
-        caption: "Vista general de la torre, su envolvente curva y los jardines elevados sobre el basamento.",
+        caption: "La curvatura y los tres vacíos abiertos dividen la altura sin fragmentar la torre.",
       },
       {
         image: estratoCard,
         alt: "Vista vertical de Estrato 38 desde la plaza pública, con el basamento pétreo y la torre curva",
-        caption: "La escala peatonal del basamento introduce la presencia vertical de la torre.",
+        caption: "El basamento pétreo forma un primer plano bajo antes del desarrollo vertical.",
       },
       {
         image: estratoAerial,
         alt: "Vista aérea oblicua de Estrato 38, su basamento pétreo, la plaza pública y el contexto urbano ficticio",
-        caption: "La torre, la plaza y el paisaje urbano se organizan como una única secuencia de acceso.",
+        caption: "La plaza rodea el basamento y concentra las llegadas desde las calles vecinas.",
       },
       {
         image: estratoLandscapedVoid,
         alt: "Jardín elevado de Estrato 38 integrado en la fachada curva de vidrio y aluminio",
-        caption: "Un nivel exterior de trabajo y contemplación ocupa el vacío abierto de la envolvente.",
+        caption: "El jardín elevado combina espacios de reunión, descanso y trabajo al aire libre.",
       },
       {
         image: estratoLobbyInterior,
-        alt: "Lobby interior de Estrato 38 con piedra clara, recepción curva y fachada acristalada hacia la plaza",
-        caption: "El vestíbulo prolonga la curva de la torre en un umbral público de piedra, madera y vidrio.",
+        alt: "Vestíbulo de Estrato 38 con piedra clara, recepción curva y fachada acristalada hacia la plaza",
+        caption: "La recepción curva acompaña el recorrido desde la plaza hacia el núcleo de ascensores.",
       },
       {
         image: estratoUrbanProfile,
         alt: "Vista urbana nocturna de Estrato 38 desde una plaza arbolada, con la torre iluminada y edificios vecinos",
-        caption:
-          "Al anochecer, la torre establece una escala reconocible dentro de la plaza y el tejido urbano circundante.",
+        caption: "Al anochecer, los jardines aparecen como cortes luminosos dentro de la envolvente continua.",
       },
       {
         image: estratoOfficeInterior,
         alt: "Planta de oficinas de Estrato 38 junto a la fachada curva acristalada, con puestos de trabajo y salas de reunión",
         caption:
-          "La planta de oficinas se organiza junto a la envolvente curva y mantiene una relación constante con la ciudad.",
+          "Los puestos de trabajo siguen el perímetro curvo y reservan el núcleo para circulaciones y servicios.",
       },
       {
         image: estratoPlazaApproach,
         alt: "Aproximación peatonal al acceso de Estrato 38 desde una plaza arbolada junto al basamento pétreo",
-        caption: "La llegada peatonal revela el basamento curvo como un umbral entre la plaza, el lobby y la torre.",
+        caption: "La marquesina acompaña el recorrido peatonal desde la plaza hasta el vestíbulo.",
       },
       {
         image: estratoFacadeDetail,
         alt: "Detalle material de Estrato 38 con basamento pétreo curvo, vidrio azul grisáceo y montantes verticales de aluminio",
-        caption: "La envolvente combina piedra, vidrio y aluminio en una curvatura continua de escala precisa.",
+        caption: "Montantes verticales y paños de vidrio absorben la variación gradual de la curva.",
       },
       {
         image: estratoSharedSpace,
         alt: "Espacio común elevado de Estrato 38 con lounge, biblioteca y jardín interior junto a la fachada curva",
-        caption:
-          "Los espacios comunes vinculan el trabajo informal, la vegetación y las vistas a través de la envolvente curva.",
+        caption: "El espacio común ocupa el borde de uno de los jardines y puede abrirse hacia la vegetación.",
       },
       {
         image: estratoVerticalCirculation,
         alt: "Circulación vertical de Estrato 38 con escalera escultórica, ascensores, piedra clara y fachada acristalada",
-        caption:
-          "La circulación vertical convierte el núcleo en un espacio luminoso y continuo entre los niveles de oficinas.",
+        caption: "La escalera recibe luz desde la fachada y conecta las áreas comunes de plantas consecutivas.",
       },
     ],
     aspectRatioClass: "aspect-[4/5]",
@@ -447,26 +459,29 @@ export const projects: Project[] = [
     slug: "cota-21",
     name: "Cota 21",
     index: "03",
-    category: "Residencial unifamiliar",
-    subtitle: "Mansión en ladera",
-    location: "Contexto costero ficticio",
+    category: "Residencial",
+    subtitle: "Residencia en ladera",
     year: 2025,
-    area: "1.180 m² estimados",
-    status: "Proyecto conceptual",
+    area: "1.180 m²",
+    materiality: "Piedra, hormigón y vidrio",
     introduction:
-      "Residencia unifamiliar implantada sobre una ladera mediterránea. Cota 21 articula volúmenes escalonados, muros de piedra y plataformas exteriores para construir una relación precisa entre vivienda, roca y horizonte.",
+      "La casa comienza arriba y desciende con la pendiente. Muros de piedra contienen el terreno; patios y plataformas enlazan los distintos niveles hasta abrir las áreas sociales hacia el mar.",
     description:
-      "Cota 21 se organiza mediante una secuencia compacta de piezas habitables que siguen la pendiente y se abren hacia el paisaje costero. La arquitectura alterna muros de piedra local, losas de hormigón cálido y paños acristalados protegidos por aleros profundos.\n\nEl acceso se produce desde la cota alta y desciende hacia un sistema de patios, terrazas y espacios de estancia vinculados con el terreno. Las áreas sociales se prolongan hacia una piscina lateral y hacia plataformas exteriores que preservan la lectura rocosa de la parcela.\n\nLa propuesta explora una residencia contemporánea de carácter tectónico: una arquitectura precisa, contenida y arraigada en la ladera, donde cada nivel responde a una cota distinta del paisaje.",
+      "El acceso se produce desde la cota más alta, entre dos muros de piedra. Desde allí, la casa baja por tramos breves y alterna espacios cerrados con patios que dejan entrar luz hasta el centro de la planta.\n\nLas losas de hormigón siguen las curvas del terreno y reducen la altura visible desde el camino. Hacia el mar, aleros profundos protegen los paños de vidrio y permiten que estar, comedor y cocina se abran sin perder sombra.\n\nLa piscina ocupa una plataforma lateral, no el frente completo de la vivienda. De ese modo, la roca y la vegetación continúan visibles entre las terrazas y conservan la pendiente como parte de la experiencia de la casa.",
+    galleryHeadline: "Descender desde la roca hasta el mar.",
+    galleryDescription:
+      "El recorrido sigue la llegada desde la cota alta, atraviesa patios y estancias y termina en las plataformas abiertas hacia la costa.",
     technicalMemory: {
+      headline: "Construir siguiendo la pendiente.",
       introduction:
-        "La documentación conceptual de Cota 21 recorre la implantación en ladera, el sistema de plataformas, la relación entre piedra y hormigón y la secuencia de acceso desde la cota alta.",
+        "La casa se apoya en una serie de plataformas paralelas a las curvas de nivel. Los muros contienen la tierra, las losas conectan las cotas y los patios llevan luz al interior del conjunto.",
       statusLabel: "Documentación conceptual",
       renders: [
         {
           type: "Implantación en ladera",
           title: "Casa, roca y horizonte",
           caption:
-            "La residencia se apoya sobre la pendiente mediante plataformas que reducen el movimiento de tierra y preservan la topografía.",
+            "Las plataformas siguen la pendiente para concentrar las excavaciones y mantener visible la roca entre los volúmenes.",
           image: cotaAerial,
           alt: "Vista aérea oblicua de Cota 21 implantada en una ladera costera rocosa, con plataformas, piscina y recorridos de acceso",
         },
@@ -474,7 +489,7 @@ export const projects: Project[] = [
           type: "Volumetría escalonada",
           title: "Piezas habitables entre muros",
           caption:
-            "Los volúmenes se desplazan siguiendo las cotas y construyen patios, umbrales y terrazas protegidas.",
+            "Muros paralelos a las curvas de nivel contienen el terreno y separan patios, habitaciones y terrazas.",
           image: cotaExteriorNight,
           alt: "Vista nocturna de Cota 21 con volúmenes escalonados, terrazas iluminadas, piscina y muros de piedra sobre la ladera",
         },
@@ -482,7 +497,7 @@ export const projects: Project[] = [
           type: "Relación con el paisaje",
           title: "Terrazas hacia el horizonte",
           caption:
-            "Los espacios exteriores prolongan las áreas sociales sin borrar la presencia de la roca y la vegetación mediterránea.",
+            "La terraza ocupa una franja acotada frente al estar y deja que la pendiente reaparezca a ambos lados.",
           image: cotaUpperTerrace,
           alt: "Terraza superior de Cota 21 extendida hacia el paisaje costero, con pérgola de madera, vegetación mediterránea y vistas al mar",
         },
@@ -490,7 +505,7 @@ export const projects: Project[] = [
           type: "Acceso y umbral",
           title: "Descenso desde la cota alta",
           caption:
-            "El recorrido de llegada atraviesa muros de piedra, patios y cambios de nivel antes de alcanzar las áreas de estancia.",
+            "La entrada no revela la casa completa: una secuencia de muros y escalones conduce desde el camino hasta el estar.",
           image: cotaEntryAccess,
           alt: "Acceso de Cota 21 entre muros de piedra y vegetación mediterránea, con puerta de madera y apertura hacia el mar",
         },
@@ -500,14 +515,15 @@ export const projects: Project[] = [
           type: "Implantación",
           title: "Emplazamiento topográfico y accesos",
           caption:
-            "Huella construida, curvas de nivel, recorridos de llegada y plataformas exteriores de la residencia.",
+            "La planta superpone la huella construida con las curvas de nivel y distingue los recorridos peatonal y vehicular.",
           image: cotaTechnicalImplantation,
           alt: "Plano cenital conceptual de implantación de Cota 21 sobre una ladera rocosa junto al mar, con plataformas, piscina y recorridos",
         },
         {
           type: "Sistema volumétrico",
           title: "Plataformas, patios y muros",
-          caption: "Despiece conceptual de los volúmenes habitables, los muros de piedra y los planos horizontales.",
+          caption:
+            "El despiece muestra cómo muros, losas y patios forman unidades habitables sin separar la casa del terreno.",
           image: cotaTechnicalAxonometric,
           alt: "Axonometría explotada conceptual de Cota 21 con plataformas, patios, muros de piedra, piscina y cubiertas",
         },
@@ -515,7 +531,7 @@ export const projects: Project[] = [
           type: "Sección longitudinal",
           title: "Casa escalonada en la pendiente",
           caption:
-            "Relación vertical entre la cota de acceso, los espacios sociales, los dormitorios y el paisaje costero.",
+            "La sección sigue el descenso desde el acceso hasta los espacios sociales y la plataforma de la piscina.",
           image: cotaTechnicalSection,
           alt: "Sección longitudinal conceptual de Cota 21 con volúmenes escalonados, muros de piedra, piscina y ladera costera",
         },
@@ -525,19 +541,19 @@ export const projects: Project[] = [
           label: "Implantación",
           title: "Arquitectura por cotas",
           description:
-            "Cada volumen responde a una altura distinta del terreno para reducir el impacto y conservar la lectura de la ladera.",
+            "Cada nivel se apoya cerca de su cota natural para reducir excavaciones y evitar un frente continuo sobre la ladera.",
         },
         {
           label: "Tectónica",
           title: "Piedra, hormigón y vidrio",
           description:
-            "La materialidad combina muros arraigados al terreno con planos horizontales cálidos y aperturas precisas hacia el paisaje.",
+            "La piedra contiene, el hormigón salva los desniveles y el vidrio se concentra en las orientaciones protegidas por aleros.",
         },
         {
           label: "Paisaje",
           title: "Terrazas habitables",
           description:
-            "Patios, plataformas y piscina lateral extienden la vivienda hacia el horizonte sin convertir el paisaje en un fondo decorativo.",
+            "Los espacios exteriores aparecen entre los volúmenes y mantienen la roca, la sombra y la vegetación dentro del recorrido.",
         },
       ],
     },
@@ -549,78 +565,79 @@ export const projects: Project[] = [
       {
         image: cotaHero,
         alt: "Residencia conceptual Cota 21, compuesta por volúmenes escalonados de piedra, hormigón y vidrio sobre una ladera costera",
-        caption: "Vista general de la residencia y su relación escalonada con la ladera mediterránea.",
+        caption: "Desde el mar, las losas aparecen como líneas horizontales apoyadas entre los muros de piedra.",
       },
       {
         image: cotaCard,
         alt: "Vista vertical de Cota 21 desde la ladera, con muros de piedra, patios y espacios acristalados",
-        caption: "Muros, patios y terrazas construyen una secuencia de umbrales entre la casa y el paisaje.",
+        caption: "Los patios separan las piezas habitables y permiten que la pendiente atraviese visualmente la casa.",
       },
       {
         image: cotaAerial,
         alt: "Vista aérea oblicua de Cota 21 implantada en una ladera costera rocosa, con plataformas, piscina y recorridos de acceso",
-        caption: "La implantación revela cómo la vivienda se adapta a las distintas cotas del terreno.",
+        caption:
+          "La vista aérea muestra el acceso superior, las cubiertas y la piscina sobre plataformas independientes.",
       },
       {
         image: cotaPoolTerrace,
         alt: "Terraza principal de Cota 21 con piscina lateral, solárium de piedra, muros de contención y vistas al mar",
         caption:
-          "La piscina lateral prolonga las áreas sociales hacia el paisaje sin ocultar la materialidad de la ladera.",
+          "La piscina se desplaza hacia un lateral para conservar roca y vegetación frente a los espacios sociales.",
       },
       {
         image: cotaLivingInterior,
         alt: "Estar principal de Cota 21 en doble altura con escalera, cocina, piedra, hormigón y vistas hacia el paisaje costero",
-        caption: "La doble altura conecta los niveles de la vivienda y prolonga el estar hacia la terraza exterior.",
+        caption: "La doble altura reúne dos cotas interiores y lleva luz hasta la escalera central.",
       },
       {
         image: cotaInteriorLounge,
         alt: "Sala de estar de Cota 21 con muro de piedra, hormigón visto, biblioteca y apertura hacia el mar",
-        caption: "Piedra, hormigón y madera construyen una atmósfera interior continua con la ladera.",
+        caption: "El muro de piedra entra en el estar y conserva el mismo aparejo que las contenciones exteriores.",
       },
       {
         image: cotaKitchenDining,
         alt: "Cocina y comedor de Cota 21 con isla de piedra, mobiliario de madera, muro de piedra y vistas al mar",
-        caption: "La cocina y el comedor prolongan la materialidad de la casa hacia el paisaje costero.",
+        caption: "Cocina y comedor comparten una franja abierta, protegida por el alero de hormigón.",
       },
       {
         image: cotaBedroomInterior,
         alt: "Dormitorio principal de Cota 21 con muro de piedra, cama de madera, vidrio y vistas hacia la ladera y el mar",
-        caption: "El dormitorio retoma la piedra, la madera y la apertura controlada hacia el paisaje.",
+        caption: "Una abertura baja y profunda encuadra el mar sin exponer por completo el dormitorio.",
       },
       {
         image: cotaEntryAccess,
         alt: "Acceso principal de Cota 21 entre muros de piedra, vegetación mediterránea y una puerta de madera con vistas al mar",
-        caption: "El acceso construye una llegada contenida entre piedra, vegetación y horizonte.",
+        caption: "El acceso desciende entre dos muros y solo abre la vista al mar al llegar al primer patio.",
       },
       {
         image: cotaStairInterior,
         alt: "Escalera interior de Cota 21 con peldaños de madera, muro de piedra, hormigón, vidrio y vista hacia la ladera costera",
-        caption: "La escalera articula las cotas interiores y conduce la luz hacia el corazón de la casa.",
+        caption: "La escalera ocupa el vacío central y distribuye la luz entre los niveles habitables.",
       },
       {
         image: cotaLuxuryBathroom,
         alt: "Baño principal de Cota 21 con bañera exenta, lavabo de piedra, muros de piedra y vistas al mar",
-        caption: "El baño prolonga la materialidad de la residencia hacia una atmósfera de retiro frente al paisaje.",
+        caption: "El baño se abre hacia un paño protegido y mantiene la piedra como superficie principal.",
       },
       {
         image: cotaUpperTerrace,
         alt: "Terraza superior de Cota 21 con pérgola de madera, mobiliario exterior, vegetación mediterránea y vistas al mar",
-        caption: "La terraza superior funciona como una plataforma habitable abierta al horizonte costero.",
+        caption: "La terraza superior se apoya sobre el volumen de dormitorios y recibe sombra de una pérgola ligera.",
       },
       {
         image: cotaCourtyardPatio,
         alt: "Patio interior de Cota 21 con olivo central, muros de piedra, hormigón y apertura hacia el mar",
-        caption: "El patio interior introduce luz, vegetación y una pausa de sombra en la secuencia de la vivienda.",
+        caption: "El patio separa dos tramos de la casa y lleva luz a los corredores situados contra el terreno.",
       },
       {
         image: cotaStudyLibrary,
         alt: "Estudio-biblioteca de Cota 21 con estantería de madera, muro de piedra, escritorio de hormigón y vistas al mar",
-        caption: "El estudio reúne la materialidad de la casa en un espacio de concentración orientado al paisaje.",
+        caption: "El estudio ocupa una pieza contenida y orienta su única abertura amplia hacia la costa.",
       },
       {
         image: cotaExteriorNight,
         alt: "Vista nocturna de Cota 21 iluminada sobre una ladera costera, con volúmenes escalonados, piscina y muros de piedra",
-        caption: "Al anochecer, la luz interior revela la secuencia escalonada de la residencia sobre la ladera.",
+        caption: "La iluminación nocturna permite leer cada nivel sin borrar la oscuridad natural de la ladera.",
       },
     ],
     aspectRatioClass: "aspect-[4/5]",
@@ -630,69 +647,75 @@ export const projects: Project[] = [
     slug: "litoral-14",
     name: "Litoral 14",
     index: "04",
-    category: "Residencial multifamiliar",
+    category: "Edilicio",
     subtitle: "Residencias frente al mar",
-    location: "Contexto costero ficticio",
     year: 2022,
-    area: "12.400 m² estimados",
-    status: "Proyecto conceptual",
+    area: "12.400 m²",
+    materiality: "Piedra, madera y vidrio",
     introduction:
-      "Edificio residencial costero que articula viviendas, terrazas profundas y vacíos ajardinados sobre un basamento abierto al paseo marítimo.",
+      "Balcones profundos, celosías y vacíos ajardinados filtran la luz antes de que llegue a las viviendas. En planta baja, el edificio se retira para ampliar el recorrido público junto al mar.",
     description:
-      "Litoral 14 se plantea como una pieza residencial vinculada a una plaza pública y al recorrido costero. El basamento retranqueado amplía el espacio peatonal y concentra los accesos y las áreas comunes bajo una estructura abierta y permeable.\n\nLa envolvente combina marcos de piedra clara, balcones continuos y celosías metálicas modernas. Los retranqueos introducen terrazas ajardinadas de distinta escala y construyen una transición gradual entre la intimidad de las viviendas y el paisaje marítimo.\n\nEn los niveles residenciales, los espacios interiores se prolongan hacia balcones profundos orientados a las visuales. La propuesta se presenta como una exploración conceptual sobre densidad, sombra, vegetación y vida costera.",
+      "Litoral 14 ocupa una parcela entre la avenida y el paseo marítimo. La planta baja se retrae para ensanchar el paso peatonal y ubica el vestíbulo y las áreas comunes detrás de una franja cubierta.\n\nEn los niveles residenciales, marcos de piedra, balcones continuos y celosías forman una fachada profunda. Esas capas regulan el sol, protegen la privacidad y permiten abrir los interiores sin dejarlos expuestos al borde costero.\n\nDos grandes retranqueos interrumpen el volumen y reúnen terrazas compartidas con vegetación. Son espacios comunes protegidos del viento que también llevan luz hacia el centro de las plantas.",
+    galleryHeadline: "Sombra, privacidad y vida exterior.",
+    galleryDescription:
+      "Las imágenes recorren el edificio desde el paseo hasta las viviendas y revelan el espesor que forman balcones, celosías y terrazas comunes.",
     technicalMemory: {
+      headline: "Dar profundidad al borde costero.",
       introduction:
-        "La documentación técnica recorre la implantación costera, la organización de las viviendas y la relación entre basamento, terrazas y vacíos ajardinados.",
+        "La planta baja libera el frente costero y concentra los servicios hacia la avenida. En altura, balcones y celosías regulan la exposición mientras los vacíos incorporan espacios comunes.",
       statusLabel: "Documentación conceptual",
       renders: [
         {
           type: "Implantación costera",
           title: "Edificio, plaza y paseo marítimo",
-          caption: "La volumetría se integra en una parcela abierta entre la avenida y el frente costero.",
+          caption: "El retiro de la planta baja amplía el paseo y deja una plaza protegida frente al acceso.",
           image: litoralAerial,
           alt: "Vista aérea conceptual de Litoral 14, su plaza pública y el paseo marítimo",
         },
         {
           type: "Vacíos ajardinados",
           title: "Terrazas dentro de la envolvente",
-          caption: "Los retranqueos incorporan vegetación y espacios comunes entre los niveles residenciales.",
+          caption: "Los retranqueos ocupan varias plantas y forman espacios comunes resguardados del viento costero.",
           image: litoralLandscapedVoid,
           alt: "Vista vertical de los vacíos ajardinados y las terrazas de Litoral 14",
         },
         {
           type: "Terrazas habitables",
           title: "Extensión exterior de las viviendas",
-          caption: "Los balcones profundos vinculan los interiores con las visuales hacia el mar.",
+          caption:
+            "Los balcones sombrean los cerramientos y permiten usar el exterior durante distintas horas del día.",
           image: litoralSeaTerrace,
           alt: "Terraza residencial ajardinada de Litoral 14 orientada hacia el mar",
         },
         {
           type: "Basamento público",
-          title: "Continuidad entre lobby y plaza",
-          caption: "La planta baja mantiene una relación visual directa con el espacio público costero.",
+          title: "Continuidad entre vestíbulo y plaza",
+          caption:
+            "El cerramiento transparente mantiene visible el paseo y acompaña la entrada hacia las áreas comunes.",
           image: litoralLobby,
-          alt: "Lobby conceptual de Litoral 14 conectado visualmente con la plaza costera",
+          alt: "Vestíbulo de Litoral 14 conectado visualmente con la plaza costera",
         },
       ],
       documents: [
         {
           type: "Implantación",
           title: "Parcela y frente costero",
-          caption: "Huella, plaza, accesos y relación con la avenida y el paseo marítimo.",
+          caption:
+            "La huella concentra el acceso vehicular hacia la avenida y reserva el borde marítimo para peatones.",
           image: litoralTechnicalImplantation,
           alt: "Plano conceptual de implantación de Litoral 14 junto al frente costero",
         },
         {
           type: "Planta tipo",
           title: "Viviendas, núcleo y terrazas",
-          caption: "Organización residencial en torno al núcleo y los vacíos ajardinados.",
+          caption: "Las viviendas rodean el núcleo y abren sus áreas sociales hacia balcones de distinta profundidad.",
           image: litoralTechnicalTypicalFloor,
           alt: "Planta residencial tipo conceptual de Litoral 14",
         },
         {
           type: "Sección longitudinal",
           title: "Basamento, viviendas y costa",
-          caption: "Relación vertical entre el espacio público, los niveles residenciales y las terrazas.",
+          caption: "La sección muestra el paseo bajo el basamento, los balcones y los vacíos comunes en altura.",
           image: litoralTechnicalSection,
           alt: "Sección longitudinal conceptual de Litoral 14 y su relación con el frente costero",
         },
@@ -701,17 +724,20 @@ export const projects: Project[] = [
         {
           label: "Volumetría",
           title: "Vacíos habitables",
-          description: "Los retranqueos interrumpen la masa del edificio e incorporan terrazas y vegetación en altura.",
+          description:
+            "Los retranqueos reducen la profundidad de algunas plantas y convierten ese espacio en terrazas comunes protegidas.",
         },
         {
           label: "Envolvente",
           title: "Profundidad y sombra",
-          description: "Balcones, marcos pétreos y celosías construyen una fachada profunda y graduada.",
+          description:
+            "Balcones, marcos y celosías forman capas que controlan el sol y la exposición de cada vivienda.",
         },
         {
           label: "Planta baja",
           title: "Continuidad pública",
-          description: "El basamento abierto conecta el lobby y las áreas comunes con la plaza y el paseo costero.",
+          description:
+            "La planta baja se retira para que la plaza, el vestíbulo y el paseo compartan una franja cubierta.",
         },
       ],
     },
@@ -723,57 +749,57 @@ export const projects: Project[] = [
       {
         image: litoralHero,
         alt: "Vista general de Litoral 14 desde la plaza pública junto al paseo costero",
-        caption: "La torre residencial y su basamento abierto frente al espacio público costero.",
+        caption: "El volumen residencial se eleva sobre una planta baja abierta hacia el paseo.",
       },
       {
         image: litoralCard,
         alt: "Vista vertical de Litoral 14 y sus terrazas escalonadas desde la plaza",
-        caption: "Marcos pétreos, celosías oscuras y vegetación definen la envolvente.",
+        caption: "Marcos, balcones y celosías superponen distintos grados de sombra y privacidad.",
       },
       {
         image: litoralPlazaAccess,
         alt: "Aproximación peatonal al basamento de Litoral 14 desde la plaza ajardinada",
-        caption: "Acceso, áreas comunes y paisaje se integran en la planta baja.",
+        caption: "La plaza conduce al vestíbulo bajo una cubierta continua junto al paseo.",
       },
       {
         image: litoralLandscapedVoid,
         alt: "Vacío ajardinado entre los balcones y celosías verticales de Litoral 14",
-        caption: "Los retranqueos incorporan terrazas compartidas dentro del volumen residencial.",
+        caption: "Una terraza compartida ocupa el vacío y lleva vegetación hacia el centro del edificio.",
       },
       {
         image: litoralAerial,
         alt: "Vista aérea de Litoral 14 entre la avenida, la plaza y el paseo marítimo",
-        caption: "Implantación del edificio y continuidad del sistema de espacios públicos.",
+        caption: "La vista aérea distingue la avenida de servicio, la plaza y el borde peatonal costero.",
       },
       {
         image: litoralBlueHour,
         alt: "Vista exterior de Litoral 14 iluminado durante la hora azul",
-        caption: "La actividad interior y del basamento acompaña el paseo costero al anochecer.",
+        caption: "Al anochecer, la planta baja mantiene iluminado el recorrido entre la plaza y el paseo.",
       },
       {
         image: litoralSeaTerrace,
         alt: "Terraza residencial de Litoral 14 con vegetación y vistas hacia el mar",
-        caption: "Un espacio exterior protegido prolonga la vivienda hacia el paisaje costero.",
+        caption: "El balcón queda contenido entre losas y celosías para reducir la exposición al sol y al viento.",
       },
       {
         image: litoralLobby,
-        alt: "Interior del lobby de Litoral 14 abierto visualmente hacia la plaza y el mar",
-        caption: "Piedra clara, madera y celosías articulan el acceso principal.",
+        alt: "Interior del vestíbulo de Litoral 14 abierto visualmente hacia la plaza y el mar",
+        caption: "Piedra y madera acompañan el recorrido desde el acceso cubierto hasta los ascensores.",
       },
       {
         image: litoralResidenceInterior,
         alt: "Interior residencial de Litoral 14 conectado con una terraza frente al mar",
-        caption: "Continuidad entre el espacio doméstico, el balcón profundo y las visuales.",
+        caption: "El estar puede abrirse por completo al balcón sin perder la protección del alero.",
       },
       {
         image: litoralFacadeDetail,
         alt: "Detalle de los marcos pétreos, celosías oscuras y jardineras de Litoral 14",
-        caption: "La materialidad se organiza mediante capas de piedra, vidrio, metal y vegetación.",
+        caption: "El detalle muestra el encuentro entre el marco pétreo, la baranda de vidrio y la celosía móvil.",
       },
       {
         image: litoralBayView,
         alt: "Vista de Litoral 14 desde el paseo costero junto a la bahía",
-        caption: "El edificio acompaña el recorrido público entre la plaza y la línea costera.",
+        caption: "Desde la bahía, la planta baja se lee como una pausa sombreada bajo las viviendas.",
       },
     ],
     aspectRatioClass: "aspect-[4/5]",

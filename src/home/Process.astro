@@ -7,27 +7,27 @@ import ProcessCard from "../components/content/ProcessCard.astro";
 const processSteps = [
   {
     number: "01",
-    title: "Estrategia y viabilidad",
+    title: "Leer el sitio",
     description:
-      "Evaluación técnica del sitio, análisis de factibilidad y normativas urbanas para tomar decisiones sólidas desde el inicio.",
+      "Relevamos el terreno, la normativa, los accesos y los riesgos que condicionan el proyecto antes de dibujar una respuesta.",
   },
   {
     number: "02",
-    title: "Diseño y planificación",
+    title: "Definir el proyecto",
     description:
-      "Desarrollo del anteproyecto, optimización de presupuesto, cómputo métrico y programación ejecutiva del proceso constructivo.",
+      "Traducimos el programa en espacios, sistemas y materiales; ajustamos alcance, presupuesto y secuencia de obra.",
   },
   {
     number: "03",
-    title: "Construcción y coordinación",
+    title: "Coordinar la obra",
     description:
-      "Dirección de obra en terreno, supervisión de equipos especializados y control continuo de estándares de ejecución.",
+      "Ordenamos equipos, instalaciones y suministros para resolver cada encuentro antes de que se convierta en un problema.",
   },
   {
     number: "04",
-    title: "Finalización y entrega",
+    title: "Revisar y entregar",
     description:
-      "Auditoría final de terminaciones, recepción de instalaciones y transferencia documentada de la obra lista para su uso.",
+      "Comprobamos terminaciones e instalaciones y entregamos la documentación necesaria para usar y mantener el edificio.",
   },
 ];
 ---
@@ -41,8 +41,8 @@ const processSteps = [
       <SectionHeader
         id="process-title"
         label="PROCESO"
-        title="Metodología de trabajo"
-        description="Un esquema de trabajo transparente donde cada fase tiene alcance definido, responsables claros y control documentado."
+        title="Del sitio a la entrega"
+        description="Cada etapa cierra decisiones concretas antes de abrir la siguiente. Así reducimos incertidumbre y mantenemos el proyecto legible durante la obra."
         borderClass="pb-8 border-b border-concrete/60"
       />
     </div>
@@ -66,14 +66,14 @@ const processSteps = [
         aria-hidden="true">
         <div class="pointer-events-auto max-w-[calc(100%-3.5rem)] sm:max-w-none">
           <span class="hidden cursor-text font-mono text-sm font-semibold tracking-widest text-white/95 md:block">
-            Trazabilidad · Coordinación · Calidad de ejecución
+            Sitio · Proyecto · Obra · Entrega
           </span>
           <span class="cursor-text font-mono text-sm font-semibold tracking-widest text-white/95 md:hidden">
-            · Trazabilidad
+            · Sitio
             <br />
-            · Coordinación
+            · Proyecto
             <br />
-            · Calidad de ejecución
+            · Obra y entrega
           </span>
         </div>
       </div>

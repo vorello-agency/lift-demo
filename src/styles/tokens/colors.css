@@ -1,19 +1,33 @@
 /* ==========================================================================
-   COLOR TOKENS & SEMANTIC PALETTE
+   COLOR TOKENS & ARCHITECTURAL PALETTE
    ========================================================================== */
 
 :root {
-  /* RGB Channels (Single Source of Truth for Tailwind & CSS - Space-separated for CSS Color Module 4) */
-  --color-ink-rgb: 17 18 20;
-  --color-warm-white-rgb: 243 241 236;
-  --color-concrete-rgb: 215 213 207;
-  --color-slate-rgb: 101 106 112;
-  --color-charcoal-rgb: 72 78 84;
-  --color-lift-orange-rgb: 230 95 43;
-  --color-orange-dark-rgb: 201 71 29;
-  --color-safety-amber-rgb: 242 169 0;
-  --color-subtle-rgb: 234 232 225;
-  --color-muted-rgb: 213 210 199;
+  color-scheme: light;
+
+  /* Primitive RGB Channels (Light & Shared Foundations) */
+  --color-ink-rgb: 17 18 20;              /* #111214 - Basalto profundo */
+  --color-warm-white-rgb: 243 241 236;    /* #F3F1EC - Yeso / Papel cálido */
+  --color-concrete-rgb: 215 213 207;      /* #D7D5CF - Hormigón visto claro */
+  --color-slate-rgb: 101 106 112;         /* #656A70 - Pizarra templada */
+  --color-charcoal-rgb: 72 78 84;         /* #484E54 - Carbón mineral */
+  --color-lift-orange-rgb: 230 95 43;     /* #E65F2B - Terracota / Identidad */
+  --color-orange-dark-rgb: 201 71 29;     /* #C9471D - Terracota tostada */
+  --color-safety-amber-rgb: 242 169 0;    /* #F2A900 - Ámbar de señalización */
+  --color-subtle-rgb: 234 232 225;        /* #EAE8E1 - Piedra caliza clara */
+  --color-muted-rgb: 213 210 199;         /* #D5D2C7 - Grises de mortero */
+  --color-white: #ffffff;
+
+  /* Architectural Dark Palette (System Design Additions) */
+  --color-obsidian-rgb: 13 14 16;         /* #0D0E10 - Obsidiana estructural (negro profundo cálido) */
+  --color-dark-subtle-rgb: 19 21 24;      /* #131518 - Basalto (secciones alternadas con textura mineral) */
+  --color-dark-surface-rgb: 26 29 33;     /* #1A1D21 - Pizarra (tarjetas, inputs, superficies modulares) */
+  --color-dark-elevated-rgb: 34 38 44;    /* #22262C - Pizarra elevada (hover y elementos activos) */
+  --color-dark-muted-rgb: 44 48 55;       /* #2C3037 - Hormigón ahumado */
+  --color-dark-border-rgb: 255 255 255;   /* Usado con opacidad /0.08 o /0.12 para juntas nítidas */
+  --color-chalk-rgb: 245 243 238;         /* #F5F3EE - Tiza mineral (titulares nítidos y cálidos) */
+  --color-ash-rgb: 168 171 178;           /* #A8ABB2 - Ceniza arquitectónica (párrafos legibles WCAG AA) */
+  --color-lift-orange-glow-rgb: 240 106 52; /* #F06A34 - Terracota luminosa para alto contraste */
 
   /* Standard Color Tokens */
   --color-ink: rgb(var(--color-ink-rgb));
@@ -24,21 +38,107 @@
   --color-lift-orange: rgb(var(--color-lift-orange-rgb));
   --color-orange-dark: rgb(var(--color-orange-dark-rgb));
   --color-safety-amber: rgb(var(--color-safety-amber-rgb));
-  --color-white: #ffffff;
+  --color-obsidian: rgb(var(--color-obsidian-rgb));
+  --color-dark-surface: rgb(var(--color-dark-surface-rgb));
+  --color-dark-subtle: rgb(var(--color-dark-subtle-rgb));
+  --color-dark-elevated: rgb(var(--color-dark-elevated-rgb));
+  --color-dark-muted: rgb(var(--color-dark-muted-rgb));
+  --color-dark-border: rgba(255, 255, 255, 0.08);
+  --color-chalk: rgb(var(--color-chalk-rgb));
+  --color-ash: rgb(var(--color-ash-rgb));
 
-  /* Functional Semantic Colors */
-  --color-bg-main: var(--color-warm-white);
-  --color-bg-surface: var(--color-white);
-  --color-bg-subtle: rgb(var(--color-subtle-rgb));
-  --color-bg-muted: rgb(var(--color-muted-rgb));
-  --color-text-main: var(--color-ink);
-  --color-text-muted: var(--color-charcoal);
-  --color-text-inverse: var(--color-white);
-  --color-border-subtle: #e2e0d8;
-  --color-border-medium: var(--color-concrete);
-  --color-border-strong: var(--color-ink);
+  /* Functional Semantic Colors (Light Mode Default) */
+  --color-bg-main-rgb: var(--color-warm-white-rgb);
+  --color-bg-surface-rgb: 255 255 255;
+  --color-bg-subtle-rgb: var(--color-subtle-rgb);
+  --color-bg-muted-rgb: var(--color-muted-rgb);
+  --color-text-main-rgb: var(--color-ink-rgb);
+  --color-text-muted-rgb: var(--color-charcoal-rgb);
+  --color-text-inverse-rgb: var(--color-chalk-rgb);
+  --color-border-subtle-rgb: 226 224 216;
+  --color-border-medium-rgb: var(--color-concrete-rgb);
+  --color-border-strong-rgb: var(--color-ink-rgb);
+
+  --color-bg-main: rgb(var(--color-bg-main-rgb));
+  --color-bg-surface: rgb(var(--color-bg-surface-rgb));
+  --color-bg-subtle: rgb(var(--color-bg-subtle-rgb));
+  --color-bg-muted: rgb(var(--color-bg-muted-rgb));
+  --color-text-main: rgb(var(--color-text-main-rgb));
+  --color-text-muted: rgb(var(--color-text-muted-rgb));
+  --color-text-inverse: rgb(var(--color-text-inverse-rgb));
+  --color-border-subtle: rgb(var(--color-border-subtle-rgb));
+  --color-border-medium: rgb(var(--color-border-medium-rgb));
+  --color-border-strong: rgb(var(--color-border-strong-rgb));
+
   --color-accent: var(--color-lift-orange);
   --color-accent-hover: var(--color-orange-dark);
   --color-accent-active: var(--color-orange-dark);
   --color-accent-subtle: rgb(var(--color-lift-orange-rgb) / 0.08);
+
+  --color-selection-bg: var(--color-ink);
+  --color-selection-text: var(--color-warm-white);
 }
+
+/* Dark Mode: Prefers Color Scheme OR data-theme="dark" / .dark */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-bg-main-rgb: var(--color-obsidian-rgb);
+    --color-bg-surface-rgb: var(--color-dark-surface-rgb);
+    --color-bg-subtle-rgb: var(--color-dark-subtle-rgb);
+    --color-bg-muted-rgb: var(--color-dark-muted-rgb);
+    --color-text-main-rgb: var(--color-chalk-rgb);
+    --color-text-muted-rgb: var(--color-ash-rgb);
+    --color-text-inverse-rgb: var(--color-obsidian-rgb);
+
+    --color-bg-main: rgb(var(--color-bg-main-rgb));
+    --color-bg-surface: rgb(var(--color-bg-surface-rgb));
+    --color-bg-subtle: rgb(var(--color-bg-subtle-rgb));
+    --color-bg-muted: rgb(var(--color-bg-muted-rgb));
+    --color-text-main: rgb(var(--color-text-main-rgb));
+    --color-text-muted: rgb(var(--color-text-muted-rgb));
+    --color-text-inverse: rgb(var(--color-text-inverse-rgb));
+    --color-border-subtle: rgba(255, 255, 255, 0.06);
+    --color-border-medium: rgba(255, 255, 255, 0.1);
+    --color-border-strong: rgba(255, 255, 255, 0.18);
+
+    --color-accent: rgb(var(--color-lift-orange-glow-rgb));
+    --color-accent-hover: var(--color-lift-orange);
+    --color-accent-active: var(--color-orange-dark);
+    --color-accent-subtle: rgb(var(--color-lift-orange-rgb) / 0.15);
+
+    --color-selection-bg: rgb(var(--color-lift-orange-rgb));
+    --color-selection-text: #ffffff;
+  }
+}
+
+:root[data-theme="dark"],
+:root.dark {
+  color-scheme: dark;
+  --color-bg-main-rgb: var(--color-obsidian-rgb);
+  --color-bg-surface-rgb: var(--color-dark-surface-rgb);
+  --color-bg-subtle-rgb: var(--color-dark-subtle-rgb);
+  --color-bg-muted-rgb: var(--color-dark-muted-rgb);
+  --color-text-main-rgb: var(--color-chalk-rgb);
+  --color-text-muted-rgb: var(--color-ash-rgb);
+  --color-text-inverse-rgb: var(--color-obsidian-rgb);
+
+  --color-bg-main: rgb(var(--color-bg-main-rgb));
+  --color-bg-surface: rgb(var(--color-bg-surface-rgb));
+  --color-bg-subtle: rgb(var(--color-bg-subtle-rgb));
+  --color-bg-muted: rgb(var(--color-bg-muted-rgb));
+  --color-text-main: rgb(var(--color-text-main-rgb));
+  --color-text-muted: rgb(var(--color-text-muted-rgb));
+  --color-text-inverse: rgb(var(--color-text-inverse-rgb));
+  --color-border-subtle: rgba(255, 255, 255, 0.06);
+  --color-border-medium: rgba(255, 255, 255, 0.1);
+  --color-border-strong: rgba(255, 255, 255, 0.18);
+
+  --color-accent: rgb(var(--color-lift-orange-glow-rgb));
+  --color-accent-hover: var(--color-lift-orange);
+  --color-accent-active: var(--color-orange-dark);
+  --color-accent-subtle: rgb(var(--color-lift-orange-rgb) / 0.15);
+
+  --color-selection-bg: rgb(var(--color-lift-orange-rgb));
+  --color-selection-text: #ffffff;
+}
+

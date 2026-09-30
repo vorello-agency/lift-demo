@@ -21,14 +21,16 @@
 }
 
 ::view-transition-old(root) {
-  animation: liftPageTransitionOut 460ms cubic-bezier(0.4, 0, 0.2, 1) both;
+  animation: liftPageTransitionOut 260ms cubic-bezier(0.25, 1, 0.5, 1) both;
+  mix-blend-mode: normal;
 }
 
 ::view-transition-new(root) {
-  animation: liftPageTransitionIn 460ms cubic-bezier(0.4, 0, 0.2, 1) both;
+  animation: liftPageTransitionIn 260ms cubic-bezier(0.25, 1, 0.5, 1) both;
+  mix-blend-mode: normal;
 }
 
-/* Reduced Motion Override: Preserve smooth color/opacity feedback while eliminating spatial movement */
+/* Reduced Motion Override: Preserve smooth feedback while eliminating spatial movement */
 @media (prefers-reduced-motion: reduce) {
   /* 1. Disable keyframe animations, infinite loops and spatial movements while preserving non-spatial transitions */
   *,

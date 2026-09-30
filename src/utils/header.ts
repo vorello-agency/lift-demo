@@ -115,7 +115,10 @@ export function setupHeader(): void {
     setActiveAnchor(currentAnchor);
   };
 
-  const isDarkTheme = header.getAttribute("data-theme") === "dark";
+  const getIsDarkTheme = () =>
+    header.getAttribute("data-theme") === "dark" ||
+    document.documentElement.classList.contains("dark") ||
+    window.matchMedia("(prefers-color-scheme: dark)").matches;
 
   let isScrolled = false;
 
@@ -123,6 +126,7 @@ export function setupHeader(): void {
     const heroEl = document.getElementById("hero");
     const scrollY = window.scrollY;
     const heroHeight = heroEl ? heroEl.offsetHeight - header.offsetHeight : window.innerHeight;
+    const isDarkTheme = getIsDarkTheme();
 
     const progress = Math.min(1, Math.max(0, scrollY / heroHeight));
 
@@ -218,6 +222,12 @@ export function setupHeader(): void {
     passive: true,
     signal: controller.signal,
   });
+
+  const colorSchemeQuery = window.matchMedia("(prefers-color-scheme: dark)");
+  colorSchemeQuery.addEventListener("change", handleScroll, {
+    signal: controller.signal,
+  });
+
   handleScroll();
 
   if (menuToggle && mobileMenu) {

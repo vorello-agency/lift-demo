@@ -11,7 +11,7 @@ const { number, title, description } = Astro.props;
 ---
 
 <li
-  class="group relative flex cursor-default select-text flex-col justify-between space-y-4 border-t-2 border-concrete/60 pt-6 transition-colors duration-300 hover:border-lift-orange-dark group-active:border-lift-orange-dark">
+  class="group relative flex cursor-default select-text flex-col justify-between space-y-4 border-t-2 border-concrete/60 pt-6 transition-colors duration-300 hover:border-lift-orange-dark group-active:border-lift-orange-dark dark:border-white/[0.1] dark:hover:border-lift-orange dark:group-active:border-lift-orange">
   <div class="space-y-3">
     <div class="flex items-center justify-between font-mono text-xs font-semibold tracking-wider">
       <span class="cursor-text text-lg font-bold text-lift-orange sm:text-xl">
@@ -26,10 +26,10 @@ const { number, title, description } = Astro.props;
 
     <div class="space-y-2">
       <h3
-        class="cursor-text font-display text-lg font-bold text-ink transition-colors duration-300 group-hover:text-lift-orange-dark group-active:text-lift-orange-dark motion-reduce:transition-none sm:text-xl">
+        class="cursor-text font-display text-lg font-bold text-ink transition-colors duration-300 group-hover:text-lift-orange-dark group-active:text-lift-orange-dark dark:text-chalk dark:group-hover:text-lift-orange dark:group-active:text-lift-orange motion-reduce:transition-none sm:text-xl">
         {title}
       </h3>
-      <p class="cursor-text text-pretty text-sm leading-relaxed text-charcoal sm:text-base">
+      <p class="cursor-text text-pretty text-sm leading-relaxed text-charcoal dark:text-ash sm:text-base">
         {description}
       </p>
     </div>

@@ -41,14 +41,14 @@ const {
       />
       <span>{index}</span>
     </span>
-    <span class="font-semibold text-charcoal">
+    <span class="font-semibold text-charcoal dark:text-ash">
       {subtitle}
     </span>
   </div>
 
   <div
     data-motion-project-media
-    class={`relative w-full overflow-hidden rounded-sm bg-concrete/20 ${aspectRatioClass}`}>
+    class={`relative w-full overflow-hidden rounded-sm bg-concrete/20 dark:bg-dark-surface dark:border dark:border-white/[0.08] ${aspectRatioClass}`}>
     {
       typeof imageSrc === "string" ? (
         <img
@@ -69,7 +69,7 @@ const {
       )
     }
     <div
-      class="pointer-events-none absolute inset-0 bg-ink/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-active:opacity-100"
+      class="pointer-events-none absolute inset-0 bg-ink/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-active:opacity-100 dark:bg-white/5"
       aria-hidden="true">
     </div>
   </div>
@@ -77,13 +77,13 @@ const {
   <div class="mt-4 flex flex-col space-y-3 sm:mt-6">
     <div class="flex flex-col justify-between gap-1 sm:flex-row sm:items-baseline sm:gap-4">
       <h3
-        class="font-display text-xl font-bold leading-snug text-ink transition-colors duration-300 group-focus-within:text-lift-orange-dark group-hover:text-lift-orange-dark group-active:text-lift-orange-dark sm:text-2xl">
+        class="font-display text-xl font-bold leading-snug text-ink transition-colors duration-300 group-focus-within:text-lift-orange-dark group-hover:text-lift-orange-dark group-active:text-lift-orange-dark dark:text-chalk dark:group-focus-within:text-lift-orange dark:group-hover:text-lift-orange dark:group-active:text-lift-orange sm:text-2xl">
         {title}
       </h3>
 
-      <div class="relative z-20 flex shrink-0 cursor-text items-center gap-2 text-sm font-medium text-charcoal">
+      <div class="relative z-20 flex shrink-0 cursor-text items-center gap-2 text-sm font-medium text-charcoal dark:text-ash">
         {year && <span>{year}</span>}
-        {year && area && <span class="h-1.5 w-1.5 rounded-full bg-charcoal/60" aria-hidden="true" />}
+        {year && area && <span class="h-1.5 w-1.5 rounded-full bg-charcoal/60 dark:bg-ash/60" aria-hidden="true" />}
         {area && <span>{area}</span>}
       </div>
     </div>
@@ -92,7 +92,7 @@ const {
       description && (
         <p
           id={`project-desc-${index}`}
-          class="relative z-20 cursor-text text-pretty text-sm font-normal leading-relaxed text-charcoal sm:text-base">
+          class="relative z-20 cursor-text text-pretty text-sm font-normal leading-relaxed text-charcoal dark:text-ash sm:text-base">
           {description}
         </p>
       )
@@ -101,12 +101,12 @@ const {
     <div class="flex items-center justify-between pt-1">
       <a
         href={href}
-        class="inline-flex items-center gap-2 rounded-sm text-sm font-semibold uppercase tracking-wider text-ink transition-colors duration-300 after:absolute after:inset-0 after:z-10 after:content-[''] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lift-orange focus-visible:ring-offset-2 group-focus-within:text-lift-orange-dark group-hover:text-lift-orange-dark group-active:text-lift-orange-dark"
+        class="inline-flex items-center gap-2 rounded-sm text-sm font-semibold uppercase tracking-wider text-ink transition-colors duration-300 after:absolute after:inset-0 after:z-10 after:content-[''] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lift-orange focus-visible:ring-offset-2 group-focus-within:text-lift-orange-dark group-hover:text-lift-orange-dark group-active:text-lift-orange-dark dark:text-chalk dark:group-focus-within:text-lift-orange dark:group-hover:text-lift-orange dark:group-active:text-lift-orange"
         aria-label={`Ver proyecto ${title}`}
         aria-describedby={description ? `project-desc-${index}` : undefined}>
         <span>Ver proyecto</span>
         <span
-          class="flex h-4 w-4 items-center justify-center text-ink transition-transform duration-300 group-focus-within:-translate-y-0.5 group-focus-within:translate-x-0.5 group-focus-within:text-lift-orange-dark group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-lift-orange-dark group-active:text-lift-orange-dark motion-reduce:transform-none motion-reduce:group-focus-within:translate-x-0 motion-reduce:group-focus-within:translate-y-0 motion-reduce:group-hover:translate-x-0 motion-reduce:group-hover:translate-y-0 [&>svg]:h-full [&>svg]:w-full [&>svg]:stroke-current"
+          class="flex h-4 w-4 items-center justify-center text-ink transition-transform duration-300 group-focus-within:-translate-y-0.5 group-focus-within:translate-x-0.5 group-focus-within:text-lift-orange-dark group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-lift-orange-dark group-active:text-lift-orange-dark dark:text-chalk dark:group-focus-within:text-lift-orange dark:group-hover:text-lift-orange dark:group-active:text-lift-orange motion-reduce:transform-none motion-reduce:group-focus-within:translate-x-0 motion-reduce:group-focus-within:translate-y-0 motion-reduce:group-hover:translate-x-0 motion-reduce:group-hover:translate-y-0 [&>svg]:h-full [&>svg]:w-full [&>svg]:stroke-current"
           aria-hidden="true"
           set:html={arrowUpRightIcon}
         />

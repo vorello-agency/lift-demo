@@ -1,10 +1,9 @@
 ---
-import Logo from "../../assets/svg/logos/lift-logo-dark.svg?raw";
 import LogoWhite from "../../assets/svg/logos/lift-logo-white.svg?raw";
 import VorelloLogo from "../../assets/svg/logos/vorello-logo.svg?raw";
-import VorelloLogoWhite from "../../assets/svg/logos/vorello-logo-white.svg?raw";
 import { withBasePath } from "../../utils/urls";
 import Button from "../shared/Button.astro";
+import ConceptualBadge from "../shared/ConceptualBadge.astro";
 
 interface Props {
   theme?: "light" | "dark";
@@ -64,14 +63,16 @@ const typologies = [
   data-theme={theme}
   class:list={[
     "relative z-10 pb-10 pt-16 sm:pt-20",
-    isDark ? "border-t border-white/10 bg-ink text-white" : "border-t border-concrete bg-subtle text-ink",
+    isDark
+      ? "border-t border-white/10 bg-ink text-white"
+      : "border-t border-concrete bg-subtle text-ink dark:border-white/10 dark:bg-ink dark:text-white",
   ]}
   aria-label="Pie de página">
   <div class="container-lift mx-auto px-4 sm:px-6 lg:px-8">
     <div
       class:list={[
         "grid grid-cols-1 gap-12 border-b pb-12 lg:grid-cols-12 lg:gap-16 lg:pb-16",
-        isDark ? "border-white/10" : "border-concrete",
+        isDark ? "border-white/10" : "border-concrete dark:border-white/10",
       ]}>
       <div class="relative z-10 flex flex-col gap-8 lg:col-span-5 lg:gap-0">
         <div class="flex flex-col gap-5 lg:h-[180px] lg:justify-start">
@@ -79,26 +80,30 @@ const typologies = [
             href={homeUrl}
             class:list={[
               "inline-flex w-28 items-center rounded-sm transition-opacity hover:opacity-85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lift-orange sm:w-32 [&>svg]:h-auto [&>svg]:w-full",
-              isDark ? "text-white" : "text-ink",
+              isDark ? "text-white" : "text-ink dark:text-white",
             ]}
             aria-label="Lift Construcciones - Volver al inicio">
-            <Fragment set:html={isDark ? LogoWhite : Logo} />
+            <Fragment set:html={LogoWhite} />
           </a>
 
           <p
             class:list={[
               "max-w-sm text-pretty font-sans text-sm leading-relaxed",
-              isDark ? "text-concrete/80" : "text-charcoal",
+              isDark ? "text-concrete/80" : "text-charcoal dark:text-concrete/80",
             ]}>
             De la primera decisión a la obra terminada, cada etapa responde a una misma dirección.
           </p>
         </div>
 
-        <div class:list={["flex flex-col gap-3 border-t pt-5", isDark ? "border-white/10" : "border-concrete"]}>
+        <div
+          class:list={[
+            "flex flex-col gap-3 border-t pt-5",
+            isDark ? "border-white/10" : "border-concrete dark:border-white/10",
+          ]}>
           <span
             class:list={[
               "font-sans text-[11px] font-semibold uppercase tracking-[0.18em]",
-              isDark ? "text-concrete/60" : "text-charcoal/80",
+              isDark ? "text-concrete/60" : "text-charcoal/80 dark:text-concrete/60",
             ]}>
             Diseñado y desarrollado por
           </span>
@@ -109,11 +114,11 @@ const typologies = [
             rel="noopener noreferrer"
             class:list={[
               "rounded-xs inline-block w-fit transition-none hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lift-orange",
-              isDark ? "text-white hover:text-white" : "text-ink hover:text-ink",
+              isDark ? "text-white hover:text-white" : "text-ink hover:text-ink dark:text-white dark:hover:text-white",
             ]}
             aria-label="Vorello Agency - Sitio web oficial (se abre en nueva pestaña)">
             <span class="pointer-events-none inline-block h-9 w-auto sm:h-10 [&>svg]:h-full [&>svg]:w-auto">
-              <Fragment set:html={isDark ? VorelloLogoWhite : VorelloLogo} />
+              <Fragment set:html={VorelloLogo} />
             </span>
           </a>
 
@@ -123,7 +128,9 @@ const typologies = [
             rel="noopener noreferrer"
             class:list={[
               "group inline-flex w-fit items-center gap-1.5 font-sans text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lift-orange",
-              isDark ? "text-concrete/80 hover:text-lift-orange" : "text-charcoal hover:text-lift-orange-dark",
+              isDark
+                ? "text-concrete/80 hover:text-lift-orange"
+                : "text-charcoal hover:text-lift-orange-dark dark:text-concrete/80 dark:hover:text-lift-orange",
             ]}>
             <span>Ver portfolio de Vorello</span>
             <span
@@ -143,7 +150,7 @@ const typologies = [
                 <span
                   class:list={[
                     "font-sans text-[11px] font-semibold uppercase tracking-[0.18em]",
-                    isDark ? "text-concrete/60" : "text-charcoal/80",
+                    isDark ? "text-concrete/60" : "text-charcoal/80 dark:text-concrete/60",
                   ]}>
                   {group.title}
                 </span>
@@ -154,14 +161,16 @@ const typologies = [
                         href={item.href}
                         class:list={[
                           "group inline-flex items-center gap-2 py-0.5 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lift-orange",
-                          isDark ? "text-white/85 hover:text-white" : "text-ink/85 hover:text-ink",
+                          isDark
+                            ? "text-white/85 hover:text-white"
+                            : "text-ink/85 hover:text-ink dark:text-white/85 dark:hover:text-white",
                         ]}>
                         <span
                           class:list={[
                             "font-mono text-xs transition-colors",
                             isDark
                               ? "text-white/40 group-hover:text-lift-orange"
-                              : "text-charcoal/60 group-hover:text-lift-orange-dark",
+                              : "text-charcoal/60 group-hover:text-lift-orange-dark dark:text-white/40 dark:group-hover:text-lift-orange",
                           ]}>
                           {item.num}.
                         </span>
@@ -177,12 +186,16 @@ const typologies = [
           }
         </nav>
 
-        <div class:list={["flex flex-col gap-3 border-t pt-5", isDark ? "border-white/10" : "border-concrete"]}>
+        <div
+          class:list={[
+            "flex flex-col gap-3 border-t pt-5",
+            isDark ? "border-white/10" : "border-concrete dark:border-white/10",
+          ]}>
           <div>
             <span
               class:list={[
                 "font-sans text-[11px] font-semibold uppercase tracking-[0.18em]",
-                isDark ? "text-concrete/60" : "text-charcoal/80",
+                isDark ? "text-concrete/60" : "text-charcoal/80 dark:text-concrete/60",
               ]}>
               Áreas de Ejecución
             </span>
@@ -191,18 +204,28 @@ const typologies = [
           <div
             class:list={[
               "grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-0 lg:divide-x",
-              isDark ? "lg:divide-white/10" : "lg:divide-concrete",
+              isDark ? "lg:divide-white/10" : "lg:divide-concrete dark:lg:divide-white/10",
             ]}>
             {
               typologies.map((item) => (
                 <div class="flex flex-col gap-1 lg:px-4 lg:first:pl-0 lg:last:pr-0">
                   <div class="flex items-center gap-2">
-                    <span class:list={["font-mono text-[11px]", isDark ? "text-lift-orange" : "text-lift-orange-dark"]}>
+                    <span
+                      class:list={[
+                        "font-mono text-[11px]",
+                        isDark ? "text-lift-orange" : "text-lift-orange-dark dark:text-lift-orange",
+                      ]}>
                       {item.code}
                     </span>
-                    <span class:list={["text-sm font-semibold", isDark ? "text-white" : "text-ink"]}>{item.name}</span>
+                    <span class:list={["text-sm font-semibold", isDark ? "text-white" : "text-ink dark:text-white"]}>
+                      {item.name}
+                    </span>
                   </div>
-                  <p class:list={["text-xs leading-snug", isDark ? "text-concrete/70" : "text-charcoal"]}>
+                  <p
+                    class:list={[
+                      "text-xs leading-snug",
+                      isDark ? "text-concrete/70" : "text-charcoal dark:text-concrete/70",
+                    ]}>
                     {item.scope}
                   </p>
                 </div>
@@ -213,48 +236,95 @@ const typologies = [
       </div>
     </div>
 
-    <div class:list={["flex flex-col gap-5 pt-6 font-sans text-xs", isDark ? "text-concrete/70" : "text-charcoal"]}>
+    <div
+      class:list={[
+        "flex flex-col gap-5 pt-6 font-sans text-xs",
+        isDark ? "text-concrete/70" : "text-charcoal dark:text-concrete/70",
+      ]}>
       <div
         class:list={[
           "flex flex-wrap items-center justify-between gap-4 border-b pb-6",
-          isDark ? "border-white/10" : "border-concrete/80",
+          isDark ? "border-white/10" : "border-concrete/80 dark:border-white/10",
         ]}>
         <div class="flex flex-col gap-2">
           <div class="flex flex-wrap items-center gap-x-2">
-            <span class:list={["font-semibold", isDark ? "text-white" : "text-ink"]}>© 2026 Lift Construcciones.</span>
-            <span class:list={["font-normal", isDark ? "text-concrete/70" : "text-charcoal"]}>
+            <span class:list={["font-semibold", isDark ? "text-white" : "text-ink dark:text-white"]}>
+              © 2026 Lift Construcciones.
+            </span>
+            <span class:list={["font-normal", isDark ? "text-concrete/70" : "text-charcoal dark:text-concrete/70"]}>
               Todos los derechos reservados.
             </span>
           </div>
           <div>
-            <span
-              class:list={[
-                "inline-flex select-none items-center gap-1.5 rounded-full border px-2.5 py-0.5 font-mono text-[10px] tracking-wide",
-                isDark
-                  ? "border-white/15 bg-white/[0.04] text-concrete/80"
-                  : "border-concrete bg-concrete/25 text-charcoal",
-              ]}>
-              <span class="h-1.5 w-1.5 rounded-full bg-lift-orange" aria-hidden="true"></span>
-              Proyecto conceptual
-            </span>
+            <ConceptualBadge />
           </div>
         </div>
-        <Button
-          href={homeUrl}
-          variant="scroll-link"
-          class={isDark
-            ? "text-white hover:text-lift-orange transition-colors py-0.5 gap-1.5"
-            : "text-ink hover:text-lift-orange-dark transition-colors py-0.5 gap-1.5"}
-          ariaLabel="Volver al inicio de la página">
-          Volver arriba
-          <span slot="icon-right" aria-hidden="true">↑</span>
-        </Button>
+        <div class="flex flex-wrap items-center gap-4 sm:gap-6">
+          <div
+            id="theme-switcher"
+            class="inline-flex select-none items-center rounded-full border border-concrete/70 bg-concrete/20 p-0.5 text-charcoal transition-colors dark:border-white/10 dark:bg-white/[0.04] dark:text-concrete/80"
+            role="group"
+            aria-label="Selector de tema visual">
+            <button
+              type="button"
+              data-theme-value="light"
+              class="theme-toggle-btn inline-flex h-6 w-6 items-center justify-center rounded-full transition-all focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-lift-orange"
+              aria-pressed="false"
+              aria-label="Activar modo claro"
+              title="Activar modo claro">
+              <svg
+                class="h-3.5 w-3.5 stroke-current"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true">
+                <circle cx="12" cy="12" r="4"></circle>
+                <path
+                  d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41">
+                </path>
+              </svg>
+              <span class="sr-only">Modo claro</span>
+            </button>
+            <button
+              type="button"
+              data-theme-value="dark"
+              class="theme-toggle-btn inline-flex h-6 w-6 items-center justify-center rounded-full transition-all focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-lift-orange"
+              aria-pressed="false"
+              aria-label="Activar modo oscuro"
+              title="Activar modo oscuro">
+              <svg
+                class="h-3.5 w-3.5 stroke-current"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true">
+                <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+              </svg>
+              <span class="sr-only">Modo oscuro</span>
+            </button>
+          </div>
+
+          <Button
+            href={homeUrl}
+            variant="scroll-link"
+            class={isDark
+              ? "text-white hover:text-lift-orange transition-colors py-0.5 gap-1.5"
+              : "text-ink hover:text-lift-orange-dark dark:text-white dark:hover:text-lift-orange transition-colors py-0.5 gap-1.5"}
+            ariaLabel="Volver al inicio de la página">
+            Volver arriba
+            <span slot="icon-right" aria-hidden="true">↑</span>
+          </Button>
+        </div>
       </div>
 
       <div
         class:list={[
           "mx-auto flex max-w-4xl flex-col items-center text-center text-xs font-normal leading-normal",
-          isDark ? "text-concrete/70" : "text-charcoal",
+          isDark ? "text-concrete/70" : "text-charcoal dark:text-concrete/70",
         ]}>
         <p class="mb-0 text-pretty">
           Proyecto conceptual diseñado y desarrollado con fines demostrativos para el portfolio de Vorello Agency.
@@ -267,10 +337,61 @@ const typologies = [
   </div>
 </footer>
 
+<script>
+  function setupThemeSwitcher() {
+    const switcher = document.getElementById("theme-switcher");
+    if (!switcher) return;
+
+    const buttons = switcher.querySelectorAll<HTMLButtonElement>(".theme-toggle-btn");
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const targetTheme = btn.getAttribute("data-theme-value");
+        if (targetTheme === "light" || targetTheme === "dark") {
+          const globalSetter = (window as unknown as { __setLiftTheme?: (t: string) => void }).__setLiftTheme;
+          if (typeof globalSetter === "function") {
+            globalSetter(targetTheme);
+          } else {
+            const isDark = targetTheme === "dark";
+            document.documentElement.classList.toggle("dark", isDark);
+            document.documentElement.setAttribute("data-theme", targetTheme);
+            try {
+              localStorage.setItem("lift-theme", targetTheme);
+            } catch {
+              // ignore
+            }
+          }
+        }
+      });
+    });
+  }
+
+  setupThemeSwitcher();
+  document.addEventListener("astro:after-swap", setupThemeSwitcher);
+</script>
+
 <style>
   a:focus-visible,
   button:focus-visible {
     outline: 2px solid var(--color-lift-orange);
     outline-offset: 2px;
+  }
+
+  .theme-toggle-btn {
+    color: inherit;
+    cursor: pointer;
+  }
+
+  :global(html:not(.dark)) .theme-toggle-btn[data-theme-value="light"],
+  :global(html[data-theme="light"]) .theme-toggle-btn[data-theme-value="light"] {
+    background-color: #ffffff;
+    color: var(--color-ink);
+    box-shadow: 0 1px 2px rgba(17, 18, 20, 0.08);
+  }
+
+  :global(html.dark) .theme-toggle-btn[data-theme-value="dark"],
+  :global(html[data-theme="dark"]) .theme-toggle-btn[data-theme-value="dark"] {
+    background-color: rgba(255, 255, 255, 0.14);
+    color: #ffffff;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   }
 </style>

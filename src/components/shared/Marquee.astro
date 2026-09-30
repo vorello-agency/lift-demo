@@ -9,10 +9,10 @@ const trackItems = [...items, ...items, ...items, ...items];
 ---
 
 <div
-  class="marquee-container mt-8 flex w-full select-none overflow-hidden border-y border-concrete/60 bg-subtle py-3.5 sm:mt-12 sm:py-4 lg:mt-16 lg:py-5 xl:mt-20 3xl:mt-28 3xl:py-6"
+  class="marquee-container mt-8 flex w-full select-none overflow-hidden border-y border-concrete/60 bg-subtle py-3.5 sm:mt-12 sm:py-4 lg:mt-16 lg:py-5 xl:mt-20 3xl:mt-28 3xl:py-6 dark:border-white/[0.08] dark:bg-dark-surface/80"
   aria-hidden="true">
   <div
-    class="marquee-track animate-marquee flex shrink-0 items-center gap-8 pr-8 font-mono text-xs font-semibold uppercase tracking-[0.3em] text-charcoal sm:text-sm">
+    class="marquee-track animate-marquee flex shrink-0 items-center gap-8 pr-8 font-mono text-xs font-semibold uppercase tracking-[0.3em] text-charcoal dark:text-ash sm:text-sm">
     {
       trackItems.map((item) => (
         <>
@@ -25,7 +25,7 @@ const trackItems = [...items, ...items, ...items, ...items];
     }
   </div>
   <div
-    class="marquee-track animate-marquee flex shrink-0 items-center gap-8 pr-8 font-mono text-xs font-semibold uppercase tracking-[0.3em] text-charcoal sm:text-sm"
+    class="marquee-track animate-marquee flex shrink-0 items-center gap-8 pr-8 font-mono text-xs font-semibold uppercase tracking-[0.3em] text-charcoal dark:text-ash sm:text-sm"
     aria-hidden="true">
     {
       trackItems.map((item) => (

@@ -8,6 +8,18 @@
   box-sizing: border-box;
 }
 
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
 html {
   font-family: var(--font-sans);
   font-size: 16px;
@@ -38,8 +50,8 @@ body {
 
 /* Selection State */
 ::selection {
-  background-color: var(--color-ink);
-  color: var(--color-warm-white);
+  background-color: var(--color-selection-bg);
+  color: var(--color-selection-text);
 }
 
 /* Focus Visible Normalization */

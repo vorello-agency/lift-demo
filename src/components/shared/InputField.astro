@@ -14,7 +14,7 @@ const { id, name, type = "text", label, required = false, placeholder = "", erro
 ---
 
 <div class="flex flex-col gap-1.5">
-  <label for={id} class="font-sans text-xs font-semibold uppercase tracking-wider text-charcoal">
+  <label for={id} class="font-sans text-xs font-semibold uppercase tracking-wider text-charcoal dark:text-ash">
     {label}
     {
       required && (
@@ -31,7 +31,7 @@ const { id, name, type = "text", label, required = false, placeholder = "", erro
     required={required}
     aria-required={required ? "true" : "false"}
     aria-describedby={errorId}
-    class="w-full rounded-md border border-concrete/60 bg-white px-4 py-3 font-sans text-sm text-ink shadow-sm transition-colors focus:border-lift-orange focus:outline-none focus:ring-2 focus:ring-lift-orange"
+    class="w-full rounded-md border border-concrete/60 bg-white px-4 py-3 font-sans text-sm text-ink shadow-sm transition-colors placeholder:text-slate focus:border-lift-orange focus:outline-none focus:ring-2 focus:ring-lift-orange dark:border-white/[0.14] dark:bg-dark-surface dark:text-chalk dark:placeholder:text-ash/50"
     placeholder={placeholder}
   />
   <span id={errorId} class="hidden font-sans text-xs text-red-600">

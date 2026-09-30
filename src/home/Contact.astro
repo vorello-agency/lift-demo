@@ -25,13 +25,13 @@ const scaleOptions = [
 
 <section
   id="contact"
-  class="overflow-hidden bg-warm-white py-16 text-ink sm:py-24 lg:py-32"
+  class="overflow-hidden bg-warm-white py-16 text-ink sm:py-24 lg:py-32 dark:bg-dark-subtle dark:text-chalk"
   aria-labelledby="contact-title">
   <div class="container-lift">
     <div class="grid grid-cols-1 items-stretch gap-10 lg:grid-cols-12 lg:gap-12 xl:gap-16">
       <div class="flex flex-col lg:col-span-5" data-motion-reveal>
         <div
-          class="relative flex min-h-[360px] flex-1 flex-col justify-between overflow-hidden rounded-md border border-concrete/60 bg-ink p-7 text-white sm:p-9 lg:p-10">
+          class="relative flex min-h-[360px] flex-1 flex-col justify-between overflow-hidden rounded-md border border-concrete/60 bg-ink p-7 text-white sm:p-9 lg:p-10 dark:border-white/[0.08]">
           <Image
             src={ContactImage}
             alt="Fotografía de arquitectura y textura constructiva de Lift Construcciones"
@@ -70,10 +70,10 @@ const scaleOptions = [
 
             <h2
               id="contact-title"
-              class="mt-3 font-display text-3xl font-bold leading-[1.1] text-ink sm:text-4xl xl:text-5xl">
+              class="mt-3 font-display text-3xl font-bold leading-[1.1] text-ink dark:text-chalk sm:text-4xl xl:text-5xl">
               Contanos qué querés construir.
             </h2>
-            <p class="mt-2.5 text-balance font-sans text-sm leading-relaxed text-charcoal sm:text-base">
+            <p class="mt-2.5 text-balance font-sans text-sm leading-relaxed text-charcoal dark:text-ash sm:text-base">
               Con algunos datos iniciales podemos entender el alcance y preparar una primera conversación.
             </p>
           </div>
@@ -136,20 +136,20 @@ const scaleOptions = [
 
             <div class="flex flex-col flex-wrap items-start justify-between gap-4 pt-2 md:flex-row md:items-center">
               <Button text="Enviar consulta" type="submit" />
-              <span class="font-sans text-xs font-medium text-charcoal/85">
+              <span class="font-sans text-xs font-medium text-charcoal/85 dark:text-ash/85">
                 Formulario demostrativo: no envía datos
               </span>
             </div>
 
             <div
               id="form-feedback"
-              class="hidden flex-col gap-1.5 rounded-md border border-lift-orange/40 bg-white/90 p-4 font-sans text-xs text-charcoal shadow-sm"
+              class="hidden flex-col gap-1.5 rounded-md border border-lift-orange/40 bg-white/90 dark:bg-dark-surface/90 p-4 font-sans text-xs text-charcoal dark:text-ash shadow-sm"
               role="alert">
-              <p class="flex items-center gap-2 font-semibold text-ink">
+              <p class="flex items-center gap-2 font-semibold text-ink dark:text-chalk">
                 <span class="h-2 w-2 rounded-full bg-lift-orange"></span>
                 Datos verificados
               </p>
-              <p class="font-sans text-charcoal">
+              <p class="font-sans text-charcoal dark:text-ash">
                 Esta es una demostración de interfaz. Los datos no fueron enviados ni almacenados.
               </p>
             </div>

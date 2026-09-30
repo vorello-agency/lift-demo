@@ -67,9 +67,19 @@ export function initContactForm(): void {
           "text-white",
           "border-lift-orange-dark",
           "font-semibold",
-          "shadow-sm"
+          "shadow-sm",
+          "dark:bg-lift-orange-dark",
+          "dark:text-white",
+          "dark:border-lift-orange-dark"
         );
-        p.classList.add("bg-white", "text-ink", "border-concrete/60");
+        p.classList.add(
+          "bg-white",
+          "text-ink",
+          "border-concrete/60",
+          "dark:bg-dark-surface",
+          "dark:text-chalk/90",
+          "dark:border-white/[0.12]"
+        );
 
         const checkIcon = p.querySelector(".pill-check-icon");
         if (checkIcon) {
@@ -85,13 +95,23 @@ export function initContactForm(): void {
         if (errorEl) errorEl.classList.add("hidden");
 
         pill.setAttribute("aria-checked", "true");
-        pill.classList.remove("bg-white", "text-ink", "border-concrete/60");
+        pill.classList.remove(
+          "bg-white",
+          "text-ink",
+          "border-concrete/60",
+          "dark:bg-dark-surface",
+          "dark:text-chalk/90",
+          "dark:border-white/[0.12]"
+        );
         pill.classList.add(
           "bg-lift-orange-dark",
           "text-white",
           "border-lift-orange-dark",
           "font-semibold",
-          "shadow-sm"
+          "shadow-sm",
+          "dark:bg-lift-orange-dark",
+          "dark:text-white",
+          "dark:border-lift-orange-dark"
         );
 
         const activeCheckIcon = pill.querySelector(".pill-check-icon");

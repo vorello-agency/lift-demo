@@ -86,7 +86,9 @@ const menuItems = [
     id="mobile-menu"
     class:list={[
       "pointer-events-none fixed inset-0 top-0 z-[490] flex min-h-dvh translate-x-full transform flex-col justify-between overflow-y-auto px-6 pb-12 pt-28 opacity-0 transition-all duration-300 ease-out sm:px-12 lg:hidden",
-      isDark ? "border-b border-white/10 bg-ink text-white" : "border-b border-concrete bg-[#F3F1EC] text-ink",
+      isDark
+        ? "border-b border-white/10 bg-ink text-white"
+        : "border-b border-concrete bg-[#F3F1EC] text-ink dark:border-white/10 dark:bg-ink dark:text-white",
     ]}
     aria-hidden="true"
     inert
@@ -101,7 +103,9 @@ const menuItems = [
             data-nav-anchor={item.anchor}
             class:list={[
               "mobile-nav-link rounded-sm py-1 font-display text-2xl font-medium transition-all hover:translate-x-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lift-orange",
-              isDark ? "text-white hover:text-lift-orange" : "text-ink hover:text-lift-orange-dark",
+              isDark
+                ? "text-white hover:text-lift-orange"
+                : "text-ink hover:text-lift-orange-dark dark:text-white dark:hover:text-lift-orange",
             ]}
             data-mobile-nav-item
             style={`--mobile-nav-order: ${index}`}>
@@ -112,7 +116,10 @@ const menuItems = [
     </nav>
 
     <div
-      class:list={["flex flex-col gap-6 border-t pt-8", isDark ? "border-white/10" : "border-concrete"]}
+      class:list={[
+        "flex flex-col gap-6 border-t pt-8",
+        isDark ? "border-white/10" : "border-concrete dark:border-white/10",
+      ]}
       data-mobile-nav-item
       style={`--mobile-nav-order: ${menuItems.length}`}>
       <Button
@@ -124,7 +131,11 @@ const menuItems = [
         Contacto
       </Button>
 
-      <div class:list={["text-xs uppercase tracking-wider", isDark ? "text-concrete/70" : "text-charcoal"]}>
+      <div
+        class:list={[
+          "text-xs uppercase tracking-wider",
+          isDark ? "text-concrete/70" : "text-charcoal dark:text-concrete/70",
+        ]}>
         Lift Construcciones — Arquitectura & Edificación
       </div>
     </div>

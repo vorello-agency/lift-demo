@@ -7,7 +7,7 @@ import Eyebrow from "../components/shared/Eyebrow.astro";
 
 <section
   id="about"
-  class="overflow-hidden border-b border-concrete bg-subtle py-16 text-ink sm:py-24 lg:py-32"
+  class="overflow-hidden border-b border-concrete bg-subtle py-16 text-ink dark:border-white/[0.08] dark:bg-obsidian dark:text-chalk sm:py-24 lg:py-32"
   aria-labelledby="about-title">
   <div class="container-lift space-y-16 sm:space-y-20 lg:space-y-24">
     <div class="flex flex-col items-center gap-8 sm:gap-10 lg:flex-row lg:gap-12">
@@ -16,29 +16,31 @@ import Eyebrow from "../components/shared/Eyebrow.astro";
 
         <h2
           id="about-title"
-          class="text-balance font-display text-3xl font-bold leading-[1.12] text-ink sm:text-4xl md:text-5xl lg:text-5xl">
+          class="text-balance font-display text-3xl font-bold leading-[1.12] text-ink dark:text-chalk sm:text-4xl md:text-5xl lg:text-5xl">
           Proyecto y obra,<br class="hidden sm:inline" /> una misma dirección.
         </h2>
 
         <div class="max-w-xl space-y-4">
-          <p class="text-pretty text-base font-normal leading-relaxed text-charcoal sm:text-lg">
+          <p class="text-pretty text-base font-normal leading-relaxed text-charcoal dark:text-ash sm:text-lg">
             En <strong>Lift Construcciones</strong>, cada proyecto se define pensando en cómo será construido, usado y
             mantenido.
           </p>
-          <p class="text-pretty text-sm font-normal leading-relaxed text-ink/60 sm:text-base">
+          <p class="text-pretty text-sm font-normal leading-relaxed text-ink/60 dark:text-ash/70 sm:text-base">
             Vincular diseño y ejecución permite resolver interferencias a tiempo, asignar mejor los recursos y sostener
             la intención arquitectónica hasta la entrega.
           </p>
         </div>
 
         <div
-          class="grid grid-cols-1 grid-rows-2 gap-4 border-t border-concrete/60 pt-4 font-mono text-xs uppercase tracking-wider text-ink/60 md:grid-cols-2 md:grid-rows-1">
+          class="grid grid-cols-1 grid-rows-2 gap-4 border-t border-concrete/60 pt-4 font-mono text-xs uppercase tracking-wider text-ink/60 dark:border-white/[0.08] dark:text-ash/70 md:grid-cols-2 md:grid-rows-1">
           <div>
-            <span class="mb-1 block font-sans text-xs font-bold tracking-normal text-ink">Dirección integral</span>
+            <span class="mb-1 block font-sans text-xs font-bold tracking-normal text-ink dark:text-chalk">
+              Dirección integral
+            </span>
             Diseño, coordinación, ejecución
           </div>
           <div>
-            <span class="mb-1 block font-sans text-xs font-bold tracking-normal text-ink">Enfoque</span>
+            <span class="mb-1 block font-sans text-xs font-bold tracking-normal text-ink dark:text-chalk">Enfoque</span>
             Diseño con criterio constructivo
           </div>
         </div>
@@ -46,7 +48,7 @@ import Eyebrow from "../components/shared/Eyebrow.astro";
 
       <div class="w-full pt-8 sm:pt-0 lg:w-1/2" data-motion-reveal data-motion-delay="0.08">
         <div
-          class="group relative aspect-[4/3] overflow-hidden rounded-md border border-concrete/60 bg-concrete/20 shadow-subtle sm:aspect-[4/3]">
+          class="group relative aspect-[4/3] overflow-hidden rounded-md bg-concrete/20 dark:bg-dark-surface sm:aspect-[4/3]">
           <Image
             src={AboutImage}
             alt="Fotografía arquitectónica de proyecto contemporáneo en hormigón y cristal"
@@ -58,7 +60,7 @@ import Eyebrow from "../components/shared/Eyebrow.astro";
       </div>
     </div>
 
-    <div class="border-concrete sm:pt-14 md:border-t">
+    <div class="border-concrete dark:border-white/[0.08] sm:pt-14 md:border-t">
       <div class="grid grid-cols-1 gap-8 md:grid-cols-3 lg:gap-12 xl:gap-16" data-motion-reveal-group>
         <PrincipleCard
           title="Decidir antes de ejecutar"

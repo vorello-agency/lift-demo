@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: "class",
   content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
   theme: {
     extend: {
@@ -14,6 +15,29 @@ export default {
         "safety-amber": "rgb(var(--color-safety-amber-rgb) / <alpha-value>)",
         subtle: "rgb(var(--color-subtle-rgb) / <alpha-value>)",
         muted: "rgb(var(--color-muted-rgb) / <alpha-value>)",
+
+        // Architectural Dark Palette (System Design)
+        obsidian: "rgb(var(--color-obsidian-rgb) / <alpha-value>)",
+        "dark-surface": "rgb(var(--color-dark-surface-rgb) / <alpha-value>)",
+        "dark-subtle": "rgb(var(--color-dark-subtle-rgb) / <alpha-value>)",
+        "dark-elevated": "rgb(var(--color-dark-elevated-rgb) / <alpha-value>)",
+        "dark-muted": "rgb(var(--color-dark-muted-rgb) / <alpha-value>)",
+        "dark-border": "rgb(var(--color-dark-border-rgb) / var(--tw-border-opacity, 0.08))",
+        chalk: "rgb(var(--color-chalk-rgb) / <alpha-value>)",
+        ash: "rgb(var(--color-ash-rgb) / <alpha-value>)",
+        "lift-orange-glow": "rgb(var(--color-lift-orange-glow-rgb) / <alpha-value>)",
+
+        // Functional Semantic Tokens
+        "bg-main": "rgb(var(--color-bg-main-rgb) / <alpha-value>)",
+        "bg-surface": "rgb(var(--color-bg-surface-rgb) / <alpha-value>)",
+        "bg-subtle": "rgb(var(--color-bg-subtle-rgb) / <alpha-value>)",
+        "bg-muted": "rgb(var(--color-bg-muted-rgb) / <alpha-value>)",
+        "text-main": "rgb(var(--color-text-main-rgb) / <alpha-value>)",
+        "text-muted": "rgb(var(--color-text-muted-rgb) / <alpha-value>)",
+        "text-inverse": "rgb(var(--color-text-inverse-rgb) / <alpha-value>)",
+        "border-subtle": "rgb(var(--color-border-subtle-rgb) / <alpha-value>)",
+        "border-medium": "rgb(var(--color-border-medium-rgb) / <alpha-value>)",
+        "border-strong": "rgb(var(--color-border-strong-rgb) / <alpha-value>)",
       },
       fontFamily: {
         sans: ["DM Sans", "system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],

@@ -1,7 +1,22 @@
 ---
-import Cat1Image from "../assets/images/services/building.webp";
-import Cat2Image from "../assets/images/services/residential.webp";
-import Cat3Image from "../assets/images/services/commercial.webp";
+import Cat1Img1 from "../assets/images/services/edilicio/1.webp";
+import Cat1Img2 from "../assets/images/services/edilicio/2.webp";
+import Cat1Img3 from "../assets/images/services/edilicio/3.webp";
+import Cat1Img4 from "../assets/images/services/edilicio/4.webp";
+import Cat1Img5 from "../assets/images/services/edilicio/5.webp";
+
+import Cat2Img1 from "../assets/images/services/residencial/1.webp";
+import Cat2Img2 from "../assets/images/services/residencial/2.webp";
+import Cat2Img3 from "../assets/images/services/residencial/3.webp";
+import Cat2Img4 from "../assets/images/services/residencial/4.webp";
+import Cat2Img5 from "../assets/images/services/residencial/5.webp";
+
+import Cat3Img1 from "../assets/images/services/comercial/1.webp";
+import Cat3Img2 from "../assets/images/services/comercial/2.webp";
+import Cat3Img3 from "../assets/images/services/comercial/3.webp";
+import Cat3Img4 from "../assets/images/services/comercial/4.webp";
+import Cat3Img5 from "../assets/images/services/comercial/5.webp";
+
 import SectionHeader from "../components/shared/SectionHeader.astro";
 import ServiceCard from "../components/content/ServiceCard.astro";
 import Button from "../components/shared/Button.astro";
@@ -13,7 +28,7 @@ const services = [
     description:
       "Coordinamos estructura, instalaciones, envolvente y espacios comunes para que el edificio funcione como un sistema completo.",
     scopes: ["Edificios multifamiliares", "Complejos corporativos", "Institucionales"],
-    image: Cat1Image,
+    images: [Cat1Img1, Cat1Img2, Cat1Img3, Cat1Img4, Cat1Img5],
     alt: "Fotografía exterior de edificio multifamiliar contemporáneo con estructura de hormigón y cristal",
     href: "#contact",
   },
@@ -23,7 +38,7 @@ const services = [
     description:
       "Proyectamos viviendas a partir del terreno, el clima y la forma de habitar, con materiales elegidos para durar y envejecer bien.",
     scopes: ["Residencias", "Casas unifamiliares", "Proyectos a medida"],
-    image: Cat2Image,
+    images: [Cat2Img1, Cat2Img2, Cat2Img3, Cat2Img4, Cat2Img5],
     alt: "Fotografía de residencia unifamiliar contemporánea con líneas arquitectónicas limpias y grandes ventanales",
     href: "#contact",
   },
@@ -33,7 +48,7 @@ const services = [
     description:
       "Resolvemos circulaciones, operación y mantenimiento para crear espacios de trabajo, comercio y uso mixto preparados para cambiar.",
     scopes: ["Espacios corporativos", "Locales comerciales", "Desarrollos mixtos"],
-    image: Cat3Image,
+    images: [Cat3Img1, Cat3Img2, Cat3Img3, Cat3Img4, Cat3Img5],
     alt: "Fotografía de complejo comercial moderno con acabados de precisión",
     href: "#contact",
   },
@@ -42,7 +57,7 @@ const services = [
 
 <section
   id="services"
-  class="overflow-hidden border-b border-concrete bg-subtle py-16 text-ink sm:py-24 lg:py-32"
+  class="overflow-hidden border-b border-concrete bg-subtle py-16 text-ink dark:border-white/[0.08] dark:bg-obsidian dark:text-chalk sm:py-24 lg:py-32"
   aria-labelledby="services-title">
   <div class="container-lift space-y-8 sm:space-y-16 lg:space-y-20">
     <div data-motion-reveal>
@@ -50,8 +65,8 @@ const services = [
         id="services-title"
         label="SERVICIOS"
         title="Áreas de ejecución"
-        borderClass="pb-8 border-b border-concrete"
         description="Cada programa exige decisiones propias, con proyecto y obra coordinados desde el inicio."
+        borderClass="pb-8 border-b border-concrete dark:border-white/[0.08]"
       />
     </div>
 
@@ -62,7 +77,7 @@ const services = [
             title={service.title}
             description={service.description}
             scopes={service.scopes}
-            image={service.image}
+            images={service.images}
             alt={service.alt}
             href={service.href}
           />
@@ -71,11 +86,13 @@ const services = [
     </div>
 
     <div
-      class="mt-12 flex flex-col items-start justify-between gap-6 border-t border-concrete pt-8 sm:mt-16 sm:pt-14 lg:flex-row lg:items-center"
+      class="mt-12 flex flex-col items-start justify-between gap-6 border-t border-concrete pt-8 dark:border-white/[0.08] sm:mt-16 sm:pt-14 lg:flex-row lg:items-center"
       data-motion-reveal>
       <div class="max-w-xl space-y-1.5">
-        <h3 class="font-display text-xl font-bold text-ink sm:text-2xl">¿Tenés un terreno o una obra por definir?</h3>
-        <p class="max-w-md font-sans text-sm font-normal leading-relaxed text-charcoal sm:text-base">
+        <h3 class="font-display text-xl font-bold text-ink dark:text-chalk sm:text-2xl">
+          ¿Tenés un terreno o una obra por definir?
+        </h3>
+        <p class="max-w-md font-sans text-sm font-normal leading-relaxed text-charcoal dark:text-ash sm:text-base">
           Revisamos el sitio, el programa y las condiciones de ejecución antes de avanzar.
         </p>
       </div>
@@ -86,3 +103,20 @@ const services = [
     </div>
   </div>
 </section>
+
+<script>
+  import { setupServiceGalleries } from "../utils/service-gallery";
+
+  let cleanupGalleries: (() => void) | null = null;
+
+  function init() {
+    cleanupGalleries?.();
+    cleanupGalleries = setupServiceGalleries();
+  }
+
+  document.addEventListener("astro:page-load", init);
+  document.addEventListener("astro:before-swap", () => {
+    cleanupGalleries?.();
+    cleanupGalleries = null;
+  });
+</script>

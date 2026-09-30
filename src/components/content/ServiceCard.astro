@@ -1,5 +1,5 @@
 ---
-import { Image } from "astro:assets";
+import { getImage } from "astro:assets";
 import type { ImageMetadata } from "astro";
 import arrowRightIcon from "@phosphor-icons/core/assets/light/arrow-right-light.svg?raw";
 
@@ -7,34 +7,93 @@ interface Props {
   title: string;
   description: string;
   scopes: string[];
-  image: ImageMetadata;
+  images?: ImageMetadata[];
+  image?: ImageMetadata;
   alt: string;
   href?: string;
 }
 
-const { title, description, scopes, image, alt, href = "#contact" } = Astro.props;
+const { title, description, scopes, images, image, alt, href = "#contact" } = Astro.props;
+
+const cardImages = images && images.length > 0 ? images : image ? [image] : [];
+
+const optimizedImages = await Promise.all(
+  cardImages.map(async (img) => {
+    return await getImage({
+      src: img,
+      format: "webp",
+      quality: 85,
+      width: 840,
+      height: 630,
+    });
+  })
+);
 ---
 
 <article
-  class="service-card group relative flex cursor-pointer flex-col justify-between space-y-6 border-t-2 border-concrete/60 pt-6 transition-colors duration-300 hover:border-lift-orange-dark group-focus-within:border-lift-orange-dark group-active:border-lift-orange-dark">
+  class="service-card group relative flex cursor-pointer flex-col justify-between space-y-6 border-t-2 border-concrete/60 pt-6 transition-colors duration-300 hover:border-lift-orange-dark group-focus-within:border-lift-orange-dark group-active:border-lift-orange-dark dark:border-white/[0.1] dark:hover:border-lift-orange dark:group-focus-within:border-lift-orange dark:group-active:border-lift-orange"
+  data-service-card>
   <div class="service-card__body space-y-5">
     <div
-      class="service-card__media relative aspect-[4/3] overflow-hidden rounded-md border border-concrete/60 bg-concrete/20">
-      <Image
-        src={image}
-        alt={alt}
-        class="h-full w-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-105 group-active:scale-105 motion-reduce:group-hover:scale-100"
-        width={840}
-        height={630}
-      />
+      class="service-card__media relative aspect-[4/3] overflow-hidden rounded-md border border-concrete/60 bg-concrete/20 dark:border-white/[0.08] dark:bg-dark-surface"
+      data-service-gallery>
+      {
+        optimizedImages.map((optImg, index) => (
+          <img
+            src={index === 0 ? optImg.src : undefined}
+            data-src={index !== 0 ? optImg.src : undefined}
+            alt={index === 0 ? alt : ""}
+            aria-hidden={index !== 0 ? "true" : undefined}
+            width={840}
+            height={630}
+            loading="lazy"
+            decoding="async"
+            class={`service-card__image absolute inset-0 h-full w-full object-cover object-center ${index === 0 ? "is-active" : ""}`}
+            data-gallery-item
+            data-index={index}
+          />
+        ))
+      }
+      {
+        optimizedImages.length > 1 && (
+          <div
+            class="service-card__progress sm:h-6.5 sm:w-6.5 pointer-events-none absolute bottom-2 right-2 z-20 h-6 w-6 drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)] sm:bottom-2.5 sm:right-2.5"
+            aria-hidden="true"
+            data-service-progress>
+            <svg class="h-full w-full -rotate-90" viewBox="0 0 24 24" aria-hidden="true">
+              <circle
+                cx="12"
+                cy="12"
+                r="9.5"
+                stroke="currentColor"
+                stroke-width="2"
+                fill="none"
+                class="text-white/35"
+              />
+              <circle
+                cx="12"
+                cy="12"
+                r="9.5"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                fill="none"
+                class="service-card__progress-indicator text-lift-orange"
+                style={`stroke-dasharray: 59.6903; stroke-dashoffset: ${(59.6903 * (1 - 1 / optimizedImages.length)).toFixed(4)};`}
+                data-progress-circle
+              />
+            </svg>
+          </div>
+        )
+      }
     </div>
 
     <div class="service-card__content space-y-3">
       <h3
-        class="font-display text-xl font-bold text-ink transition-colors duration-300 group-focus-within:text-lift-orange-dark group-hover:text-lift-orange-dark group-active:text-lift-orange-dark sm:text-2xl">
+        class="font-display text-xl font-bold text-ink transition-colors duration-300 group-focus-within:text-lift-orange-dark group-hover:text-lift-orange-dark group-active:text-lift-orange-dark dark:text-chalk dark:group-focus-within:text-lift-orange dark:group-hover:text-lift-orange dark:group-active:text-lift-orange sm:text-2xl">
         {title}
       </h3>
-      <p class="relative z-20 cursor-text text-pretty text-base leading-relaxed text-charcoal">
+      <p class="relative z-20 cursor-text text-pretty text-base leading-relaxed text-charcoal dark:text-ash">
         {description}
       </p>
     </div>
@@ -44,7 +103,7 @@ const { title, description, scopes, image, alt, href = "#contact" } = Astro.prop
       aria-label={`Alcances principales de ${title}`}>
       {
         scopes.map((scope) => (
-          <span class="cursor-text rounded-sm border border-concrete/60 bg-concrete/30 px-2.5 py-1 text-sm font-medium text-charcoal">
+          <span class="cursor-text rounded-sm border border-concrete/60 bg-concrete/30 px-2.5 py-1 text-sm font-medium text-charcoal dark:border-white/[0.08] dark:bg-dark-surface dark:text-ash/90">
             {scope}
           </span>
         ))
@@ -52,14 +111,14 @@ const { title, description, scopes, image, alt, href = "#contact" } = Astro.prop
     </div>
   </div>
 
-  <div class="service-card__action border-concrete md:border-t md:pt-4">
+  <div class="service-card__action border-concrete dark:border-white/[0.08] md:border-t md:pt-4">
     <a
       href={href}
-      class="inline-flex items-center gap-2.5 rounded-sm py-1 text-sm font-semibold uppercase tracking-wider text-ink transition-colors duration-300 after:absolute after:inset-0 after:z-10 after:content-[''] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lift-orange focus-visible:ring-offset-2 group-focus-within:text-lift-orange-dark group-hover:text-lift-orange-dark group-active:text-lift-orange-dark"
+      class="inline-flex items-center gap-2.5 rounded-sm py-1 text-sm font-semibold uppercase tracking-wider text-ink transition-colors duration-300 after:absolute after:inset-0 after:z-10 after:content-[''] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lift-orange focus-visible:ring-offset-2 group-focus-within:text-lift-orange-dark group-hover:text-lift-orange-dark group-active:text-lift-orange-dark dark:text-chalk dark:group-focus-within:text-lift-orange dark:group-hover:text-lift-orange dark:group-active:text-lift-orange"
       aria-label={`Consultar servicio de ${title}`}>
       <span>Consultar servicio</span>
       <div
-        class="h-4 w-4 text-ink transition-all duration-300 group-focus-within:translate-x-1.5 group-focus-within:text-lift-orange-dark group-hover:translate-x-1.5 group-hover:text-lift-orange-dark group-active:translate-x-1.5 group-active:text-lift-orange-dark motion-reduce:group-focus-within:translate-x-0 motion-reduce:group-hover:translate-x-0 motion-reduce:group-active:translate-x-0">
+        class="h-4 w-4 text-ink transition-all duration-300 group-focus-within:translate-x-1.5 group-focus-within:text-lift-orange-dark group-hover:translate-x-1.5 group-hover:text-lift-orange-dark group-active:translate-x-1.5 group-active:text-lift-orange-dark motion-reduce:group-focus-within:translate-x-0 motion-reduce:group-hover:translate-x-0 motion-reduce:group-active:translate-x-0 dark:text-chalk dark:group-focus-within:text-lift-orange dark:group-hover:text-lift-orange dark:group-active:text-lift-orange">
         <Fragment set:html={arrowRightIcon} />
       </div>
     </a>
@@ -67,6 +126,62 @@ const { title, description, scopes, image, alt, href = "#contact" } = Astro.prop
 </article>
 
 <style>
+  .service-card__image {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 500ms ease-in-out;
+    will-change: opacity;
+  }
+
+  .service-card__image.is-active {
+    opacity: 1;
+    z-index: 2;
+  }
+
+  .service-card__image.is-previous {
+    opacity: 1;
+    z-index: 1;
+  }
+
+  .service-card__progress {
+    opacity: 1;
+    transition: opacity 300ms ease-in-out;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .service-card__progress {
+      opacity: 0;
+    }
+
+    .service-card:hover .service-card__progress,
+    .service-card:focus-within .service-card__progress {
+      opacity: 1;
+    }
+  }
+
+  .service-card__progress-indicator {
+    transition: stroke-dashoffset 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .service-card__image {
+      transition: none !important;
+    }
+    .service-card__image:not(:first-child) {
+      display: none !important;
+    }
+    .service-card__image:first-child {
+      opacity: 1 !important;
+      z-index: 1 !important;
+    }
+    .service-card__progress {
+      display: none !important;
+    }
+    .service-card__progress-indicator {
+      transition: none !important;
+    }
+  }
+
   @media (min-width: 768px) and (max-width: 1279px) {
     .service-card {
       display: grid;
@@ -92,6 +207,7 @@ const { title, description, scopes, image, alt, href = "#contact" } = Astro.prop
       grid-column: 1;
       grid-row: 1 / 4;
       min-height: 17rem;
+      height: 100%;
       aspect-ratio: auto;
     }
 

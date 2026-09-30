@@ -6,6 +6,7 @@ import heroMobile from "../assets/images/hero/hero-mobile.webp";
 import arrowDownIcon from "@phosphor-icons/core/assets/light/arrow-down-light.svg?raw";
 import Button from "../components/shared/Button.astro";
 import Eyebrow from "../components/shared/Eyebrow.astro";
+import ConceptualBadge from "../components/shared/ConceptualBadge.astro";
 
 const optimizedMobile = await getImage({
   src: heroMobile,
@@ -102,10 +103,7 @@ const optimizedUltrawide = await getImage({
         </div>
 
         <div class="hero-reveal hero-reveal-tag pt-2 sm:pt-0">
-          <span
-            class="inline-block select-none rounded border border-lift-orange/30 bg-lift-orange/5 px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest text-lift-orange">
-            Proyecto conceptual
-          </span>
+          <ConceptualBadge tone="inverse" />
         </div>
       </div>
     </div>

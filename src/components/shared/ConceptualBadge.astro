@@ -1,0 +1,23 @@
+---
+interface Props {
+  class?: string;
+  tone?: "auto" | "inverse" | "default";
+}
+
+const { class: className = "", tone = "auto" } = Astro.props as Props;
+
+const toneStyles = {
+  auto: "text-lift-orange-dark dark:text-lift-orange",
+  inverse: "text-lift-orange",
+  default: "text-lift-orange-dark",
+};
+---
+
+<span
+  class:list={[
+    "inline-block select-none rounded-[3px] border border-lift-orange/30 bg-lift-orange/5 px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest",
+    toneStyles[tone],
+    className,
+  ]}>
+  Proyecto conceptual
+</span>

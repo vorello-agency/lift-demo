@@ -4,7 +4,6 @@ interface SlideData {
   title: string;
   type: string;
   caption: string;
-  credit: string;
 }
 
 let cleanupFunctions: Array<() => void> = [];
@@ -27,12 +26,9 @@ export function setupMediaViewers(): void {
 
     const counterEl = dialog.querySelector<HTMLElement>("[data-viewer-counter]");
     const announcerEl = dialog.querySelector<HTMLElement>("[data-viewer-announcer]");
-    const headerTitleEl = dialog.querySelector<HTMLElement>("[data-viewer-header-title]");
     const footerTypeEl = dialog.querySelector<HTMLElement>("[data-viewer-footer-type]");
     const footerTitleEl = dialog.querySelector<HTMLElement>("[data-viewer-footer-title]");
     const footerCaptionEl = dialog.querySelector<HTMLElement>("[data-viewer-footer-caption]");
-    const footerCreditsContainer = dialog.querySelector<HTMLElement>("[data-viewer-footer-credits]");
-    const footerCreditTextEl = dialog.querySelector<HTMLElement>("[data-viewer-footer-credit-text]");
     const closeBtn = dialog.querySelector<HTMLButtonElement>("[data-viewer-close]");
     const prevBtn = dialog.querySelector<HTMLButtonElement>("[data-viewer-prev]");
     const nextBtn = dialog.querySelector<HTMLButtonElement>("[data-viewer-next]");
@@ -41,7 +37,6 @@ export function setupMediaViewers(): void {
       title: slideEl.dataset.slideTitle ?? "",
       type: slideEl.dataset.slideType ?? "",
       caption: slideEl.dataset.slideCaption ?? "",
-      credit: slideEl.dataset.slideCredit ?? "",
     }));
 
     let currentIndex = 0;
@@ -105,10 +100,6 @@ export function setupMediaViewers(): void {
         announcerEl.textContent = `Mostrando ${currentIndex + 1} de ${totalSlides}: ${titleStr}`;
       }
 
-      if (headerTitleEl) {
-        headerTitleEl.textContent = currentData?.title || currentData?.type || "";
-      }
-
       if (footerTypeEl) {
         if (currentData?.type) {
           footerTypeEl.textContent = currentData.type;
@@ -133,23 +124,6 @@ export function setupMediaViewers(): void {
           footerCaptionEl.classList.remove("hidden");
         } else {
           footerCaptionEl.classList.add("hidden");
-        }
-      }
-
-      if (footerCreditTextEl) {
-        if (currentData?.credit) {
-          footerCreditTextEl.textContent = currentData.credit;
-          footerCreditTextEl.classList.remove("hidden");
-        } else {
-          footerCreditTextEl.classList.add("hidden");
-        }
-      }
-
-      if (footerCreditsContainer) {
-        if (!currentData?.credit) {
-          footerCreditsContainer.classList.add("hidden");
-        } else {
-          footerCreditsContainer.classList.remove("hidden");
         }
       }
     };

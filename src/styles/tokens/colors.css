@@ -6,27 +6,27 @@
   color-scheme: light;
 
   /* Primitive RGB Channels (Light & Shared Foundations) */
-  --color-ink-rgb: 17 18 20;              /* #111214 - Basalto profundo */
-  --color-warm-white-rgb: 243 241 236;    /* #F3F1EC - Yeso / Papel cálido */
-  --color-concrete-rgb: 215 213 207;      /* #D7D5CF - Hormigón visto claro */
-  --color-slate-rgb: 101 106 112;         /* #656A70 - Pizarra templada */
-  --color-charcoal-rgb: 72 78 84;         /* #484E54 - Carbón mineral */
-  --color-lift-orange-rgb: 230 95 43;     /* #E65F2B - Terracota / Identidad */
-  --color-orange-dark-rgb: 201 71 29;     /* #C9471D - Terracota tostada */
-  --color-safety-amber-rgb: 242 169 0;    /* #F2A900 - Ámbar de señalización */
-  --color-subtle-rgb: 234 232 225;        /* #EAE8E1 - Piedra caliza clara */
-  --color-muted-rgb: 213 210 199;         /* #D5D2C7 - Grises de mortero */
+  --color-ink-rgb: 17 18 20; /* #111214 - Basalto profundo */
+  --color-warm-white-rgb: 243 241 236; /* #F3F1EC - Yeso / Papel cálido */
+  --color-concrete-rgb: 215 213 207; /* #D7D5CF - Hormigón visto claro */
+  --color-slate-rgb: 101 106 112; /* #656A70 - Pizarra templada */
+  --color-charcoal-rgb: 72 78 84; /* #484E54 - Carbón mineral */
+  --color-lift-orange-rgb: 230 95 43; /* #E65F2B - Terracota / Identidad */
+  --color-orange-dark-rgb: 201 71 29; /* #C9471D - Terracota tostada */
+  --color-safety-amber-rgb: 242 169 0; /* #F2A900 - Ámbar de señalización */
+  --color-subtle-rgb: 234 232 225; /* #EAE8E1 - Piedra caliza clara */
+  --color-muted-rgb: 213 210 199; /* #D5D2C7 - Grises de mortero */
   --color-white: #ffffff;
 
   /* Architectural Dark Palette (System Design Additions) */
-  --color-obsidian-rgb: 13 14 16;         /* #0D0E10 - Obsidiana estructural (negro profundo cálido) */
-  --color-dark-subtle-rgb: 19 21 24;      /* #131518 - Basalto (secciones alternadas con textura mineral) */
-  --color-dark-surface-rgb: 26 29 33;     /* #1A1D21 - Pizarra (tarjetas, inputs, superficies modulares) */
-  --color-dark-elevated-rgb: 34 38 44;    /* #22262C - Pizarra elevada (hover y elementos activos) */
-  --color-dark-muted-rgb: 44 48 55;       /* #2C3037 - Hormigón ahumado */
-  --color-dark-border-rgb: 255 255 255;   /* Usado con opacidad /0.08 o /0.12 para juntas nítidas */
-  --color-chalk-rgb: 245 243 238;         /* #F5F3EE - Tiza mineral (titulares nítidos y cálidos) */
-  --color-ash-rgb: 168 171 178;           /* #A8ABB2 - Ceniza arquitectónica (párrafos legibles WCAG AA) */
+  --color-obsidian-rgb: 13 14 16; /* #0D0E10 - Obsidiana estructural (negro profundo cálido) */
+  --color-dark-subtle-rgb: 19 21 24; /* #131518 - Basalto (secciones alternadas con textura mineral) */
+  --color-dark-surface-rgb: 26 29 33; /* #1A1D21 - Pizarra (tarjetas, inputs, superficies modulares) */
+  --color-dark-elevated-rgb: 34 38 44; /* #22262C - Pizarra elevada (hover y elementos activos) */
+  --color-dark-muted-rgb: 44 48 55; /* #2C3037 - Hormigón ahumado */
+  --color-dark-border-rgb: 255 255 255; /* Usado con opacidad /0.08 o /0.12 para juntas nítidas */
+  --color-chalk-rgb: 245 243 238; /* #F5F3EE - Tiza mineral (titulares nítidos y cálidos) */
+  --color-ash-rgb: 168 171 178; /* #A8ABB2 - Ceniza arquitectónica (párrafos legibles WCAG AA) */
   --color-lift-orange-glow-rgb: 240 106 52; /* #F06A34 - Terracota luminosa para alto contraste */
 
   /* Standard Color Tokens */
@@ -141,4 +141,3 @@
   --color-selection-bg: rgb(var(--color-lift-orange-rgb));
   --color-selection-text: #ffffff;
 }
-

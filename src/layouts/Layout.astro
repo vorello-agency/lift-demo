@@ -119,11 +119,11 @@ const serializedStructuredData = JSON.stringify(structuredData ?? defaultStructu
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F3F1EC" />
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#111214" />
     <script is:inline>
-      (function() {
+      (function () {
         let isInitialLoad = true;
         const root = document.documentElement;
-        const mq = window.matchMedia('(prefers-color-scheme: dark)');
-        const STORAGE_KEY = 'lift-theme';
+        const mq = window.matchMedia("(prefers-color-scheme: dark)");
+        const STORAGE_KEY = "lift-theme";
 
         function getStoredTheme() {
           try {
@@ -135,44 +135,44 @@ const serializedStructuredData = JSON.stringify(structuredData ?? defaultStructu
 
         function resolveIsDark() {
           const stored = getStoredTheme();
-          if (stored === 'dark') return true;
-          if (stored === 'light') return false;
+          if (stored === "dark") return true;
+          if (stored === "light") return false;
           return mq.matches;
         }
 
         function updateSwitcherAria(isDark) {
-          const buttons = document.querySelectorAll('.theme-toggle-btn');
-          buttons.forEach(function(btn) {
-            const val = btn.getAttribute('data-theme-value');
-            btn.setAttribute('aria-pressed', val === (isDark ? 'dark' : 'light') ? 'true' : 'false');
+          const buttons = document.querySelectorAll(".theme-toggle-btn");
+          buttons.forEach(function (btn) {
+            const val = btn.getAttribute("data-theme-value");
+            btn.setAttribute("aria-pressed", val === (isDark ? "dark" : "light") ? "true" : "false");
           });
         }
 
         function applyDOMTheme(isDark) {
           if (isDark) {
-            root.classList.add('dark');
-            root.setAttribute('data-theme', 'dark');
+            root.classList.add("dark");
+            root.setAttribute("data-theme", "dark");
           } else {
-            root.classList.remove('dark');
-            root.setAttribute('data-theme', 'light');
+            root.classList.remove("dark");
+            root.setAttribute("data-theme", "light");
           }
           updateSwitcherAria(isDark);
         }
 
         function syncTheme(isDark) {
-          const currentIsDark = root.classList.contains('dark');
+          const currentIsDark = root.classList.contains("dark");
           if (isDark === currentIsDark && !isInitialLoad) return;
 
           // Never animate on initial paint or if user prefers reduced motion
-          const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-          if (isInitialLoad || isReduced || typeof document.startViewTransition !== 'function') {
+          const isReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+          if (isInitialLoad || isReduced || typeof document.startViewTransition !== "function") {
             applyDOMTheme(isDark);
             return;
           }
 
           // GPU-accelerated View Transition (hardware rasterized snapshots)
           try {
-            document.startViewTransition(function() {
+            document.startViewTransition(function () {
               applyDOMTheme(isDark);
             });
           } catch (e) {
@@ -180,31 +180,31 @@ const serializedStructuredData = JSON.stringify(structuredData ?? defaultStructu
           }
         }
 
-        window.__setLiftTheme = function(theme) {
+        window.__setLiftTheme = function (theme) {
           try {
             localStorage.setItem(STORAGE_KEY, theme);
           } catch (e) {}
-          syncTheme(theme === 'dark');
+          syncTheme(theme === "dark");
         };
 
         // Apply theme immediately on initial load without transition
         applyDOMTheme(resolveIsDark());
 
         // After initial paint, enable transitions for any subsequent change
-        const enableTransitions = function() {
-          window.requestAnimationFrame(function() {
+        const enableTransitions = function () {
+          window.requestAnimationFrame(function () {
             isInitialLoad = false;
-            updateSwitcherAria(root.classList.contains('dark'));
+            updateSwitcherAria(root.classList.contains("dark"));
           });
         };
 
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', enableTransitions);
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", enableTransitions);
         } else {
           enableTransitions();
         }
 
-        mq.addEventListener('change', function(e) {
+        mq.addEventListener("change", function (e) {
           if (!getStoredTheme()) {
             syncTheme(e.matches);
           }
@@ -212,19 +212,19 @@ const serializedStructuredData = JSON.stringify(structuredData ?? defaultStructu
 
         // Watch for manual class/attribute changes from future UI toggles
         if (window.MutationObserver) {
-          let prevDark = root.classList.contains('dark');
-          const observer = new MutationObserver(function() {
+          let prevDark = root.classList.contains("dark");
+          const observer = new MutationObserver(function () {
             if (isInitialLoad) return;
-            const nowDark = root.classList.contains('dark');
+            const nowDark = root.classList.contains("dark");
             if (nowDark !== prevDark) {
               prevDark = nowDark;
               updateSwitcherAria(nowDark);
             }
           });
-          observer.observe(root, { attributes: true, attributeFilter: ['class', 'data-theme'] });
+          observer.observe(root, { attributes: true, attributeFilter: ["class", "data-theme"] });
         }
 
-        document.addEventListener('astro:after-swap', function() {
+        document.addEventListener("astro:after-swap", function () {
           isInitialLoad = true;
           applyDOMTheme(resolveIsDark());
           enableTransitions();

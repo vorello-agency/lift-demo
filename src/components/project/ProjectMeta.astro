@@ -18,7 +18,9 @@ const metaFields = [
 const headingId = "project-meta-title";
 ---
 
-<section class="border-b border-concrete/60 bg-warm-white dark:border-white/[0.08] dark:bg-dark-subtle" aria-labelledby={headingId}>
+<section
+  class="border-b border-concrete/60 bg-warm-white dark:border-white/[0.08] dark:bg-dark-subtle"
+  aria-labelledby={headingId}>
   <div class="container-lift py-10 sm:py-14 lg:py-16">
     <div data-motion-project-reveal>
       <Eyebrow as="h2" id={headingId} text="Ficha técnica" size="xs" class="mb-8 sm:mb-10" />
@@ -31,7 +33,9 @@ const headingId = "project-meta-title";
             <dt class="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-lift-orange-dark dark:text-lift-orange sm:text-xs">
               {field.label}
             </dt>
-            <dd class="font-sans text-sm font-semibold leading-snug text-ink dark:text-chalk sm:text-base">{field.value}</dd>
+            <dd class="font-sans text-sm font-semibold leading-snug text-ink dark:text-chalk sm:text-base">
+              {field.value}
+            </dd>
           </div>
         ))
       }

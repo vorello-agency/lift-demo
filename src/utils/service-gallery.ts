@@ -27,15 +27,15 @@ const MOBILE_INTERVAL_MS = 1800;
 const TRANSITION_BUFFER_MS = 550;
 
 export function setupServiceGalleries(): () => void {
-  if (typeof window === "undefined") return () => { };
+  if (typeof window === "undefined") return () => {};
 
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   if (reduceMotion.matches) {
-    return () => { };
+    return () => {};
   }
 
   const cards = Array.from(document.querySelectorAll<HTMLElement>("[data-service-card]"));
-  if (cards.length === 0) return () => { };
+  if (cards.length === 0) return () => {};
 
   const isTouchDevice = () => window.matchMedia("(hover: none), (pointer: coarse)").matches;
 

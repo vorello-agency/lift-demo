@@ -1,0 +1,39 @@
+---
+interface Props {
+  theme?: "light" | "dark";
+  ariaLabel?: string;
+  items: Array<{
+    label: string;
+    href?: string;
+    current?: boolean;
+  }>;
+}
+
+const { items, ariaLabel = "Menú", theme = "light" } = Astro.props;
+const isLight = theme === "light";
+---
+
+<nav aria-label={ariaLabel}>
+  <ol class="flex items-center gap-1">
+    {
+      items.map((item, index) => (
+        <li class="flex items-center">
+          {item.href && !item.current ? (
+            <a
+              href={item.href}
+              class:list={["text-sm font-medium", isLight ? "text-white/70" : "text-gray-700 hover:text-gray-900"]}>
+              {item.label}
+            </a>
+          ) : (
+            <span class:list={["text-sm font-medium", isLight ? "text-white/70" : "text-gray-500"]}>{item.label}</span>
+          )}
+          {index < items.length - 1 && (
+            <svg class="mx-2 h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width={2} d="M9 5l7 7-7 7" />
+            </svg>
+          )}
+        </li>
+      ))
+    }
+  </ol>
+</nav>

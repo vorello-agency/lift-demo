@@ -23,7 +23,9 @@ const { prev, next } = Astro.props;
 const headingId = "project-navigation-title";
 ---
 
-<nav class="border-t border-concrete/60 bg-subtle dark:border-white/[0.08] dark:bg-dark-subtle" aria-labelledby={headingId}>
+<nav
+  class="border-t border-concrete/60 bg-subtle dark:border-white/[0.08] dark:bg-dark-subtle"
+  aria-labelledby={headingId}>
   <div class="container-lift py-12 sm:py-16 lg:py-20">
     <div data-motion-project-reveal>
       <Eyebrow as="h2" id={headingId} text="Explorar proyectos" size="xs" class="mb-8 sm:mb-10" />
@@ -34,7 +36,8 @@ const headingId = "project-navigation-title";
         href={withBasePath(`projects/${prev.slug}/`)}
         class="group -m-1 flex flex-col gap-4 rounded-sm p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lift-orange"
         aria-label={`Proyecto anterior: ${prev.name}`}>
-        <div class="flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.15em] text-charcoal dark:text-ash">
+        <div
+          class="flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.15em] text-charcoal dark:text-ash">
           <span
             class="h-4 w-4 text-charcoal transition-all duration-300 group-hover:-translate-x-1 group-hover:text-lift-orange-dark motion-reduce:transform-none motion-reduce:group-hover:translate-x-0 dark:text-ash dark:group-hover:text-lift-orange [&>svg]:h-full [&>svg]:w-full"
             aria-hidden="true"
@@ -46,7 +49,7 @@ const headingId = "project-navigation-title";
         <div class="relative aspect-[16/9] overflow-hidden rounded-sm bg-concrete/20 dark:bg-dark-surface">
           <Image
             src={prev.heroImage}
-            alt={prev.heroImageAlt}
+            alt=""
             class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03] motion-reduce:transform-none motion-reduce:group-hover:scale-100"
             loading="lazy"
             widths={[600, 900, 1200, 1600]}
@@ -73,7 +76,8 @@ const headingId = "project-navigation-title";
         href={withBasePath(`projects/${next.slug}/`)}
         class="group -m-1 flex flex-col gap-4 rounded-sm p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lift-orange sm:items-end sm:text-right"
         aria-label={`Proyecto siguiente: ${next.name}`}>
-        <div class="flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.15em] text-charcoal dark:text-ash">
+        <div
+          class="flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.15em] text-charcoal dark:text-ash">
           <span>Siguiente</span>
           <span
             class="h-4 w-4 text-charcoal transition-all duration-300 group-hover:translate-x-1 group-hover:text-lift-orange-dark motion-reduce:transform-none motion-reduce:group-hover:translate-x-0 dark:text-ash dark:group-hover:text-lift-orange [&>svg]:h-full [&>svg]:w-full"
@@ -85,7 +89,7 @@ const headingId = "project-navigation-title";
         <div class="relative aspect-[16/9] w-full overflow-hidden rounded-sm bg-concrete/20 dark:bg-dark-surface">
           <Image
             src={next.heroImage}
-            alt={next.heroImageAlt}
+            alt=""
             class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03] motion-reduce:transform-none motion-reduce:group-hover:scale-100"
             loading="lazy"
             widths={[600, 900, 1200, 1600]}

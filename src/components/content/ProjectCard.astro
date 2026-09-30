@@ -81,7 +81,8 @@ const {
         {title}
       </h3>
 
-      <div class="relative z-20 flex shrink-0 cursor-text items-center gap-2 text-sm font-medium text-charcoal dark:text-ash">
+      <div
+        class="relative z-20 flex shrink-0 cursor-text items-center gap-2 text-sm font-medium text-charcoal dark:text-ash">
         {year && <span>{year}</span>}
         {year && area && <span class="h-1.5 w-1.5 rounded-full bg-charcoal/60 dark:bg-ash/60" aria-hidden="true" />}
         {area && <span>{area}</span>}
@@ -106,7 +107,7 @@ const {
         aria-describedby={description ? `project-desc-${index}` : undefined}>
         <span>Ver proyecto</span>
         <span
-          class="flex h-4 w-4 items-center justify-center text-ink transition-transform duration-300 group-focus-within:-translate-y-0.5 group-focus-within:translate-x-0.5 group-focus-within:text-lift-orange-dark group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-lift-orange-dark group-active:text-lift-orange-dark dark:text-chalk dark:group-focus-within:text-lift-orange dark:group-hover:text-lift-orange dark:group-active:text-lift-orange motion-reduce:transform-none motion-reduce:group-focus-within:translate-x-0 motion-reduce:group-focus-within:translate-y-0 motion-reduce:group-hover:translate-x-0 motion-reduce:group-hover:translate-y-0 [&>svg]:h-full [&>svg]:w-full [&>svg]:stroke-current"
+          class="flex h-4 w-4 items-center justify-center text-ink transition-transform duration-300 group-focus-within:-translate-y-0.5 group-focus-within:translate-x-0.5 group-focus-within:text-lift-orange-dark group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-lift-orange-dark group-active:text-lift-orange-dark motion-reduce:transform-none motion-reduce:group-focus-within:translate-x-0 motion-reduce:group-focus-within:translate-y-0 motion-reduce:group-hover:translate-x-0 motion-reduce:group-hover:translate-y-0 dark:text-chalk dark:group-focus-within:text-lift-orange dark:group-hover:text-lift-orange dark:group-active:text-lift-orange [&>svg]:h-full [&>svg]:w-full [&>svg]:stroke-current"
           aria-hidden="true"
           set:html={arrowUpRightIcon}
         />

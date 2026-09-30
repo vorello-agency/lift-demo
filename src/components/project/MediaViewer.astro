@@ -11,20 +11,16 @@ export interface MediaViewerSlideItem {
   title?: string;
   type?: string;
   caption?: string;
-  credit?: string;
 }
-
-export type LightboxSlideItem = MediaViewerSlideItem;
 
 interface Props {
   id: string;
   triggerAttribute: string;
   sectionTitle: string;
   slides: MediaViewerSlideItem[];
-  showSlideTitles?: boolean;
 }
 
-const { id, triggerAttribute, sectionTitle, slides, showSlideTitles = true } = Astro.props;
+const { id, triggerAttribute, sectionTitle, slides } = Astro.props;
 const hasSlides = slides.length > 0;
 const viewerWidths = [800, 1200, 1800, 2400];
 const viewerImages = await Promise.all(
@@ -60,19 +56,6 @@ const viewerImages = await Promise.all(
               <span class="shrink-0 text-xs font-semibold uppercase tracking-[0.18em] text-white/50">
                 {sectionTitle}
               </span>
-              <span class="hidden shrink-0 rounded-sm border border-white/10 bg-white/5 px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest text-white/40 sm:inline-block">
-                Generada con IA
-              </span>
-              {showSlideTitles && (
-                <>
-                  <span class="h-1 w-1 shrink-0 rounded-full bg-lift-orange" aria-hidden="true" />
-                  <span
-                    data-viewer-header-title
-                    class="truncate text-xs font-medium uppercase tracking-[0.14em] text-white/80">
-                    {slides[0]?.title ?? slides[0]?.type ?? ""}
-                  </span>
-                </>
-              )}
             </div>
 
             <div class="flex shrink-0 items-center gap-4">
@@ -107,7 +90,6 @@ const viewerImages = await Promise.all(
                 data-slide-title={slide.title ?? ""}
                 data-slide-type={slide.type ?? ""}
                 data-slide-caption={slide.caption ?? ""}
-                data-slide-credit={slide.credit ?? ""}
                 class:list={[
                   "absolute inset-4 flex flex-col items-center justify-center transition-all duration-300 ease-out sm:inset-8 lg:inset-12",
                   index === 0
@@ -129,7 +111,7 @@ const viewerImages = await Promise.all(
                     loading={index === 0 ? "eager" : "lazy"}
                     fetchpriority={index === 0 ? "high" : "low"}
                     decoding="async"
-                    class="max-h-full max-w-full rounded-sm object-contain shadow-2xl"
+                    class="max-h-full max-w-full rounded-sm object-contain"
                   />
                 </div>
               </figure>
@@ -183,18 +165,6 @@ const viewerImages = await Promise.all(
                 class:list={["text-xs leading-relaxed text-concrete/80", slides[0]?.caption ? "" : "hidden"]}>
                 {slides[0]?.caption ?? ""}
               </p>
-            </div>
-
-            <div
-              data-viewer-footer-credits
-              class:list={[
-                "flex shrink-0 items-center gap-2 font-mono text-[11px] text-concrete/50",
-                slides[0]?.credit ? "" : "hidden",
-              ]}>
-              <span>Crédito:</span>
-              <span data-viewer-footer-credit-text class="text-concrete/70">
-                {slides[0]?.credit ?? ""}
-              </span>
             </div>
           </div>
         </footer>

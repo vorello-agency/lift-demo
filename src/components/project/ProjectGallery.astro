@@ -19,107 +19,82 @@ const gallerySlides: MediaViewerSlideItem[] = gallery.map((item) => ({
   alt: item.alt,
   caption: item.caption,
 }));
-
-const placeholders = [
-  { ratio: "aspect-[4/5]", label: "Fotografía vertical" },
-  { ratio: "aspect-[3/2]", label: "Vista panorámica" },
-  { ratio: "aspect-square", label: "Detalle material" },
-  { ratio: "aspect-[5/7]", label: "Espacio interior" },
-  { ratio: "aspect-[16/10]", label: "Relación con el contexto" },
-  { ratio: "aspect-[3/4]", label: "Detalle de fachada" },
-  { ratio: "aspect-[4/3]", label: "Vista general" },
-  { ratio: "aspect-[2/3]", label: "Secuencia vertical" },
-];
 ---
 
-<section class="border-t border-concrete/40 bg-warm-white dark:border-white/[0.08] dark:bg-obsidian" aria-labelledby={headingId}>
-  <div class="container-lift pb-16 pt-32 sm:pb-20 lg:pb-28">
-    <div
-      class="mb-10 grid grid-cols-1 gap-5 border-b border-concrete/60 pb-8 sm:mb-14 sm:pb-10 lg:grid-cols-12 lg:items-end dark:border-white/[0.08]">
-      <div class="lg:col-span-5" data-motion-project-reveal>
-        <Eyebrow as="h2" id={headingId} text="Galería" size="xs" class="mb-5" />
-        <p class="text-pretty font-display text-3xl font-bold leading-[1.1] text-ink dark:text-chalk sm:text-4xl">
-          {headline}
-        </p>
+{
+  hasGalleryImages && (
+    <section
+      class="border-t border-concrete/40 bg-warm-white dark:border-white/[0.08] dark:bg-obsidian"
+      aria-labelledby={headingId}>
+      <div class="container-lift pb-16 pt-32 sm:pb-20 lg:pb-28">
+        <div class="mb-10 grid grid-cols-1 gap-5 border-b border-concrete/60 pb-8 dark:border-white/[0.08] sm:mb-14 sm:pb-10 lg:grid-cols-12 lg:items-end">
+          <div class="lg:col-span-5" data-motion-project-reveal>
+            <Eyebrow as="h2" id={headingId} text="Galería" size="xs" class="mb-5" />
+            <p class="text-pretty font-display text-3xl font-bold leading-[1.1] text-ink dark:text-chalk sm:text-4xl">
+              {headline}
+            </p>
+          </div>
+
+          <div class="lg:col-span-5 lg:col-start-8" data-motion-project-reveal>
+            <p class="max-w-xl text-pretty text-sm leading-relaxed text-charcoal dark:text-ash sm:text-base">
+              {description}
+            </p>
+          </div>
+        </div>
+
+        <div class="gallery-lanes">
+          {gallery.map((item, index) => (
+            <figure class="gallery-lane-item group" data-motion-gallery-item>
+              <button
+                type="button"
+                class="group relative block w-full cursor-pointer overflow-hidden rounded-sm bg-concrete/20 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lift-orange dark:bg-dark-surface"
+                data-gallery-open={index}
+                aria-haspopup="dialog"
+                aria-label={`Ampliar fotografía ${index + 1} de la galería: ${item.alt}`}>
+                <Image
+                  src={item.image}
+                  alt=""
+                  class="h-auto w-full transition-transform duration-700 ease-out group-hover:scale-[1.02] motion-reduce:transform-none motion-reduce:group-hover:scale-100"
+                  loading="lazy"
+                  widths={[480, 720, 960]}
+                  sizes="(min-width: 1024px) 32vw, (min-width: 640px) 48vw, 100vw"
+                />
+              </button>
+              {item.caption && (
+                <figcaption class="flex gap-3 border-t border-concrete/50 pt-3 text-xs leading-relaxed text-charcoal dark:border-white/[0.08] dark:text-ash">
+                  <span class="mt-[0.45rem] h-px w-5 shrink-0 bg-lift-orange" aria-hidden="true" />
+                  <span>{item.caption}</span>
+                </figcaption>
+              )}
+            </figure>
+          ))}
+        </div>
+
+        <div
+          class="mt-12 flex flex-col justify-between gap-4 border-t border-concrete/60 pt-6 dark:border-white/[0.08] sm:mt-16 sm:flex-row sm:items-center sm:pt-8"
+          data-motion-project-reveal>
+          <div class="flex items-center gap-2 font-mono text-xs text-charcoal dark:text-ash">
+            <span class="font-semibold text-ink dark:text-chalk">{String(gallery.length).padStart(2, "0")}</span>
+            <span class="text-[11px] uppercase tracking-[0.14em] text-charcoal/70 dark:text-ash/70">
+              {gallery.length === 1 ? "registro visual" : "registros visuales"}
+            </span>
+          </div>
+
+          <p class="max-w-xl text-xs leading-relaxed text-charcoal/75 dark:text-ash/70 sm:text-right">
+            Visualizaciones conceptuales generadas con IA.
+          </p>
+        </div>
       </div>
 
-      <div class="lg:col-span-5 lg:col-start-8" data-motion-project-reveal>
-        <p class="max-w-xl text-pretty text-sm leading-relaxed text-charcoal dark:text-ash sm:text-base">
-          {description}
-        </p>
-      </div>
-    </div>
-
-    <div class="gallery-lanes">
-      {
-        hasGalleryImages
-          ? gallery.map((item, index) => (
-              <figure class="gallery-lane-item group" data-motion-gallery-item>
-                <button
-                  type="button"
-                  class="group relative block w-full cursor-pointer overflow-hidden rounded-sm bg-concrete/20 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lift-orange dark:bg-dark-surface"
-                  data-gallery-open={index}
-                  aria-haspopup="dialog"
-                  aria-label={`Ampliar fotografía ${index + 1} de la galería: ${item.alt}`}>
-                  <Image
-                    src={item.image}
-                    alt={item.alt}
-                    class="h-auto w-full transition-transform duration-700 ease-out group-hover:scale-[1.02] motion-reduce:transform-none motion-reduce:group-hover:scale-100"
-                    loading="lazy"
-                    widths={[480, 720, 960]}
-                    sizes="(min-width: 1024px) 32vw, (min-width: 640px) 48vw, 100vw"
-                  />
-                </button>
-                {item.caption && (
-                  <figcaption class="flex gap-3 border-t border-concrete/50 pt-3 text-xs leading-relaxed text-charcoal dark:border-white/[0.08] dark:text-ash">
-                    <span class="mt-[0.45rem] h-px w-5 shrink-0 bg-lift-orange" aria-hidden="true" />
-                    <span>{item.caption}</span>
-                  </figcaption>
-                )}
-              </figure>
-            ))
-          : placeholders.map((placeholder) => (
-              <div class="gallery-lane-item" data-motion-gallery-item aria-hidden="true">
-                <div
-                  class:list={[
-                    "flex flex-col justify-between rounded-sm border border-dashed border-concrete bg-subtle/70 p-5 sm:p-6 dark:border-white/[0.08] dark:bg-dark-subtle",
-                    placeholder.ratio,
-                  ]}>
-                  <div class="flex items-center justify-between gap-4">
-                    <span class="text-[11px] font-semibold uppercase tracking-[0.16em] text-charcoal/55 dark:text-ash/60">
-                      Espacio de galería
-                    </span>
-                    <span class="h-2 w-2 rounded-full bg-lift-orange/70" />
-                  </div>
-                  <span class="max-w-[18ch] font-display text-xl font-bold leading-tight text-charcoal/55 dark:text-ash/60 sm:text-2xl">
-                    {placeholder.label}
-                  </span>
-                </div>
-              </div>
-            ))
-      }
-    </div>
-
-    <div
-      class="mt-12 flex flex-col justify-between gap-4 border-t border-concrete/60 pt-6 sm:mt-16 sm:flex-row sm:items-center sm:pt-8 dark:border-white/[0.08]"
-      data-motion-project-reveal>
-      <div class="flex items-center gap-2 font-mono text-xs text-charcoal dark:text-ash">
-        <span class="font-semibold text-ink dark:text-chalk">
-          {String(gallery.length > 0 ? gallery.length : placeholders.length).padStart(2, "0")}
-        </span>
-        <span class="text-[11px] uppercase tracking-[0.14em] text-charcoal/70 dark:text-ash/70">
-          {(gallery.length > 0 ? gallery.length : placeholders.length) === 1 ? "registro visual" : "registros visuales"}
-        </span>
-      </div>
-
-      <p class="max-w-xl text-xs leading-relaxed text-charcoal/75 dark:text-ash/70 sm:text-right">
-        Visualizaciones conceptuales generadas con IA.
-      </p>
-    </div>
-  </div>
-
-  <MediaViewer id="gallery-viewer" triggerAttribute="data-gallery-open" sectionTitle="Galería" slides={gallerySlides} />
-</section>
+      <MediaViewer
+        id="gallery-viewer"
+        triggerAttribute="data-gallery-open"
+        sectionTitle="Galería"
+        slides={gallerySlides}
+      />
+    </section>
+  )
+}
 
 <style>
   .gallery-lanes {

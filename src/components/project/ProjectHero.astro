@@ -4,6 +4,7 @@ import type { ImageMetadata } from "astro";
 import { withBasePath } from "../../utils/urls";
 import Eyebrow from "../shared/Eyebrow.astro";
 import ConceptualBadge from "../shared/ConceptualBadge.astro";
+import Breadcrumb from "../shared/Breadcrumb.astro";
 
 interface Props {
   name: string;
@@ -36,35 +37,24 @@ const { name, subtitle, heroImage, heroImageAlt } = Astro.props;
   <div
     class="relative z-10 flex min-h-[85dvh] w-full flex-col justify-between pb-12 pt-28 sm:pb-16 sm:pt-32 lg:min-h-[100dvh] lg:pb-20">
     <div class="container-lift">
-      <nav aria-label="Ubicación" class="project-hero-fade-in">
-        <ol class="flex flex-wrap items-center gap-2 font-sans text-xs text-white/70 sm:text-sm">
-          <li>
-            <a
-              href={withBasePath("")}
-              class="rounded-xs transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lift-orange">
-              Inicio
-            </a>
-          </li>
-          <li aria-hidden="true">
-            <span class="text-white/40">/</span>
-          </li>
-          <li>
-            <a
-              href={withBasePath("#projects")}
-              class="rounded-xs transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lift-orange">
-              Proyectos
-            </a>
-          </li>
-          <li aria-hidden="true">
-            <span class="text-white/40">/</span>
-          </li>
-          <li>
-            <span class="font-medium text-white" aria-current="page">
-              {name}
-            </span>
-          </li>
-        </ol>
-      </nav>
+      <Breadcrumb
+        ariaLabel="Navegación de proyecto"
+        items={[
+          {
+            label: "Inicio",
+            href: withBasePath(""),
+          },
+          {
+            label: "Proyectos",
+            href: withBasePath("#projects"),
+          },
+          {
+            label: name,
+            href: "#",
+            current: true,
+          },
+        ]}
+      />
     </div>
 
     <div class="container-lift mt-auto pt-12">

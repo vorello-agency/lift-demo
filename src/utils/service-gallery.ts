@@ -10,7 +10,7 @@
  * - Limpieza integral de observers, intervals y listeners compatible con Astro View Transitions.
  */
 
-interface ServiceCardGallery {
+interface CardGallery {
   card: HTMLElement;
   images: HTMLImageElement[];
   startDesktopTimer: () => void;
@@ -22,11 +22,25 @@ interface ServiceCardGallery {
   destroy: () => void;
 }
 
-const DESKTOP_INTERVAL_MS = 1200;
-const MOBILE_INTERVAL_MS = 1800;
-const TRANSITION_BUFFER_MS = 550;
+const DESKTOP_INTERVAL_MS = 2200;
+const MOBILE_INTERVAL_MS = 3000;
+const TRANSITION_BUFFER_MS = 750;
 
-export function setupServiceGalleries(): () => void {
+export interface CardGalleryOptions {
+  cardSelector?: string;
+  desktopIntervalMs?: number;
+  mobileIntervalMs?: number;
+  transitionBufferMs?: number;
+}
+
+export function setupCardGalleries(options: CardGalleryOptions = {}): () => void {
+  const {
+    cardSelector = "[data-service-card]",
+    desktopIntervalMs = DESKTOP_INTERVAL_MS,
+    mobileIntervalMs = MOBILE_INTERVAL_MS,
+    transitionBufferMs = TRANSITION_BUFFER_MS,
+  } = options;
+
   if (typeof window === "undefined") return () => {};
 
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -34,12 +48,12 @@ export function setupServiceGalleries(): () => void {
     return () => {};
   }
 
-  const cards = Array.from(document.querySelectorAll<HTMLElement>("[data-service-card]"));
+  const cards = Array.from(document.querySelectorAll<HTMLElement>(cardSelector));
   if (cards.length === 0) return () => {};
 
   const isTouchDevice = () => window.matchMedia("(hover: none), (pointer: coarse)").matches;
 
-  const cardGalleries = new Map<HTMLElement, ServiceCardGallery>();
+  const cardGalleries = new Map<HTMLElement, CardGallery>();
 
   // Observer para precarga progresiva anticipada (a 250px del viewport)
   const preloadObserver = new IntersectionObserver(
@@ -209,7 +223,7 @@ export function setupServiceGalleries(): () => void {
           currentEl.classList.remove("is-previous");
         }
         cleanupTimeoutId = null;
-      }, TRANSITION_BUFFER_MS);
+      }, transitionBufferMs);
     };
 
     const startDesktopTimer = () => {
@@ -219,7 +233,7 @@ export function setupServiceGalleries(): () => void {
       intervalId = window.setInterval(() => {
         const next = (currentIndex + 1) % images.length;
         transitionTo(next);
-      }, DESKTOP_INTERVAL_MS);
+      }, desktopIntervalMs);
     };
 
     const stopDesktopTimer = () => {
@@ -235,7 +249,7 @@ export function setupServiceGalleries(): () => void {
       intervalId = window.setInterval(() => {
         const next = (currentIndex + 1) % images.length;
         transitionTo(next);
-      }, MOBILE_INTERVAL_MS);
+      }, mobileIntervalMs);
     };
 
     const pauseMobileTimer = () => {
@@ -310,4 +324,12 @@ export function setupServiceGalleries(): () => void {
     cardGalleries.forEach((gallery) => gallery.destroy());
     cardGalleries.clear();
   };
+}
+
+export function setupServiceGalleries(): () => void {
+  return setupCardGalleries({ cardSelector: "[data-service-card]" });
+}
+
+export function setupProjectNavGalleries(): () => void {
+  return setupCardGalleries({ cardSelector: "[data-project-nav-card]" });
 }

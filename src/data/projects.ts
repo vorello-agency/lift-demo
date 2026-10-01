@@ -111,6 +111,7 @@ export interface Project {
   cardImage: ImageMetadata;
   heroImage: ImageMetadata;
   heroImageAlt: string;
+  previewImages: ImageMetadata[];
   gallery: ProjectGalleryItem[];
   aspectRatioClass: string;
   gridClass: string;
@@ -219,6 +220,7 @@ export const projects: Project[] = [
     heroImage: tramaHero,
     heroImageAlt:
       "Visualización conceptual de Trama 46, una torre de tres volúmenes desplazados sobre un basamento público",
+    previewImages: [tramaHero, tramaSkyTerrace, tramaLobby, tramaBlueHour],
     gallery: [
       {
         image: tramaHero,
@@ -394,6 +396,7 @@ export const projects: Project[] = [
     heroImage: estratoHero,
     heroImageAlt:
       "Visualización conceptual de Estrato 38, una torre curva de oficinas con tres jardines elevados sobre un basamento pétreo",
+    previewImages: [estratoHero, estratoLandscapedVoid, estratoLobbyInterior, estratoUrbanProfile],
     gallery: [
       {
         image: estratoHero,
@@ -561,6 +564,7 @@ export const projects: Project[] = [
     heroImage: cotaHero,
     heroImageAlt:
       "Residencia conceptual Cota 21, compuesta por volúmenes escalonados de piedra, hormigón y vidrio sobre una ladera costera",
+    previewImages: [cotaHero, cotaPoolTerrace, cotaLivingInterior, cotaExteriorNight],
     gallery: [
       {
         image: cotaHero,
@@ -745,6 +749,7 @@ export const projects: Project[] = [
     heroImage: litoralHero,
     heroImageAlt:
       "Visualización conceptual de Litoral 14, un edificio residencial con terrazas ajardinadas frente al mar",
+    previewImages: [litoralHero, litoralLandscapedVoid, litoralResidenceInterior, litoralBlueHour],
     gallery: [
       {
         image: litoralHero,

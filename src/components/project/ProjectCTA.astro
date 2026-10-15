@@ -1,7 +1,7 @@
 ---
 import { withBasePath } from "../../utils/urls";
 import ctaVideo from "../../assets/videos/cta.webm";
-import contactPoster from "../../assets/images/contact.webp";
+import ctaPoster from "../../assets/images/cta-poster.webp";
 import Button from "../shared/Button.astro";
 import Eyebrow from "../shared/Eyebrow.astro";
 ---
@@ -11,7 +11,7 @@ import Eyebrow from "../shared/Eyebrow.astro";
     class="pointer-events-none absolute inset-0 h-full w-full object-cover"
     data-project-cta-video
     data-src={ctaVideo}
-    poster={contactPoster.src}
+    poster={ctaPoster.src}
     loop
     muted
     playsinline

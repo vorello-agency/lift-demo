@@ -1,6 +1,6 @@
 ---
 import processVideo from "../assets/videos/process.webm";
-import aboutPoster from "../assets/images/about.webp";
+import processPoster from "../assets/images/process-poster.webp";
 import SectionHeader from "../components/shared/SectionHeader.astro";
 import ProcessCard from "../components/content/ProcessCard.astro";
 
@@ -55,7 +55,7 @@ const processSteps = [
         muted
         playsinline
         preload="metadata"
-        poster={aboutPoster.src}
+        poster={processPoster.src}
         class="absolute inset-0 h-full w-full select-none object-cover object-center brightness-[0.95] contrast-[1.02]"
         aria-label="Secuencia de video que muestra las etapas del proceso constructivo y detalle de obra"
         data-process-video>

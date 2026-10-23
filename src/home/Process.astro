@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import processVideo from "../assets/videos/process.webm";
 import processPoster from "../assets/images/process-poster.webp";
 import SectionHeader from "../components/shared/SectionHeader.astro";
@@ -50,16 +51,24 @@ const processSteps = [
     <div
       class="relative h-56 w-full overflow-hidden rounded-md border border-concrete/60 bg-ink dark:border-white/[0.08] sm:h-72 md:h-96"
       data-motion-reveal>
+      <Image
+        src={processPoster}
+        widths={[400, 640, 800, 1280, 1600]}
+        sizes="(min-width: 1920px) 1488px, (min-width: 1360px) 1280px, 92vw"
+        alt=""
+        loading="lazy"
+        class="absolute inset-0 h-full w-full object-cover object-center brightness-[0.95] contrast-[1.02]"
+        aria-hidden="true"
+      />
       <video
         loop
         muted
         playsinline
-        preload="metadata"
-        poster={processPoster.src}
+        preload="none"
+        data-src={processVideo}
         class="absolute inset-0 h-full w-full select-none object-cover object-center brightness-[0.95] contrast-[1.02]"
-        aria-label="Secuencia de video que muestra las etapas del proceso constructivo y detalle de obra"
+        aria-hidden="true"
         data-process-video>
-        <source src={processVideo} type="video/webm" />
       </video>
       <div
         class="pointer-events-none absolute inset-0 flex items-end bg-gradient-to-t from-ink/65 via-ink/20 to-transparent p-4 sm:p-8"
@@ -124,7 +133,7 @@ const processSteps = [
     const video = document.querySelector<HTMLVideoElement>("[data-process-video]");
     const toggleBtn = document.querySelector<HTMLButtonElement>("[data-process-video-toggle]");
     if (video) {
-      cleanupProcessVideo = setupAccessibleVideo({ video, toggleBtn, lazyLoad: false });
+      cleanupProcessVideo = setupAccessibleVideo({ video, toggleBtn, lazyLoad: true });
     }
   }
 

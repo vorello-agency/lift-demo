@@ -45,6 +45,15 @@ textarea:focus,
   box-shadow: 0 0 0 3px var(--color-accent-subtle);
 }
 
+/* Invalid fields retain their error border while focused, in both themes. */
+:root :is(input, textarea)[aria-invalid="true"] {
+  border-color: #dc2626;
+}
+
+:root :is(input, textarea)[aria-invalid="true"]:focus {
+  box-shadow: 0 0 0 3px rgb(220 38 38 / 15%);
+}
+
 /* Divider Base */
 hr,
 .divider {

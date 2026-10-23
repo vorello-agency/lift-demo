@@ -1,4 +1,5 @@
-import { animate, inView, stagger } from "motion";
+import { animate } from "motion/mini";
+import { inView, stagger } from "motion";
 import { EDITORIAL_EASE, createMotionContext } from "./core";
 
 export function setupProjectMotion(signal: AbortSignal): () => void {

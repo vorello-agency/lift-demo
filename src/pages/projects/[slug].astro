@@ -1,5 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import { getImage } from "astro:assets";
 import ProjectHero from "../../components/project/ProjectHero.astro";
 import ProjectMeta from "../../components/project/ProjectMeta.astro";
 import ProjectDescription from "../../components/project/ProjectDescription.astro";
@@ -26,6 +27,13 @@ const { prev, next } = getAdjacentProjects(project.slug);
 
 const pageTitle = `${project.name} — Lift Construcciones`;
 const pageDescription = project.introduction;
+const heroPreload = await getImage({
+  src: project.heroImage,
+  format: "avif",
+  quality: 45,
+  widths: [480, 800, 1200, 1536],
+  sizes: "100vw",
+});
 ---
 
 <Layout
@@ -37,6 +45,15 @@ const pageDescription = project.introduction;
   imageHeight={project.heroImage.height}
   imageType={project.heroImage.format === "png" ? "image/png" : "image/jpeg"}
   ogType="article">
+  <link
+    slot="preload"
+    rel="preload"
+    as="image"
+    href={heroPreload.src}
+    imagesrcset={heroPreload.srcSet.attribute}
+    imagesizes="100vw"
+    fetchpriority="high"
+  />
   <ProjectHero
     name={project.name}
     subtitle={project.subtitle}

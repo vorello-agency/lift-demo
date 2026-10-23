@@ -23,8 +23,14 @@ interface Props {
 const { prev, next } = Astro.props;
 const headingId = "project-navigation-title";
 
-const prevImages = (prev.previewImages && prev.previewImages.length > 0 ? prev.previewImages : [prev.heroImage]).slice(0, 4);
-const nextImages = (next.previewImages && next.previewImages.length > 0 ? next.previewImages : [next.heroImage]).slice(0, 4);
+const prevImages = (prev.previewImages && prev.previewImages.length > 0 ? prev.previewImages : [prev.heroImage]).slice(
+  0,
+  4
+);
+const nextImages = (next.previewImages && next.previewImages.length > 0 ? next.previewImages : [next.heroImage]).slice(
+  0,
+  4
+);
 
 const prevOptimizedImages = await Promise.all(
   prevImages.map((img) =>
@@ -59,10 +65,10 @@ const nextOptimizedImages = await Promise.all(
       <Eyebrow as="h2" id={headingId} text="Explorar proyectos" size="xs" class="mb-8 sm:mb-10" />
     </div>
 
-    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 lg:gap-12" data-motion-project-group>
+    <div class="grid grid-cols-2 gap-4 sm:gap-8 lg:gap-12" data-motion-project-group>
       <a
         href={withBasePath(`projects/${prev.slug}/`)}
-        class="project-nav-card group -m-1 flex flex-col gap-4 rounded-sm p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lift-orange"
+        class="project-nav-card group -m-1 flex min-w-0 flex-col gap-4 rounded-sm p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lift-orange"
         aria-label={`Proyecto anterior: ${prev.name}`}
         data-project-nav-card>
         <div
@@ -146,7 +152,7 @@ const nextOptimizedImages = await Promise.all(
 
       <a
         href={withBasePath(`projects/${next.slug}/`)}
-        class="project-nav-card group -m-1 flex flex-col gap-4 rounded-sm p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lift-orange sm:items-end sm:text-right"
+        class="project-nav-card group -m-1 flex min-w-0 flex-col items-end gap-4 rounded-sm p-1 text-right focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lift-orange"
         aria-label={`Proyecto siguiente: ${next.name}`}
         data-project-nav-card>
         <div
@@ -235,7 +241,9 @@ const nextOptimizedImages = await Promise.all(
   .project-nav-card__image {
     opacity: 0;
     pointer-events: none;
-    transition: opacity 700ms ease-in-out, transform 700ms ease-out;
+    transition:
+      opacity 700ms ease-in-out,
+      transform 700ms ease-out;
     will-change: opacity, transform;
   }
 

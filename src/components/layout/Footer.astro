@@ -130,7 +130,7 @@ const typologies = [
               "group inline-flex w-fit items-center gap-1.5 font-sans text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lift-orange",
               isDark
                 ? "text-concrete/80 hover:text-lift-orange"
-                : "text-charcoal hover:text-lift-orange-dark dark:text-concrete/80 dark:hover:text-lift-orange",
+                : "text-charcoal hover:text-ink dark:text-concrete/80 dark:hover:text-lift-orange",
             ]}>
             <span>Explorar portfolio del estudio</span>
             <span
@@ -169,8 +169,8 @@ const typologies = [
                           class:list={[
                             "font-mono text-xs transition-colors",
                             isDark
-                              ? "text-white/40 group-hover:text-lift-orange"
-                              : "text-charcoal/60 group-hover:text-lift-orange-dark dark:text-white/40 dark:group-hover:text-lift-orange",
+                              ? "text-white/60 group-hover:text-lift-orange"
+                              : "text-charcoal group-hover:text-ink dark:text-white/60 dark:group-hover:text-lift-orange",
                           ]}>
                           {item.num}.
                         </span>
@@ -213,7 +213,7 @@ const typologies = [
                     <span
                       class:list={[
                         "font-mono text-[11px]",
-                        isDark ? "text-lift-orange" : "text-lift-orange-dark dark:text-lift-orange",
+                        isDark ? "text-lift-orange" : "text-charcoal dark:text-lift-orange",
                       ]}>
                       {item.code}
                     </span>
@@ -256,7 +256,10 @@ const typologies = [
             </span>
           </div>
           <div>
-            <ConceptualBadge />
+            <ConceptualBadge
+              tone={isDark ? "inverse" : "auto"}
+              class={isDark ? "" : "!text-charcoal dark:!text-lift-orange"}
+            />
           </div>
         </div>
         <div class="flex flex-wrap items-center gap-4 sm:gap-6">
@@ -313,7 +316,7 @@ const typologies = [
             variant="scroll-link"
             class={isDark
               ? "text-white hover:text-lift-orange transition-colors py-0.5 gap-1.5"
-              : "text-ink hover:text-lift-orange-dark dark:text-white dark:hover:text-lift-orange transition-colors py-0.5 gap-1.5"}
+              : "text-ink hover:text-ink dark:text-white dark:hover:text-lift-orange transition-colors py-0.5 gap-1.5"}
             ariaLabel="Volver al inicio de la página">
             Volver arriba
             <span slot="icon-right" aria-hidden="true">↑</span>

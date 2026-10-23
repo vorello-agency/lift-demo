@@ -141,11 +141,8 @@ const serializedStructuredData = JSON.stringify(structuredData ?? defaultStructu
         }
 
         function updateSwitcherAria(isDark) {
-          const buttons = document.querySelectorAll(".theme-toggle-btn");
-          buttons.forEach(function (btn) {
-            const val = btn.getAttribute("data-theme-value");
-            btn.setAttribute("aria-pressed", val === (isDark ? "dark" : "light") ? "true" : "false");
-          });
+          const switcher = document.getElementById("theme-switcher");
+          switcher?.setAttribute("aria-checked", String(isDark));
         }
 
         function applyDOMTheme(isDark) {

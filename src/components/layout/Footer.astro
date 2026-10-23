@@ -263,18 +263,17 @@ const typologies = [
           </div>
         </div>
         <div class="flex flex-wrap items-center gap-4 sm:gap-6">
-          <div
+          <button
             id="theme-switcher"
-            class="inline-flex select-none items-center rounded-full border border-concrete/70 bg-concrete/20 p-0.5 text-charcoal transition-colors dark:border-white/10 dark:bg-white/[0.04] dark:text-concrete/80"
-            role="group"
-            aria-label="Selector de tema visual">
-            <button
-              type="button"
+            type="button"
+            class="inline-flex cursor-pointer select-none items-center rounded-full border border-concrete/70 bg-concrete/20 p-0.5 text-charcoal transition-colors dark:border-white/10 dark:bg-white/[0.04] dark:text-concrete/80"
+            role="switch"
+            aria-checked="false"
+            aria-label="Modo oscuro">
+            <span
               data-theme-value="light"
               class="theme-toggle-btn inline-flex h-6 w-6 items-center justify-center rounded-full transition-all focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-lift-orange"
-              aria-pressed="false"
-              aria-label="Activar modo claro"
-              title="Activar modo claro">
+              aria-hidden="true">
               <svg
                 class="h-3.5 w-3.5 stroke-current"
                 viewBox="0 0 24 24"
@@ -289,14 +288,11 @@ const typologies = [
                 </path>
               </svg>
               <span class="sr-only">Modo claro</span>
-            </button>
-            <button
-              type="button"
+            </span>
+            <span
               data-theme-value="dark"
               class="theme-toggle-btn inline-flex h-6 w-6 items-center justify-center rounded-full transition-all focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-lift-orange"
-              aria-pressed="false"
-              aria-label="Activar modo oscuro"
-              title="Activar modo oscuro">
+              aria-hidden="true">
               <svg
                 class="h-3.5 w-3.5 stroke-current"
                 viewBox="0 0 24 24"
@@ -308,8 +304,8 @@ const typologies = [
                 <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
               </svg>
               <span class="sr-only">Modo oscuro</span>
-            </button>
-          </div>
+            </span>
+          </button>
 
           <Button
             href={homeUrl}
@@ -345,26 +341,22 @@ const typologies = [
     const switcher = document.getElementById("theme-switcher");
     if (!switcher) return;
 
-    const buttons = switcher.querySelectorAll<HTMLButtonElement>(".theme-toggle-btn");
-    buttons.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const targetTheme = btn.getAttribute("data-theme-value");
-        if (targetTheme === "light" || targetTheme === "dark") {
-          const globalSetter = (window as unknown as { __setLiftTheme?: (t: string) => void }).__setLiftTheme;
-          if (typeof globalSetter === "function") {
-            globalSetter(targetTheme);
-          } else {
-            const isDark = targetTheme === "dark";
-            document.documentElement.classList.toggle("dark", isDark);
-            document.documentElement.setAttribute("data-theme", targetTheme);
-            try {
-              localStorage.setItem("lift-theme", targetTheme);
-            } catch {
-              // ignore
-            }
-          }
+    switcher.addEventListener("click", () => {
+      const targetTheme = document.documentElement.classList.contains("dark") ? "light" : "dark";
+      const globalSetter = (window as unknown as { __setLiftTheme?: (t: string) => void }).__setLiftTheme;
+      if (typeof globalSetter === "function") {
+        globalSetter(targetTheme);
+      } else {
+        const isDark = targetTheme === "dark";
+        document.documentElement.classList.toggle("dark", isDark);
+        document.documentElement.setAttribute("data-theme", targetTheme);
+        switcher.setAttribute("aria-checked", String(isDark));
+        try {
+          localStorage.setItem("lift-theme", targetTheme);
+        } catch {
+          // ignore
         }
-      });
+      }
     });
   }
 

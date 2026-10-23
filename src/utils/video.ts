@@ -43,9 +43,9 @@ export function setupAccessibleVideo(options: AccessibleVideoOptions): () => voi
     }
   };
 
-  const loadAndPlay = () => {
-    if (connection?.saveData) return;
+  const syncButtonUI = () => updateButtonUI(!video.paused && !video.ended);
 
+  const loadSource = () => {
     if (lazyLoad && !video.src) {
       const source = video.dataset.src;
       if (source) {
@@ -53,49 +53,39 @@ export function setupAccessibleVideo(options: AccessibleVideoOptions): () => voi
         video.load();
       }
     }
-
-    if (reduceMotion.matches) {
-      video.pause();
-      updateButtonUI(false);
-    } else {
-      void video.play().catch(() => undefined);
-      updateButtonUI(true);
-    }
   };
 
-  const handleMotionChange = () => {
-    if (reduceMotion.matches) {
-      video.pause();
-      updateButtonUI(false);
-    } else {
-      if (lazyLoad && !video.src) {
-        loadAndPlay();
-      } else {
-        void video.play().catch(() => undefined);
-        updateButtonUI(true);
-      }
-    }
+  const playVideo = () => {
+    loadSource();
+    void video.play().then(syncButtonUI).catch(syncButtonUI);
   };
+
+  const loadAndPlay = () => {
+    if (connection?.saveData || reduceMotion.matches) {
+      video.pause();
+      syncButtonUI();
+      return;
+    }
+    playVideo();
+  };
+
+  const handleMotionChange = () => loadAndPlay();
 
   const onToggleClick = () => {
-    if (lazyLoad && !video.src) {
-      loadAndPlay();
-    }
-
-    if (video.paused) {
-      void video
-        .play()
-        .then(() => updateButtonUI(true))
-        .catch(() => undefined);
+    if (video.paused || video.ended) {
+      // Explicit playback stays available when automatic playback is disabled.
+      playVideo();
     } else {
       video.pause();
-      updateButtonUI(false);
+      syncButtonUI();
     }
   };
 
   toggleBtn?.addEventListener("click", onToggleClick, { signal: controller.signal });
-  video.addEventListener("play", () => updateButtonUI(true), { signal: controller.signal });
-  video.addEventListener("pause", () => updateButtonUI(false), { signal: controller.signal });
+  for (const event of ["play", "playing", "pause", "ended", "emptied", "error"]) {
+    video.addEventListener(event, syncButtonUI, { signal: controller.signal });
+  }
+  syncButtonUI();
   reduceMotion.addEventListener("change", handleMotionChange, { signal: controller.signal });
 
   if (lazyLoad && "IntersectionObserver" in window) {

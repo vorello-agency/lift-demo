@@ -102,14 +102,12 @@ const viewerImages = await Promise.all(
                     data-viewer-image
                     data-src={imageData.src}
                     data-srcset={imageData.srcset}
-                    src={index === 0 ? imageData.src : undefined}
-                    srcset={index === 0 ? imageData.srcset : undefined}
                     sizes="(min-width: 640px) 85vw, 92vw"
                     alt={slide.alt}
                     width={imageData.width}
                     height={imageData.height}
-                    loading={index === 0 ? "eager" : "lazy"}
-                    fetchpriority={index === 0 ? "high" : "low"}
+                    loading="eager"
+                    fetchpriority="low"
                     decoding="async"
                     class="max-h-full max-w-full rounded-sm object-contain"
                   />

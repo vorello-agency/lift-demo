@@ -5,6 +5,9 @@ import tailwind from "@astrojs/tailwind";
 
 export default defineConfig({
   site: process.env.SITE_URL || "https://lift-demo.vorelloagency.com",
+  build: {
+    inlineStylesheets: "always",
+  },
   integrations: [
     sitemap(),
     tailwind({

@@ -1,4 +1,12 @@
 import type { ImageMetadata } from "astro";
+import tramaHeroMobile from "../assets/images/projects/trama-46/hero-mobile.webp";
+import tramaHeroTablet from "../assets/images/projects/trama-46/hero-tablet.webp";
+import estratoHeroMobile from "../assets/images/projects/estrato-38/hero-mobile.webp";
+import estratoHeroTablet from "../assets/images/projects/estrato-38/hero-tablet.webp";
+import cotaHeroMobile from "../assets/images/projects/cota-21/hero-mobile.webp";
+import cotaHeroTablet from "../assets/images/projects/cota-21/hero-tablet.webp";
+import litoralHeroMobile from "../assets/images/projects/litoral-14/hero-mobile.webp";
+import litoralHeroTablet from "../assets/images/projects/litoral-14/hero-tablet.webp";
 
 import tramaAerial from "../assets/images/projects/trama-46/aerial-context.webp";
 import tramaBlueHour from "../assets/images/projects/trama-46/blue-hour-exterior.webp";
@@ -110,6 +118,8 @@ export interface Project {
   technicalMemory: ProjectTechnicalMemory;
   cardImage: ImageMetadata;
   heroImage: ImageMetadata;
+  heroImageMobile: ImageMetadata;
+  heroImageTablet: ImageMetadata;
   heroImageAlt: string;
   previewImages: ImageMetadata[];
   gallery: ProjectGalleryItem[];
@@ -218,6 +228,8 @@ export const projects: Project[] = [
     },
     cardImage: tramaHero,
     heroImage: tramaHero,
+    heroImageMobile: tramaHeroMobile,
+    heroImageTablet: tramaHeroTablet,
     heroImageAlt:
       "Visualización conceptual de Trama 46, una torre de tres volúmenes desplazados sobre un basamento público",
     previewImages: [tramaHero, tramaSkyTerrace, tramaLobby, tramaBlueHour],
@@ -394,6 +406,8 @@ export const projects: Project[] = [
     },
     cardImage: estratoCard,
     heroImage: estratoHero,
+    heroImageMobile: estratoHeroMobile,
+    heroImageTablet: estratoHeroTablet,
     heroImageAlt:
       "Visualización conceptual de Estrato 38, una torre curva de oficinas con tres jardines elevados sobre un basamento pétreo",
     previewImages: [estratoHero, estratoLandscapedVoid, estratoLobbyInterior, estratoUrbanProfile],
@@ -562,6 +576,8 @@ export const projects: Project[] = [
     },
     cardImage: cotaCard,
     heroImage: cotaHero,
+    heroImageMobile: cotaHeroMobile,
+    heroImageTablet: cotaHeroTablet,
     heroImageAlt:
       "Residencia conceptual Cota 21, compuesta por volúmenes escalonados de piedra, hormigón y vidrio sobre una ladera costera",
     previewImages: [cotaHero, cotaPoolTerrace, cotaLivingInterior, cotaExteriorNight],
@@ -747,6 +763,8 @@ export const projects: Project[] = [
     },
     cardImage: litoralCard,
     heroImage: litoralHero,
+    heroImageMobile: litoralHeroMobile,
+    heroImageTablet: litoralHeroTablet,
     heroImageAlt:
       "Visualización conceptual de Litoral 14, un edificio residencial con terrazas ajardinadas frente al mar",
     previewImages: [litoralHero, litoralLandscapedVoid, litoralResidenceInterior, litoralBlueHour],

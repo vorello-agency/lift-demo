@@ -1,5 +1,5 @@
 ---
-import { Image } from "astro:assets";
+import { Image, getImage } from "astro:assets";
 import type { ImageMetadata } from "astro";
 import { withBasePath } from "../../utils/urls";
 import Eyebrow from "../shared/Eyebrow.astro";
@@ -10,34 +10,47 @@ interface Props {
   name: string;
   subtitle: string;
   heroImage: ImageMetadata;
+  heroImageMobile: ImageMetadata;
+  heroImageTablet: ImageMetadata;
   heroImageAlt: string;
 }
 
-const { name, subtitle, heroImage, heroImageAlt } = Astro.props;
+const { name, subtitle, heroImage, heroImageMobile, heroImageTablet, heroImageAlt } = Astro.props;
+const [mobile, tablet] = await Promise.all(
+  [heroImageMobile, heroImageTablet].map((src) =>
+    getImage({
+      src,
+      format: "webp",
+      quality: 82,
+      widths: [480, 800, src.width],
+      sizes: "100vw",
+    })
+  )
+);
 ---
 
-<section id="hero" class="relative min-h-[85dvh] w-full overflow-hidden bg-ink text-white lg:min-h-[100dvh]">
-  <div class="absolute inset-0 z-0 h-full w-full">
-    <Image
-      src={heroImage}
-      alt={heroImageAlt}
-      class="h-full w-full object-cover object-center"
-      loading="eager"
-      fetchpriority="high"
-      format="avif"
-      quality={40}
-      widths={[480, 800, 1200, 1536]}
-      sizes="100vw"
-    />
+<section id="hero" class="project-hero relative w-full overflow-hidden bg-ink text-white">
+  <div class="project-hero-image absolute inset-0 z-0 h-full w-full">
+    <picture>
+      <source media="(max-width: 767px)" type="image/webp" srcset={mobile.srcSet.attribute} sizes="100vw" />
+      <source media="(max-width: 1023px)" type="image/webp" srcset={tablet.srcSet.attribute} sizes="100vw" />
+      <Image
+        src={heroImage}
+        alt={heroImageAlt}
+        class="h-full w-full object-cover object-center"
+        loading="eager"
+        fetchpriority="high"
+        format="avif"
+        quality={40}
+        widths={[480, 800, 1200, 1536]}
+        sizes="100vw"
+      />
+    </picture>
   </div>
 
-  <div
-    class="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-t from-ink/95 via-ink/40 to-ink/60"
-    aria-hidden="true">
-  </div>
+  <div class="project-hero-shade pointer-events-none absolute inset-0 z-[1]" aria-hidden="true"></div>
 
-  <div
-    class="relative z-10 flex min-h-[85dvh] w-full flex-col justify-between pb-12 pt-28 sm:pb-16 sm:pt-32 lg:min-h-[100dvh] lg:pb-20">
+  <div class="project-hero-content relative z-10 flex w-full flex-col justify-between pt-28 sm:pt-32">
     <div class="container-lift">
       <Breadcrumb
         ariaLabel="Navegación de proyecto"
@@ -77,6 +90,54 @@ const { name, subtitle, heroImage, heroImageAlt } = Astro.props;
 </section>
 
 <style>
+  .project-hero > .project-hero-image {
+    height: calc(100% - 11rem);
+  }
+
+  .project-hero picture {
+    display: block;
+    height: 100%;
+  }
+
+  .project-hero > .project-hero-shade {
+    background: linear-gradient(to bottom, rgb(var(--color-ink-rgb) / 55%), transparent 32%),
+      linear-gradient(to top, var(--color-ink), transparent 22%);
+    background-size: 100% calc(100% - 11rem);
+    background-repeat: no-repeat;
+  }
+
+  .project-hero > .project-hero-content {
+    min-height: calc(133.333vw + 11rem);
+    padding-bottom: 2.5rem;
+  }
+
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .project-hero > .project-hero-content {
+      min-height: calc(75vw + 11rem);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .project-hero > .project-hero-image {
+      height: 100%;
+    }
+
+    .project-hero img {
+      object-position: center top;
+    }
+
+    .project-hero > .project-hero-shade {
+      background: linear-gradient(to bottom, rgb(17 20 22 / 58%), transparent 28%),
+        linear-gradient(to right, rgb(17 20 22 / 68%), transparent 65%),
+        linear-gradient(to top, rgb(17 20 22 / 62%), transparent 40%);
+    }
+
+    .project-hero > .project-hero-content {
+      min-height: clamp(40rem, 100dvh, 60rem);
+      padding-bottom: 4rem;
+    }
+  }
+
   .project-hero-fade-in {
     animation: projectHeroFadeIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
   }
